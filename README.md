@@ -1,5 +1,9 @@
 # Robust Mixture Regression
 
+* **License:** [![License](http://img.shields.io/badge/license-GPL%20v2-orange.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.en.html)
+* **Download:** ![Download](https://cranlogs.r-pkg.org/badges/RobMixReg)(https://cran.r-project.org/package=RobMixReg)
+
+
 [r package link](https://cran.r-project.org/web/packages/RobMixReg/index.html) [https://cran.r-project.org/web/packages/RobMixReg/index.html]
 
 [manual document](https://cran.r-project.org/web/packages/RobMixReg/RobMixReg.pdf) [https://cran.r-project.org/web/packages/RobMixReg/RobMixReg.pdf]
