@@ -21,10 +21,10 @@
 
 2020-05-10
 
-1. Update CTLE function to CTLERob function.
+* Update CTLE function to CTLERob function.
 This new function have one more parameter 'rlr_method' which let user choose the robust regression method in 'lmRob','lmrob','ltsReg'.
 
-2. Update class definition of RobMixReg.
+* Update class definition of RobMixReg.
 The new class add one slot which return the posterior probability of the mixture regression.
 
 # Install from CRAN
