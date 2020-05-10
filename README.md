@@ -5,7 +5,7 @@
 
 [r package link](https://CRAN.R-project.org/package=RobMixReg) [https://CRAN.R-project.org/package=RobMixReg]
 
-[manual document](https://cran.r-project.org/web/packages/RobMixReg/RobMixReg.pdf) [https://cran.r-project.org/web/packages/RobMixReg/RobMixReg.pdf]
+[manual document](https://CRAN.R-project.org/package=RobMixReg/RobMixReg.pdf) [https://CRAN.R-project.org/package=RobMixReg/RobMixReg.pdf]
 
 ### Robust Mixture Regression Plot (with outliers)
 ![[line1]](pic1.png)
