@@ -1,7 +1,7 @@
 
 #' The main function of Robust Mixture Regression using five methods.
 #'
-#' @param lr.method A robust mixture regression method to be used. Should be one of "flexmix", "TLE", "CTLE", "mixbi","mixLp".
+#' @param lr.method A robust mixture regression method to be used. Should be one of "flexmix", "TLE", "CTLERob", "mixbi","mixLp".
 #' @param formula A symbolic description of the model to be fit.
 #' @param data A data frame containing the predictor and response variables, where the last column is the response varible.
 #' @param nc Number of mixture components.
@@ -21,7 +21,7 @@
 #' formula01=as.formula("y~x")
 #' example_data01=data.frame(x,y)
 #' res_rmr = rmr(lr.method='flexmix', formula=formula01, data=example_data01)
-#' res_rmr = rmr(lr.method='CTLE', formula=formula01, data=example_data01)
+#' res_rmr = rmr(lr.method='CTLERob', formula=formula01, data=example_data01)
 #'
 rmr <- function(lr.method="flexmix", formula=NULL, data=NULL, nc=2, nit=20, tRatio=0.05, MaxIt=200)
 {
@@ -29,17 +29,17 @@ rmr <- function(lr.method="flexmix", formula=NULL, data=NULL, nc=2, nit=20, tRat
   if(is.null(data)) stop('data is null! Please input data')
 
 
-  method.lib <- c('flexmix', 'TLE', 'CTLE', 'mixbi','mixLp')
-  if(!lr.method %in% method.lib) stop('lr.method must be chosen from "flexmix","TLE","CTLE","mixbi","mixLp" !  ')
+  method.lib <- c('flexmix', 'TLE', 'CTLERob', 'mixbi','mixLp')
+  if(!lr.method %in% method.lib) stop('lr.method must be chosen from "flexmix","TLE","CTLERob","mixbi","mixLp" !  ')
 
   if(lr.method=='flexmix')
   {
     res = flexmix(formula,data,k=nc)
   }
 
-  if(lr.method=='CTLE')
+  if(lr.method=='CTLERob')
   {
-    res = CTLE(formula,data, nit,nc)
+    res = CTLERob(formula,data, nit,nc,rlr_method="ltsReg")
   }
 
   if(lr.method=='TLE')

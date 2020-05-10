@@ -169,7 +169,7 @@ setMethod("mixLp",
 		coffs_final = t(matrix(est,nrow=nc))
 		cates = NA
 
-                result = new("RobMixReg", inds_in=NA,indout=NA,ctleclusters=cates,compcoef=coffs_final,comppvals=NA)
+                result = new("RobMixReg", inds_in=NA,indout=NA,ctleclusters=cates,compcoef=coffs_final,comppvals=NA,compwww=NA)
                 result@call <- mycall
                 result
 	}

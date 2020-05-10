@@ -8,7 +8,7 @@ rmr(lr.method = "flexmix", formula = NULL, data = NULL, nc = 2,
   nit = 20, tRatio = 0.05, MaxIt = 200)
 }
 \arguments{
-\item{lr.method}{A robust mixture regression method to be used. Should be one of "flexmix", "TLE", "CTLE", "mixbi","mixLp".}
+\item{lr.method}{A robust mixture regression method to be used. Should be one of "flexmix", "TLE", "CTLERob", "mixbi","mixLp".}
 
 \item{formula}{A symbolic description of the model to be fit.}
 
@@ -40,6 +40,6 @@ x=(gaussData$x);y=as.numeric(gaussData$y);
 formula01=as.formula("y~x")
 example_data01=data.frame(x,y)
 res_rmr = rmr(lr.method='flexmix', formula=formula01, data=example_data01)
-res_rmr = rmr(lr.method='CTLE', formula=formula01, data=example_data01)
+res_rmr = rmr(lr.method='CTLERob', formula=formula01, data=example_data01)
 
 }
