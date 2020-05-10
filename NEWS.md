@@ -5,6 +5,8 @@
 
 2020-05-10
 
+* version 0.2.0 released
+
 *  Update CTLE function to CTLERob function.
 This new function have one more parameter 'rlr_method' which let user choose the robust regression method in 'lmRob','lmrob','ltsReg'.
 

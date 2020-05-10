@@ -60,3 +60,9 @@ Thanks the comments from the Swetlana Herbrandt.
 2. Replace the \dontrun by \donttest since the test take more than 5 sec and thus cause the NOTE.
 
 
+##2020-05-10
+
+Thanks the commens from the Uwe Ligges.
+
+This submisstion fixed the URL issue in the readme file. The URL of the package was given in the canonical form.
+
