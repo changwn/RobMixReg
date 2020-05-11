@@ -1,7 +1,20 @@
 # Robust Mixture Regression
 
-* **License:** [![License](http://img.shields.io/badge/license-GPL%20v3-orange.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.en.html)
-* **Download:** ![Download](https://cranlogs.r-pkg.org/badges/RobMixReg)
+
+
+<!-- badges: start -->
+
+[![License](http://img.shields.io/badge/license-GPL%20v3-orange.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.en.html)
+![Download](https://cranlogs.r-pkg.org/badges/RobMixReg)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version-ago/RobMixReg)](https://CRAN.R-project.org/package=RobMixReg)
+[![cran checks](https://cranchecks.info/badges/worst/RobMixReg)](https://CRAN.R-project.org/web/checks/check_results_RobMixReg.html)
+
+[![R-CMD-check](https://github.com/laresbernardo/lares/workflows/R-CMD-check/badge.svg?branch=master)](https://cran.r-project.org/web/checks/check_results_RobMixReg.html) 
+[![documentation](https://github.com/laresbernardo/lares/workflows/documentation/badge.svg)](https://CRAN.R-project.org/package=RobMixReg/RobMixReg.pdf) 
+[![travis](https://travis-ci.com/laresbernardo/lares.svg?branch=master)](https://travis-ci.org/github/changwn/RobMixReg)
+[![Hi](https://img.shields.io/badge/say-hi-blue.svg)](https://changwn.github.io/)
+
+<!-- badges: end -->
 
 [r package link](https://CRAN.R-project.org/package=RobMixReg) [https://CRAN.R-project.org/package=RobMixReg]
 
