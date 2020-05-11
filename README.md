@@ -90,7 +90,7 @@ res_rmr = rmr(lr.method='mixLp', formula=formula01, data=example_data01, nc=3)
 
 If you have any questions or problems, please feel free to open a new issue [here](https://github.com/changwn/RMR/issues). We will fix the new issue ASAP.  You can also email the maintainers and authors below.
 
-- [Wennan Chang](https://zcslab.github.io/people/wennan/)
+- [Wennan Chang](https://changwn.github.io/)
 (wnchang@iu.edu)
 
 PhD candidate at BDR group, Indiana University School of Medicine
