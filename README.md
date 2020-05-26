@@ -22,6 +22,8 @@
 
 [Paper download here:](https://arxiv.org/abs/2005.11599) [<Wennan Chang et al. , A New Algorithm using Component-wise Adaptive Trimming For Robust Mixture Regression, arxiv, 2020>](https://arxiv.org/abs/2005.11599)
 
+[Wennan Chang](https://changwn.github.io/), [Chi Zhang*](https://zcslab.github.io/), [Sha Cao*](https://medicine.iu.edu/faculty/38873/cao-sha)
+
 
 ### Robust Mixture Regression Plot (with outliers)
 ![[line1]](pic1.png)
