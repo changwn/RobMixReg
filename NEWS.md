@@ -13,3 +13,8 @@ This new function have one more parameter 'rlr_method' which let user choose the
 *  Update class definition of RobMixReg.
 The new class add one slot which return the posterior probability of the mixture regression.
 
+2020-05-26
+
+* version 0.2.1 released
+
+* Our paper published on arxiv, please cite us. For more detail of the proposed method, please refer to DESCRIPTION file.
