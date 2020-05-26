@@ -24,6 +24,10 @@
 
 [Wennan Chang](https://changwn.github.io/), [Chi Zhang*](https://zcslab.github.io/), [Sha Cao*](https://medicine.iu.edu/faculty/38873/cao-sha)
 
+[Biomedical Data Research Lab (BDR)](https://zcslab.github.io/) 
+
+[For other software, please refer to the BDR github page](https://github.com/zcslab)
+
 
 ### Robust Mixture Regression Plot (with outliers)
 ![[line1]](pic1.png)
