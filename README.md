@@ -20,6 +20,9 @@
 
 [manual document](https://CRAN.R-project.org/package=RobMixReg/RobMixReg.pdf) [https://CRAN.R-project.org/package=RobMixReg/RobMixReg.pdf]
 
+[Paper download here:](https://arxiv.org/abs/2005.11599) [<Wennan Chang et al. , A New Algorithm using Component-wise Adaptive Trimming For Robust Mixture Regression, arxiv, 2020>](https://arxiv.org/abs/2005.11599)
+
+
 ### Robust Mixture Regression Plot (with outliers)
 ![[line1]](pic1.png)
 
@@ -41,6 +44,12 @@ This new function have one more parameter 'rlr_method' which let user choose the
 
 * Update class definition of RobMixReg.
 The new class add one slot which return the posterior probability of the mixture regression.
+
+2020-05-26
+
+* version 0.2.1 released
+
+* Our paper published on arxiv, please cite us. For more detail of the proposed method, please refer to DESCRIPTION file.
 
 # Install from CRAN
 ```
@@ -86,6 +95,18 @@ res_rmr = rmr(lr.method='mixbi', formula=formula01, data=example_data01, nc=3)
 res_rmr = rmr(lr.method='mixLp', formula=formula01, data=example_data01, nc=3)
 
 ```
+
+## Citations
+If you find the code helpful in your resarch or work, please cite us.
+```BibTex
+@article{wennan2020cat,
+  title={A New Algorithm using Component-wise Adaptive Trimming For Robust Mixture Regression},
+  author={Chang, Wennan and Wan, Changlin and Zhou, Xinyu and Zhang, Chi and Cao, Sha},
+  journal={arXiv preprint arXiv:2005.11599},
+  year={2020}
+}
+```
+
 # Questions & Problems
 
 If you have any questions or problems, please feel free to open a new issue [here](https://github.com/changwn/RMR/issues). We will fix the new issue ASAP.  You can also email the maintainers and authors below.
