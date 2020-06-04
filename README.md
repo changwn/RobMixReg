@@ -129,3 +129,10 @@ PhD candidate at BDR group, Indiana University School of Medicine
 Assistant Professor
 
 Department of Biostatistics, Indiana University School of Medicine
+
+# Contributing
+
+I’m happy to receive bug reports, suggestions, questions, and (most of
+all) contributions to fix problems and add features. I prefer you use
+the Github issues system over trying to reach out to me in other ways.
+Pull requests for contributions are encouraged.
