@@ -9,6 +9,7 @@
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version-ago/RobMixReg)](https://CRAN.R-project.org/package=RobMixReg)
 [![cran checks](https://cranchecks.info/badges/worst/RobMixReg)](https://CRAN.R-project.org/web/checks/check_results_RobMixReg.html)
 
+<!-- [![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/RobMixReg)](https://cran.r-project.org/package=RobMixReg) -->
 
 [![documentation](https://github.com/laresbernardo/lares/workflows/documentation/badge.svg)](https://CRAN.R-project.org/package=RobMixReg/RobMixReg.pdf) 
 [![travis](https://travis-ci.com/laresbernardo/lares.svg?branch=master)](https://travis-ci.org/github/changwn/RobMixReg)
@@ -78,3 +79,10 @@ PhD candidate at BDR group, Indiana University School of Medicine
 Assistant Professor
 
 Department of Biostatistics, Indiana University School of Medicine
+
+# Contributing
+
+I’m happy to receive bug reports, suggestions, questions, and (most of
+all) contributions to fix problems and add features. I prefer you use
+the Github issues system over trying to reach out to me in other ways.
+Pull requests for contributions are encouraged.
