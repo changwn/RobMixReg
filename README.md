@@ -5,7 +5,7 @@
 <!-- badges: start -->
 
 [![License](http://img.shields.io/badge/license-GPL%20v3-orange.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.en.html)
-[!Download](https://cranlogs.r-pkg.org/badges/RobMixReg)
+![Download](https://cranlogs.r-pkg.org/badges/RobMixReg)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version-ago/RobMixReg)](https://CRAN.R-project.org/package=RobMixReg)
 [![cran checks](https://cranchecks.info/badges/worst/RobMixReg)](https://CRAN.R-project.org/web/checks/check_results_RobMixReg.html)
 
