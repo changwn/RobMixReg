@@ -24,3 +24,45 @@
 #'   \item{outlier}{outlier indicator}
 #' }
 "simuData"
+
+
+#' RobMixReg package built-in breast cancer multi-omics data.
+#'
+#' A BRCA dataset from RobMixReg package. This BRCA cancer dataset has two types of sequence data inclcuding ATAC-seq and RNA-seq. The vignette example shows that using robust regression, we can identify the outlier mutually based on ATAC-seq and RNA-seq.
+#'
+#' @format A data frame with 500 rows and 5 variables:
+#' \describe{
+#'   \item{a1}{RNA-seq vector 1}
+#'   \item{a2}{RNA-seq vector 2}
+#'   \item{a3}{RNA-seq vector 3}
+#'   \item{b1}{ATAC-seq vector 1}
+#'   \item{b2}{ATAC-seq vector 2}
+#'   \item{b3}{ATAC-seq vector 3}
+#' }
+"BRCA_ATAC_RNA_seq"
+
+#' RobMixReg package built-in BRCA source data.
+#'
+#' The list which contain all the information to generate variables used in the real application.
+#'
+#' @format A list whose length is 4:
+#' \describe{
+#'   \item{ATACseq_marker}{Three cell type marker genes}
+#'   \item{RNAseq_marker}{Three cell type marker genes}
+#'   \item{data_RNAseq_selected}{RNAseq sequencing data}
+#'   \item{data_ATACseq_selected}{ATACseq sequencing data}
+#' }
+"BRCA_source"
+
+#' RobMixReg package built-in Cytokine data.
+#'
+#' A Cytokine dataset from RobMixReg package. This Cytokiner dataset has two genes where each gene have two variables including Cytokine.level.C1D15 and CPC.change. The vignette example shows that using robust regression, we can identify the outlier among the object.
+#'
+#' @format A data frame with 500 rows and 5 variables:
+#' \describe{
+#'   \item{IP10.Cytokine.level.C1D15}{Gene IP10 cytokine level}
+#'   \item{IP10.CPC.change}{Gene IP10 CPC change level}
+#'   \item{TNFa.Cytokine.level.C1D15}{Gene TNFa cytokine level}
+#'   \item{TNFa.CPC.change}{Gene TNFa CPC change level}
+#' }
+"Cytokine_dataset"

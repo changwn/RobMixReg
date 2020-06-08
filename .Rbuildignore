@@ -4,3 +4,8 @@
 ^_config.yml$
 ^cran-comments.md$
 ^.*\.png$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^vignette$
+^vignettes$
