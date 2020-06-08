@@ -34,7 +34,7 @@
 
 # News
 
-The package version control is in [News.md](https://changwn.github.io/)
+The package version control is in [News.md](https://changwn.github.io/RobMixReg/news/index.html)
 
 # Install from CRAN
 ```
@@ -51,7 +51,7 @@ devtools::install_github("changwn/RobMixReg")
 
 # Tutorial
 
-A comprehensive and complete tutorial is [here](https://changwn.github.io/).
+A comprehensive and complete tutorial is [here](https://changwn.github.io/RobMixReg/articles/tutorial.html).
 
 ## Citations
 If you find the code helpful in your resarch or work, please cite us.
