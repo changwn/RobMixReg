@@ -20,11 +20,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Coming soon.
 
-## S2. Case Study
+## S2. Case Studies
 
-### S2.0 Preparation: Install the RobMixReg Pacakge
+### S2.0 Preparation: Install the RobMixReg Package
 
-The RobMixReg package publised on the CRAN. That means the package has better stability and easy to install on several platform (e.g. windows, linux) because CRAN has stricter requirement than github. 
+The RobMixReg package was publised on CRAN.
 ```{r, cache=TRUE, echo=TRUE}
 #install.packages('RobMixReg')
 library(RobMixReg)
@@ -360,14 +360,12 @@ plot_CTLE(TNFa.CPC.change~TNFa.Cytokine.level.C1D15,
 ```
 
 
-## S4. Integrated Robust Mixture Regression Algorithms and Example
+## Appendix. More on Robust Mixture Regression
 
-### S4.1 Robust Mixture Regression Algorithms 
-Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder
-Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder
-
-### S4.2 Example
 Another important main function in the package named *rmr* which provide five optional algorithms to fit the robust mixture regression model. The implemented algorithms includes: CTLERob stands for Component-wise adaptive Trimming Likelihood Estimation based mixture regression; mixbi stands for mixture regression based on bi-square estimation; mixLstands for mixture regression based on Laplacian distribution; TLE stands for Trimmed Likelihood Estimation based mixture regression. For more detail of the algorithms, please refer to references in the DESCRIPTION file.
+
+### CAT
+
 
 User can select the algorithm by setting the parameter *lr.method*. One example is below.
 For description of *gaussData* please refer to package manual.
@@ -393,15 +391,11 @@ outcome = outcome + rnorm(n=length(outcome),mean=0, sd=0.3)
 id_outlier = sample(1:length(outcome), size = 0.1*length(outcome)) 
 outcome[id_outlier] = outcome[id_outlier] + rnorm(length(id_outlier), mean=0,sd=2)
 
-# gaussData
-# x=(gaussData$x);y=as.numeric(gaussData$y);
-# formula01=as.formula("y~x")
-# example_data01=data.frame(x,y)
-
+# Use tRatio to adjust the ratio of outlier for trimming
 res_rmr_r1 = rmr(lr.method='TLE', formula=outcome~gene, data=data.frame(outcome,gene),nc=1,
                  tRatio=0.05)
 inds_in_r1 = res_rmr_r1@inds_in
-
+# change tRatio to a larger percentage
 res_rmr_r2 = rmr(lr.method='TLE', formula=outcome~gene, data=data.frame(outcome,gene),nc=1,
                  tRatio=0.25)
 inds_in_r2 = res_rmr_r2@inds_in
