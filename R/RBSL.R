@@ -200,10 +200,11 @@ blockMap <- function(rrr){
             key=T,
             keysize=1,
             key.title = "Subset",
-            #labRow=NA,
+            labRow=NA,
             #labCol=NA,
             #xlab = 'Gene',
-            #ylab = 'Patient',
+            ylab = 'Gene',
+            cexCol=1.2,
             #( "bottom.margin", "left.margin", "top.margin", "left.margin" )
             #key.par=list(mar=c(bottom, left, top, right)),
             key.par=list(mar=c(6,5,3,5)),

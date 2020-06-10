@@ -310,14 +310,14 @@ plot_mixtureReg <- function(mixtureModel, which = 1:2,
   YhatList = lapply(X = mixtureModel$lmList, FUN = function(x) predict(x))
 
   if (which == 1) {
-    pt_color = rep('grey', length(XX))
+    pt_color = rep('grey60', length(XX))
     for (i in 1:length(mixtureModel$lmList)) {
       ind_loca = which(mixtureModel$posterior[[i]] > mixtureModel$prior[[i]])
-      pt_color[ind_loca] = c("pink","lightblue","yellow","green")[i]
+      pt_color[ind_loca] = c("tomato","dodgerblue","gold","greenyellow","darkorchid1","darkorange")[i]
     }
     plot(x = XX, y = YY, xlab = xlab, ylab = ylab, pch=19, col = alpha(pt_color, 0.9),main="Mixture Regression", ...)
     for (i in 1:length(mixtureModel$lmList)) {
-      orderedLines(x = XX, y = YhatList[[i]], col = c("pink","lightblue","yellow","green")[i])
+      orderedLines(x = XX, y = YhatList[[i]], col = c("tomato","dodgerblue","gold","greenyellow","darkorchid1","darkorange")[i])
     }
   }
 
@@ -328,7 +328,7 @@ plot_mixtureReg <- function(mixtureModel, which = 1:2,
            ylim = c(-0.01,1.01),
            pch=19, col = 'grey', main='Posterior',
            ...)
-      orderedLines(x = XX, y = mixtureModel$prior[[i]], col = c("pink","lightblue","yellow","green")[i])
+      orderedLines(x = XX, y = mixtureModel$prior[[i]], col = c("tomato","dodgerblue","gold","greenyellow","darkorchid1","darkorange")[i])
     }
   }
 }

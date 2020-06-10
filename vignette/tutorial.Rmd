@@ -18,7 +18,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## S1. Introduction
 
-Coming soon.
+The Patient outcome variable is essential to assessment the clinical therapy and discovery the un-derlying mechanism of the disease. Mixture regression model is a statistic approach to untangle the heterogeneity of the samples. However, the traditional EM algorithm solution is non-robustness and incredible due to the following challenges: 1) the existence of the outliers and non-response samples, 2) the high dimensional of the independent variable. Here, we develop two methods and R package RobMixReg, which provide a comprehensive solution to detect the outlier and estimate the parameter of mixture model simultaneously.
+
+Here, we develop R package RobMixReg to provide a compre-hensive solution to mining the latent relationship among the varia-bles. The major contribution of RobMixReg lie in the following key aspects: 1) For low dimension variable, proposing a novel method to detect the outlier and estimate the parameter of FGMR as the same time; 2) For high dimensional variables, integrating a supervised clustering algorithm which detect the subgroup of sam-ple and select contributed genes simultaneously; 3) providing flex-ible and comprehensive solutions which cover all situation of mixture regression model for mining latent relationship between variables.
 
 ## S2. Case Studies
 
@@ -48,8 +50,8 @@ Linear regression is the classical model to explorer the relationship between tw
 
 $$
 \left\{ \begin{array}{rcl}
-  y_i - \beta_1 x_i - \beta_0 - \epsilon \leq \eta & \mbox{if} & (x_i, y_i) \in regression \ line \\ 
-  y_i - \beta_1 x_i - \beta_0 - \epsilon > \eta & \mbox{if} & (x_i, y_i) \ is \ outlier \\
+ | y_i - \beta_1 x_i - \beta_0 | \leq \eta & \mbox{if} & (x_i, y_i) \in regression \ line \\ 
+ | y_i - \beta_1 x_i - \beta_0 | > \eta & \mbox{if} & (x_i, y_i) \ is \ outlier \\
   \end{array}\right.
 $$
 
@@ -83,7 +85,7 @@ print(inds_out)
 ```
 
 
-The RobMixReg package has a plotting module for visualization in a easy way. For the example 1, we draw all data point and color them based on whether it is a outlier. Then, we also print another figure which contains the fitted regression line and metric (coeffient and related significant p value).
+The RobMixReg package has a plotting module for visualization in a easy way. For the example 1, we draw all data point and color them based on whether it is a outlier. Then, we also print another figure which contains the fitted regression line and metric (coeffient and related significant p value). The label of x and y axis based on the letter in the foumula. Thus, user can customize the x and y axis label.
 ```{r echo=TRUE, warning=FALSE, cache=TRUE}
 inds_in = which(res.a$lts.wt == 1)
 # set the figure format and margin
@@ -92,9 +94,11 @@ par(mfrow=c(1,1),mar = c(5, 8, 2, 8))
 plot_CTLE(outcome~gene,data=data.frame(gene,outcome),nc=1,inds_in=inds_in)
 ```
 
+The ratio of the outlier is an important parameter during the fitting, the integrated algorithm allow the user set the value of ratio. The detailed example provided as section 4 which demonstrate how to change the *tRatio* parameter and plot result. 
 
 
-### S2.2 Example 2: Low dimension,  $K=2$ without outlier
+
+### S2.2 Example 2: Low dimension,  $K \geq 2$ without outlier
 
 The relationship between gene expression and patient outcome is complex. Besides the outlier problem, the heterogeneity among the subject is also a challenge. Due to subgroup patient may behave similar property. Mixture model (e.g. mixture regression line) were widely used in real application. However, to the best of our knowledge, there is no package provide a flexible mixture regression modeling expet the 'mixtureReg' (see maintext reference). The RobMixReg package modified and optimized the several functions in 'mixtureReg' which meet the publish requirement of CRAN.  
 
@@ -141,7 +145,7 @@ plot_mixtureReg(res.b, which = 2)
 ```
 
 
-### S2.3 Example 3: Low dimension,  $K=2$ with outlier
+### S2.3 Example 3: Low dimension,  $K \geq 2$ with outlier
 
 As described in last two examples, we explorer the outlier and heterogeneity among the patient. In this example 3, we will demonstrate using our in-house algorithm CAT to detect the outlier and estimate the parameter of mixture model simultaneously. 
 
@@ -149,8 +153,8 @@ As described in last two examples, we explorer the outlier and heterogeneity amo
 
 $$
 \left\{ \begin{array}{rcl}
-  y_i - \beta_k x_i - \beta_{k0} - \epsilon_{ki} \leq \eta & \mbox{if} & (x_i, y_i) \in regression \ line \\ 
-  y_i - \beta_k x_i - \beta_{k0} - \epsilon_{ki} \leq \eta & \mbox{if} & (x_i, y_i) \ is \ outlier \\
+ | y_i - \beta_k x_i - \beta_{k0} | \leq \eta & \mbox{if} & (x_i, y_i) \in regression \ line \\ 
+ | y_i - \beta_k x_i - \beta_{k0} | \leq \eta & \mbox{if} & (x_i, y_i) \ is \ outlier \\
   \end{array}\right.
 $$
 
@@ -180,12 +184,13 @@ res.c = MLM(ml.method="c", gene, outcome)
 Extract the outlier information and plot the mixture regression line one by one.
 ```{r echo=TRUE, cache=TRUE}
 inds_in=res.c@inds_in
-par(mfrow=c(1,1),mar = c(5, 8, 2, 8))
+par(mfrow=c(1,2),mar = c(4, 4, 6, 2))
 plot_CTLE(outcome~gene,data.frame(gene,outcome),nc=2,inds_in=inds_in)
 ```
 
+The ratio of the outlier is an important parameter during the fitting, the integrated algorithm allow the user set the value of ratio. The detailed example provided as section 4 which demonstrate how to change the *tRatio* parameter and plot result. 
 
-### S2.4 Example 4: High dimension,  $K=2$
+### S2.4 Example 4: High dimension,  $K \geq 2$
 
 The gene expression data is usually in high dimension. Only modeling the relationship between two vectors is not enough. For example, alternatively actived genes or pathways in different patient subpopulation subtantially hurdled the computational capability in studying the disease complexities and optimizing therapeutic strategy, which is fundamental question in precision health study. The set of genes used to execute a biological pathway of clinical response may very likely exist in more than one alternative form, thus lead to patient subpopulation exhibiting varied level of sensitivity and clinical response different cytotoxic drugs, posing a challenge in identifying gene features that are predictive for clinical response to existing but unknown patient subpopulation. Thus, we proposed the RBSL algorithm, following the supervised methods, to enable the identification of subsets genes. The detailed motivation and algorithm please refer to the RBSL paper. 
 
@@ -199,6 +204,7 @@ $$
 #### Data Simulation:
 In total, we simulate a matrix which is 400 patients by 100 genes. The first twenty genes contributed to the first 200 patients. The continued twenty genes contributed to the last 200 patients. The simulation process is simply executed by a function *simu_data_sparse*, please see the package manual for more details. 
 ```{r, cache=TRUE, echo=TRUE}
+set.seed(12345)
 n=400
 bet1=bet2=rep(0,101)
 bet1[2:21]=sign(runif(20,-1,1))*runif(20,2,5)
@@ -232,18 +238,13 @@ blockMap(res.d)
 
 ## S3. Real Data Application
 
-Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder
-Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder
-Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder
 
-### S3.1 Breast Cancer Multi-Omics Data Filtered Outlier Mutually  
 
-Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder
-Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder
-Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder
-Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder
-Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder
-Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder
+### S3.1 Breast Cancer RNA-seq and ATAC-seq data preprocess  
+
+Expression value of the cell type marker genes is an important evidence to validate the activity of the target cell type. Also, the cell type marker genes are critical to calculate the cell type proportion in each sample. Meanwhile, the marker genes are varied in RNA-seq data and ATAC-seq data due to the technology and measurement. Thus, integrating useful information from two types of data can not only improve the accuracy of the proportion prediction. but also enable us to exploer the cell type activity in the tumor microenvironment. 
+
+However, the outliers in each data type are difficult to remove and obstruct the downstream analysis. Two types of sequcing data have the enough information and we give the example to detect the ourlier based on multi-omic data mutually.
 
 
 How we extract information from RNA-seq and ATAC-seq data.
@@ -255,19 +256,32 @@ data_ATACseq_selected = BRCA_source$data_ATACseq_selected
 RNAseq_marker = BRCA_source$RNAseq_marker
 ATACseq_marker = BRCA_source$ATACseq_marker
 
+# print the RNA-seq marker genes for three cell types
+print(RNAseq_marker)
+# For ATAC-seq, we also select same cell types
+names(ATACseq_marker)
+
+# We use top row space to represent the cell type proportion in each sample
 b4_TCGA<-Compute_Rbase_SVD(data_RNAseq_selected,RNAseq_marker)
 b4_ATAC0<-Compute_Rbase_SVD(data_ATACseq_selected,ATACseq_marker)
 # generate the RNA-seq and ATAC-seq variable below.
+# T cell
 a1<-b4_TCGA[1,colnames(b4_ATAC0)]
 b1<-b4_ATAC0[1,]
+# Fibroblast
 a2<-b4_TCGA[2,colnames(b4_ATAC0)]
 b2<-b4_ATAC0[2,]
+# MHC antigen presenting cells
 a3<-b4_TCGA[3,colnames(b4_ATAC0)]
 b3<-b4_ATAC0[3,]
 ```
 
 
-These variables also provide in another data frame object.
+### S3.2 Breast Cancer Multi-Omics Data Filtered Outlier Mutually  
+
+The results shows the cell types identified from RNA-seq data were also identified in ATAC-seq data. In addition, the cell type proportion in the RNA-seq have a strong correlation with it in the ATAC-seq after remove the outliers.
+
+These variables also provide in another data frame object regardless the section S3.1.
 ```{r, cache=TRUE, echo=TRUE}
 data(BRCA_ATAC_RNA_seq)
 # First, extract the RNA-seq vectors
@@ -290,97 +304,73 @@ brca.3 = MLM(ml.method='c', gene=a3, outcome=b3,nit=10,nc=1)
 Once we get the result from the method 1, we can extract the sample information that which sample should be a outlier or not.
 ```{r echo=TRUE, warning=FALSE, cache=TRUE}
 inds_in = brca.1@inds_in
-par(mfrow=c(1,2),mar = c(4, 4, 6, 2))
+par(mfrow=c(1,1),mar = c(5, 8, 2, 8))
 plot_CTLE(b1~a1,data=data.frame(a1,b1),nc=1,inds_in=inds_in)
 ```
 
 ```{r echo=TRUE, warning=FALSE, cache=TRUE}
 inds_in = brca.2@inds_in
-par(mfrow=c(1,2),mar = c(4, 4, 6, 2))
+par(mfrow=c(1,1),mar = c(5, 8, 2, 8))
 plot_CTLE(b2~a2,data=data.frame(a2,b2),nc=1,inds_in=inds_in)
 ```
 
 
 ```{r echo=TRUE, warning=FALSE, cache=TRUE}
 inds_in = brca.3@inds_in
-par(mfrow=c(1,2),mar = c(4, 4, 6, 2))
+par(mfrow=c(1,1),mar = c(5, 8, 2, 8))
 plot_CTLE(b3~a3,data=data.frame(a3,b3),nc=1,inds_in=inds_in)
 ```
 
 
-### S3.2 Cytokine Dataset
 
-Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder
-Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder
-Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder
-Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder
-Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder
-
-
-
-Prepare the built-in cytokine data .
-```{r, cache=TRUE, echo=TRUE}
-data(Cytokine_dataset)
-# First, extract the two variable for IP10 gene
-IP10.Cytokine.level.C1D15 = Cytokine_dataset$IP10.Cytokine.level.C1D15
-IP10.CPC.change = Cytokine_dataset$IP10.CPC.change
-# Second, extract the two variable for TNFa gene
-TNFa.Cytokine.level.C1D15 = Cytokine_dataset$TNFa.Cytokine.level.C1D15
-TNFa.CPC.change = Cytokine_dataset$TNFa.CPC.change
-```
-
-Then, call the main function to identify the outliers.
-```{r, cache=TRUE, echo=TRUE}
-IP10.res = MLM(ml.method='c', gene=IP10.Cytokine.level.C1D15, outcome=IP10.CPC.change,nit=10,nc=1)
-TNFa.res = MLM(ml.method='c', gene=TNFa.Cytokine.level.C1D15, outcome=TNFa.CPC.change,nit=10,nc=1)
-```
-
-Once we get the result from the method 1, we can extract the sample information that which sample should be a outlier or not.
-```{r echo=TRUE, warning=FALSE, cache=TRUE}
-inds_in = IP10.res@inds_in
-par(mfrow=c(1,2),mar = c(4, 4, 8, 4))
-plot_CTLE(IP10.CPC.change~IP10.Cytokine.level.C1D15,
-          data=data.frame(IP10.Cytokine.level.C1D15,IP10.CPC.change),
-          nc=1,inds_in=inds_in)
-```
-
-The coefficient is zero because we only take three digits after the decimal point. The approximate coefficient value shows below.  
-```{r echo=TRUE, warning=FALSE, cache=TRUE}
-lm(IP10.CPC.change~IP10.Cytokine.level.C1D15)
-```
-
-
-Once we get the result from the method 1, we can extract the sample information that which sample should be a outlier or not.
-```{r echo=TRUE, warning=FALSE, cache=TRUE}
-inds_in = TNFa.res@inds_in
-par(mfrow=c(1,2),mar = c(4, 4, 8, 4))
-plot_CTLE(TNFa.CPC.change~TNFa.Cytokine.level.C1D15,
-          data=data.frame(TNFa.Cytokine.level.C1D15,TNFa.CPC.change),
-          nc=1,inds_in=inds_in)
-```
 
 
 ## Appendix. More on Robust Mixture Regression
 
+### A.1 Robust mixture regression library
+
 Another important main function in the package named *rmr* which provide five optional algorithms to fit the robust mixture regression model. The implemented algorithms includes: CTLERob stands for Component-wise adaptive Trimming Likelihood Estimation based mixture regression; mixbi stands for mixture regression based on bi-square estimation; mixLstands for mixture regression based on Laplacian distribution; TLE stands for Trimmed Likelihood Estimation based mixture regression. For more detail of the algorithms, please refer to references in the DESCRIPTION file.
 
-### CAT
-
-
 User can select the algorithm by setting the parameter *lr.method*. One example is below.
+
+| Algorithms    | Description | Function   |
+| -----------   | ----------- | ---------- |
+| CAT      | Component-wise adaptive Trimming Likelihood Estimation based mixture regression | CTLERob  |
+| flexmix      | Finite mixture models and latent class regression | flexmix  |
+| TLE      | Trimmed Likelihood Estimation based mixture regression | TLE  |
+| mixbi      | Mixture regression based on bi-square estimation | mixbi  |
+| mixLp      | Mixture regression based on Laplacian distribution | mixLp  |
+
+
+#### CAT Example
+
 For description of *gaussData* please refer to package manual.
 ```{r echo=TRUE, warning=FALSE, cache=TRUE}
 # gaussData
 x=(gaussData$x);y=as.numeric(gaussData$y);
 formula01=as.formula("y~x")
 example_data01=data.frame(x,y)
+# The CAT algorithm can be called by two ways. 
+# The first way is using 'rmr' main function and declare 'CTLERob' parameter.
+res_rmr_a = rmr(lr.method='CTLERob', formula=formula01, data=example_data01)
+# The second way is using the 'MLM' main function and declare 'c' parameter.
+gene = x;outcome = y
+res_rmr_b = MLM(ml.method="c", gene, outcome)
+```
+
+#### Other Example
+
+```{r echo=TRUE, warning=FALSE, cache=TRUE}
 res_rmr = rmr(lr.method='flexmix', formula=formula01, data=example_data01)
 res_rmr = rmr(lr.method='TLE', formula=formula01, data=example_data01)
+res_rmr = rmr(lr.method='mixLp', formula=formula01, data=example_data01)
+#res_rmr = rmr(lr.method='mixbi', formula=formula01, data=example_data01)
 ```
 
 
 
-### S4.3 Adjust the trimming ratio for robust regression
+
+### A.2 Adjust the trimming ratio for robust regression
 
 ```{r echo=TRUE, warning=FALSE, cache=TRUE}
 set.seed(12345)
@@ -401,7 +391,7 @@ res_rmr_r2 = rmr(lr.method='TLE', formula=outcome~gene, data=data.frame(outcome,
 inds_in_r2 = res_rmr_r2@inds_in
 
 # set the figure format and margin
-par(mfrow=c(2,2),mar = c(2, 4, 2, 4))
+par(mfrow=c(1,2),mar = c(4, 4, 6, 2))
 # use plot module to draw the data points and the regression line.
 plot_CTLE(outcome~gene,data=data.frame(outcome,gene),nc=1,inds_in=inds_in_r1)
 plot_CTLE(outcome~gene,data=data.frame(outcome,gene),nc=1,inds_in=inds_in_r2)

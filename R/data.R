@@ -54,15 +54,3 @@
 #' }
 "BRCA_source"
 
-#' RobMixReg package built-in Cytokine data.
-#'
-#' A Cytokine dataset from RobMixReg package. This Cytokiner dataset has two genes where each gene have two variables including Cytokine.level.C1D15 and CPC.change. The vignette example shows that using robust regression, we can identify the outlier among the object.
-#'
-#' @format A data frame with 500 rows and 5 variables:
-#' \describe{
-#'   \item{IP10.Cytokine.level.C1D15}{Gene IP10 cytokine level}
-#'   \item{IP10.CPC.change}{Gene IP10 CPC change level}
-#'   \item{TNFa.Cytokine.level.C1D15}{Gene TNFa cytokine level}
-#'   \item{TNFa.CPC.change}{Gene TNFa CPC change level}
-#' }
-"Cytokine_dataset"

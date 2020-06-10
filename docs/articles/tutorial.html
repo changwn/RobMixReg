@@ -98,15 +98,16 @@
 <div id="s1--introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#s1--introduction" class="anchor"></a>S1. Introduction</h2>
-<p>Coming soon.</p>
+<p>The Patient outcome variable is essential to assessment the clinical therapy and discovery the un-derlying mechanism of the disease. Mixture regression model is a statistic approach to untangle the heterogeneity of the samples. However, the traditional EM algorithm solution is non-robustness and incredible due to the following challenges: 1) the existence of the outliers and non-response samples, 2) the high dimensional of the independent variable. Here, we develop two methods and R package RobMixReg, which provide a comprehensive solution to detect the outlier and estimate the parameter of mixture model simultaneously.</p>
+<p>Here, we develop R package RobMixReg to provide a compre-hensive solution to mining the latent relationship among the varia-bles. The major contribution of RobMixReg lie in the following key aspects: 1) For low dimension variable, proposing a novel method to detect the outlier and estimate the parameter of FGMR as the same time; 2) For high dimensional variables, integrating a supervised clustering algorithm which detect the subgroup of sam-ple and select contributed genes simultaneously; 3) providing flex-ible and comprehensive solutions which cover all situation of mixture regression model for mining latent relationship between variables.</p>
 </div>
-<div id="s2--case-study" class="section level2">
+<div id="s2--case-studies" class="section level2">
 <h2 class="hasAnchor">
-<a href="#s2--case-study" class="anchor"></a>S2. Case Study</h2>
-<div id="s2-0-preparation-install-the-robmixreg-pacakge" class="section level3">
+<a href="#s2--case-studies" class="anchor"></a>S2. Case Studies</h2>
+<div id="s2-0-preparation-install-the-robmixreg-package" class="section level3">
 <h3 class="hasAnchor">
-<a href="#s2-0-preparation-install-the-robmixreg-pacakge" class="anchor"></a>S2.0 Preparation: Install the RobMixReg Pacakge</h3>
-<p>The RobMixReg package publised on the CRAN. That means the package has better stability and easy to install on several platform (e.g. windows, linux) because CRAN has stricter requirement than github.</p>
+<a href="#s2-0-preparation-install-the-robmixreg-package" class="anchor"></a>S2.0 Preparation: Install the RobMixReg Package</h3>
+<p>The RobMixReg package was publised on CRAN.</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="co">#install.packages('RobMixReg')</span>
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">RobMixReg</span>)</pre></body></html></div>
 <p>The RobMixReg package also has the most updated version on github.</p>
@@ -122,8 +123,8 @@
 </ul>
 <p><span class="math display">\[
 \left\{ \begin{array}{rcl}
-  y_i - \beta_1 x_i - \beta_0 - \epsilon \leq \eta &amp; \mbox{if} &amp; (x_i, y_i) \in regression \ line \\ 
-  y_i - \beta_1 x_i - \beta_0 - \epsilon &gt; \eta &amp; \mbox{if} &amp; (x_i, y_i) \ is \ outlier \\
+ | y_i - \beta_1 x_i - \beta_0 | \leq \eta &amp; \mbox{if} &amp; (x_i, y_i) \in regression \ line \\ 
+ | y_i - \beta_1 x_i - \beta_0 | &gt; \eta &amp; \mbox{if} &amp; (x_i, y_i) \ is \ outlier \\
   \end{array}\right.
 \]</span></p>
 <div id="data-simulation" class="section level4">
@@ -148,18 +149,19 @@
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">inds_out</span>)</pre></body></html></div>
 <pre><code>##  [1]  14  16  23  43  46  49  69  91  96 101 131 144 198 205 215 226 276 278 282
 ## [20] 283 290</code></pre>
-<p>The RobMixReg package has a plotting module for visualization in a easy way. For the example 1, we draw all data point and color them based on whether it is a outlier. Then, we also print another figure which contains the fitted regression line and metric (coeffient and related significant p value).</p>
+<p>The RobMixReg package has a plotting module for visualization in a easy way. For the example 1, we draw all data point and color them based on whether it is a outlier. Then, we also print another figure which contains the fitted regression line and metric (coeffient and related significant p value). The label of x and y axis based on the letter in the foumula. Thus, user can customize the x and y axis label.</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">inds_in</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="no">res.a</span>$<span class="no">lts.wt</span> <span class="kw">==</span> <span class="fl">1</span>)
 <span class="co"># set the figure format and margin</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mfrow</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">1</span>),<span class="kw">mar</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">5</span>, <span class="fl">8</span>, <span class="fl">2</span>, <span class="fl">8</span>))
 <span class="co"># use plot module to draw the data points and the regression line.</span>
 <span class="fu"><a href="../reference/plot_CTLE-methods.html">plot_CTLE</a></span>(<span class="no">outcome</span>~<span class="no">gene</span>,<span class="kw">data</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">gene</span>,<span class="no">outcome</span>),<span class="kw">nc</span><span class="kw">=</span><span class="fl">1</span>,<span class="kw">inds_in</span><span class="kw">=</span><span class="no">inds_in</span>)</pre></body></html></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-6-1.png" width="700"><img src="tutorial_files/figure-html/unnamed-chunk-6-2.png" width="700"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p>The ratio of the outlier is an important parameter during the fitting, the integrated algorithm allow the user set the value of ratio. The detailed example provided as section 4 which demonstrate how to change the <em>tRatio</em> parameter and plot result.</p>
 </div>
 </div>
-<div id="s2-2-example-2-low-dimension-k2-without-outlier" class="section level3">
+<div id="s2-2-example-2-low-dimension-k-geq-2-without-outlier" class="section level3">
 <h3 class="hasAnchor">
-<a href="#s2-2-example-2-low-dimension-k2-without-outlier" class="anchor"></a>S2.2 Example 2: Low dimension, <span class="math inline">\(K=2\)</span> without outlier</h3>
+<a href="#s2-2-example-2-low-dimension-k-geq-2-without-outlier" class="anchor"></a>S2.2 Example 2: Low dimension, <span class="math inline">\(K \geq 2\)</span> without outlier</h3>
 <p>The relationship between gene expression and patient outcome is complex. Besides the outlier problem, the heterogeneity among the subject is also a challenge. Due to subgroup patient may behave similar property. Mixture model (e.g. mixture regression line) were widely used in real application. However, to the best of our knowledge, there is no package provide a flexible mixture regression modeling expet the ‘mixtureReg’ (see maintext reference). The RobMixReg package modified and optimized the several functions in ‘mixtureReg’ which meet the publish requirement of CRAN.</p>
 <ul>
 <li>Mathmatical Model</li>
@@ -198,17 +200,17 @@ y_i = \beta_k x_i + \beta_{k0} + \epsilon_{ki},
 <p><img src="tutorial_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 </div>
 </div>
-<div id="s2-3-example-3-low-dimension-k2-with-outlier" class="section level3">
+<div id="s2-3-example-3-low-dimension-k-geq-2-with-outlier" class="section level3">
 <h3 class="hasAnchor">
-<a href="#s2-3-example-3-low-dimension-k2-with-outlier" class="anchor"></a>S2.3 Example 3: Low dimension, <span class="math inline">\(K=2\)</span> with outlier</h3>
+<a href="#s2-3-example-3-low-dimension-k-geq-2-with-outlier" class="anchor"></a>S2.3 Example 3: Low dimension, <span class="math inline">\(K \geq 2\)</span> with outlier</h3>
 <p>As described in last two examples, we explorer the outlier and heterogeneity among the patient. In this example 3, we will demonstrate using our in-house algorithm CAT to detect the outlier and estimate the parameter of mixture model simultaneously.</p>
 <ul>
 <li>Mathmatical Model</li>
 </ul>
 <p><span class="math display">\[
 \left\{ \begin{array}{rcl}
-  y_i - \beta_k x_i - \beta_{k0} - \epsilon_{ki} \leq \eta &amp; \mbox{if} &amp; (x_i, y_i) \in regression \ line \\ 
-  y_i - \beta_k x_i - \beta_{k0} - \epsilon_{ki} \leq \eta &amp; \mbox{if} &amp; (x_i, y_i) \ is \ outlier \\
+ | y_i - \beta_k x_i - \beta_{k0} | \leq \eta &amp; \mbox{if} &amp; (x_i, y_i) \in regression \ line \\ 
+ | y_i - \beta_k x_i - \beta_{k0} | \leq \eta &amp; \mbox{if} &amp; (x_i, y_i) \ is \ outlier \\
   \end{array}\right.
 \]</span></p>
 <div id="data-simulation-2" class="section level4">
@@ -231,14 +233,15 @@ y_i = \beta_k x_i + \beta_{k0} + \epsilon_{ki},
 <div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">res.c</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">"c"</span>, <span class="no">gene</span>, <span class="no">outcome</span>)</pre></body></html></div>
 <p>Extract the outlier information and plot the mixture regression line one by one.</p>
 <div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">inds_in</span><span class="kw">=</span><span class="no">res.c</span>@<span class="kw">inds_in</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mfrow</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">1</span>),<span class="kw">mar</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">5</span>, <span class="fl">8</span>, <span class="fl">2</span>, <span class="fl">8</span>))
+<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mfrow</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">2</span>),<span class="kw">mar</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">2</span>))
 <span class="fu"><a href="../reference/plot_CTLE-methods.html">plot_CTLE</a></span>(<span class="no">outcome</span>~<span class="no">gene</span>,<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">gene</span>,<span class="no">outcome</span>),<span class="kw">nc</span><span class="kw">=</span><span class="fl">2</span>,<span class="kw">inds_in</span><span class="kw">=</span><span class="no">inds_in</span>)</pre></body></html></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-13-1.png" width="700"><img src="tutorial_files/figure-html/unnamed-chunk-13-2.png" width="700"><img src="tutorial_files/figure-html/unnamed-chunk-13-3.png" width="700"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
+<p>The ratio of the outlier is an important parameter during the fitting, the integrated algorithm allow the user set the value of ratio. The detailed example provided as section 4 which demonstrate how to change the <em>tRatio</em> parameter and plot result.</p>
 </div>
 </div>
-<div id="s2-4-example-4-high-dimension-k2" class="section level3">
+<div id="s2-4-example-4-high-dimension-k-geq-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#s2-4-example-4-high-dimension-k2" class="anchor"></a>S2.4 Example 4: High dimension, <span class="math inline">\(K=2\)</span>
+<a href="#s2-4-example-4-high-dimension-k-geq-2" class="anchor"></a>S2.4 Example 4: High dimension, <span class="math inline">\(K \geq 2\)</span>
 </h3>
 <p>The gene expression data is usually in high dimension. Only modeling the relationship between two vectors is not enough. For example, alternatively actived genes or pathways in different patient subpopulation subtantially hurdled the computational capability in studying the disease complexities and optimizing therapeutic strategy, which is fundamental question in precision health study. The set of genes used to execute a biological pathway of clinical response may very likely exist in more than one alternative form, thus lead to patient subpopulation exhibiting varied level of sensitivity and clinical response different cytotoxic drugs, posing a challenge in identifying gene features that are predictive for clinical response to existing but unknown patient subpopulation. Thus, we proposed the RBSL algorithm, following the supervised methods, to enable the identification of subsets genes. The detailed motivation and algorithm please refer to the RBSL paper.</p>
 <ul>
@@ -251,7 +254,8 @@ argmin || y_{J_K} - X^T_{:,J_k} \beta_k - \beta_{k0} ||,s.t. ||\beta_k || \leq \
 <h4 class="hasAnchor">
 <a href="#data-simulation-3" class="anchor"></a>Data Simulation:</h4>
 <p>In total, we simulate a matrix which is 400 patients by 100 genes. The first twenty genes contributed to the first 200 patients. The continued twenty genes contributed to the last 200 patients. The simulation process is simply executed by a function <em>simu_data_sparse</em>, please see the package manual for more details.</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">n</span><span class="kw">=</span><span class="fl">400</span>
+<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">12345</span>)
+<span class="no">n</span><span class="kw">=</span><span class="fl">400</span>
 <span class="no">bet1</span><span class="kw">=</span><span class="no">bet2</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0</span>,<span class="fl">101</span>)
 <span class="no">bet1</span>[<span class="fl">2</span>:<span class="fl">21</span>]<span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/sign.html">sign</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="fl">20</span>,-<span class="fl">1</span>,<span class="fl">1</span>))*<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="fl">20</span>,<span class="fl">2</span>,<span class="fl">5</span>)
 <span class="no">bet2</span>[<span class="fl">22</span>:<span class="fl">41</span>]<span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/sign.html">sign</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="fl">20</span>,-<span class="fl">1</span>,<span class="fl">1</span>))*<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="fl">20</span>,<span class="fl">2</span>,<span class="fl">5</span>)
@@ -285,11 +289,11 @@ argmin || y_{J_K} - X^T_{:,J_k} \beta_k - \beta_{k0} ||,s.t. ||\beta_k || \leq \
 <div id="s3--real-data-application" class="section level2">
 <h2 class="hasAnchor">
 <a href="#s3--real-data-application" class="anchor"></a>S3. Real Data Application</h2>
-<p>Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder</p>
-<div id="s3-1-breast-cancer-multi-omics-data-filtered-outlier-mutually" class="section level3">
+<div id="s3-1-breast-cancer-rna-seq-and-atac-seq-data-preprocess" class="section level3">
 <h3 class="hasAnchor">
-<a href="#s3-1-breast-cancer-multi-omics-data-filtered-outlier-mutually" class="anchor"></a>S3.1 Breast Cancer Multi-Omics Data Filtered Outlier Mutually</h3>
-<p>Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder</p>
+<a href="#s3-1-breast-cancer-rna-seq-and-atac-seq-data-preprocess" class="anchor"></a>S3.1 Breast Cancer RNA-seq and ATAC-seq data preprocess</h3>
+<p>Expression value of the cell type marker genes is an important evidence to validate the activity of the target cell type. Also, the cell type marker genes are critical to calculate the cell type proportion in each sample. Meanwhile, the marker genes are varied in RNA-seq data and ATAC-seq data due to the technology and measurement. Thus, integrating useful information from two types of data can not only improve the accuracy of the proportion prediction. but also enable us to exploer the cell type activity in the tumor microenvironment.</p>
+<p>However, the outliers in each data type are difficult to remove and obstruct the downstream analysis. Two types of sequcing data have the enough information and we give the example to detect the ourlier based on multi-omic data mutually.</p>
 <p>How we extract information from RNA-seq and ATAC-seq data.</p>
 <div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="co"># read the list object built-in the package</span>
 <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">'BRCA_source'</span>)</pre></body></html></div>
@@ -300,17 +304,44 @@ argmin || y_{J_K} - X^T_{:,J_k} \beta_k - \beta_{k0} ||,s.t. ||\beta_k || \leq \
 <span class="no">RNAseq_marker</span> <span class="kw">=</span> <span class="no">BRCA_source</span>$<span class="no">RNAseq_marker</span>
 <span class="no">ATACseq_marker</span> <span class="kw">=</span> <span class="no">BRCA_source</span>$<span class="no">ATACseq_marker</span>
 
+<span class="co"># print the RNA-seq marker genes for three cell types</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">RNAseq_marker</span>)</pre></body></html></div>
+<pre><code>## $`T cell`
+##  [1] "CD3E"    "LCK"     "CD247"   "CD3D"    "CD3G"    "CXCR3"   "SIT1"   
+##  [8] "CD5"     "SIRPG"   "UBASH3A"
+## 
+## $Fibroblast
+##  [1] "COL1A2" "COL5A2" "COL3A1" "COL1A1" "COL5A1" "COL6A3" "FBN1"   "SPARC" 
+##  [9] "POSTN"  "AEBP1" 
+## 
+## $`MHC class II antigen presenting cells`
+## [1] "HLA-DRA"  "HLA-DPB1" "HLA-DMB"  "CD74"     "HLA-DMA"  "HLA-DRB1" "HLA-DPA1"
+## [8] "SELPLG"</code></pre>
+<div class="sourceCode" id="cb29"><html><body><pre class="r"><span class="co"># For ATAC-seq, we also select same cell types</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">ATACseq_marker</span>)</pre></body></html></div>
+<pre><code>## [1] "T cell"                               
+## [2] "Fibroblast"                           
+## [3] "MHC class II antigen presenting cells"</code></pre>
+<div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="co"># We use top row space to represent the cell type proportion in each sample</span>
 <span class="no">b4_TCGA</span><span class="kw">&lt;-</span><span class="fu"><a href="../reference/Compute_Rbase_SVD.html">Compute_Rbase_SVD</a></span>(<span class="no">data_RNAseq_selected</span>,<span class="no">RNAseq_marker</span>)
 <span class="no">b4_ATAC0</span><span class="kw">&lt;-</span><span class="fu"><a href="../reference/Compute_Rbase_SVD.html">Compute_Rbase_SVD</a></span>(<span class="no">data_ATACseq_selected</span>,<span class="no">ATACseq_marker</span>)
 <span class="co"># generate the RNA-seq and ATAC-seq variable below.</span>
+<span class="co"># T cell</span>
 <span class="no">a1</span><span class="kw">&lt;-</span><span class="no">b4_TCGA</span>[<span class="fl">1</span>,<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">b4_ATAC0</span>)]
 <span class="no">b1</span><span class="kw">&lt;-</span><span class="no">b4_ATAC0</span>[<span class="fl">1</span>,]
+<span class="co"># Fibroblast</span>
 <span class="no">a2</span><span class="kw">&lt;-</span><span class="no">b4_TCGA</span>[<span class="fl">2</span>,<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">b4_ATAC0</span>)]
 <span class="no">b2</span><span class="kw">&lt;-</span><span class="no">b4_ATAC0</span>[<span class="fl">2</span>,]
+<span class="co"># MHC antigen presenting cells</span>
 <span class="no">a3</span><span class="kw">&lt;-</span><span class="no">b4_TCGA</span>[<span class="fl">3</span>,<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">b4_ATAC0</span>)]
 <span class="no">b3</span><span class="kw">&lt;-</span><span class="no">b4_ATAC0</span>[<span class="fl">3</span>,]</pre></body></html></div>
-<p>These variables also provide in another data frame object.</p>
-<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">BRCA_ATAC_RNA_seq</span>)
+</div>
+<div id="s3-2-breast-cancer-multi-omics-data-filtered-outlier-mutually" class="section level3">
+<h3 class="hasAnchor">
+<a href="#s3-2-breast-cancer-multi-omics-data-filtered-outlier-mutually" class="anchor"></a>S3.2 Breast Cancer Multi-Omics Data Filtered Outlier Mutually</h3>
+<p>The results shows the cell types identified from RNA-seq data were also identified in ATAC-seq data. In addition, the cell type proportion in the RNA-seq have a strong correlation with it in the ATAC-seq after remove the outliers.</p>
+<p>These variables also provide in another data frame object regardless the section S3.1.</p>
+<div class="sourceCode" id="cb32"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">BRCA_ATAC_RNA_seq</span>)
 <span class="co"># First, extract the RNA-seq vectors</span>
 <span class="no">a1</span> <span class="kw">=</span> <span class="no">BRCA_ATAC_RNA_seq</span>$<span class="no">a1</span>
 <span class="no">a2</span> <span class="kw">=</span> <span class="no">BRCA_ATAC_RNA_seq</span>$<span class="no">a2</span>
@@ -320,87 +351,99 @@ argmin || y_{J_K} - X^T_{:,J_k} \beta_k - \beta_{k0} ||,s.t. ||\beta_k || \leq \
 <span class="no">b2</span> <span class="kw">=</span> <span class="no">BRCA_ATAC_RNA_seq</span>$<span class="no">b2</span>
 <span class="no">b3</span> <span class="kw">=</span> <span class="no">BRCA_ATAC_RNA_seq</span>$<span class="no">b3</span></pre></body></html></div>
 <p>Call the main function to detect the outliers.</p>
-<div class="sourceCode" id="cb29"><html><body><pre class="r"><span class="no">brca.1</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">'c'</span>, <span class="kw">gene</span><span class="kw">=</span><span class="no">a1</span>, <span class="kw">outcome</span><span class="kw">=</span><span class="no">b1</span>,<span class="kw">nit</span><span class="kw">=</span><span class="fl">10</span>,<span class="kw">nc</span><span class="kw">=</span><span class="fl">1</span>)
+<div class="sourceCode" id="cb33"><html><body><pre class="r"><span class="no">brca.1</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">'c'</span>, <span class="kw">gene</span><span class="kw">=</span><span class="no">a1</span>, <span class="kw">outcome</span><span class="kw">=</span><span class="no">b1</span>,<span class="kw">nit</span><span class="kw">=</span><span class="fl">10</span>,<span class="kw">nc</span><span class="kw">=</span><span class="fl">1</span>)
 <span class="no">brca.2</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">'c'</span>, <span class="kw">gene</span><span class="kw">=</span><span class="no">a2</span>, <span class="kw">outcome</span><span class="kw">=</span><span class="no">b2</span>,<span class="kw">nit</span><span class="kw">=</span><span class="fl">10</span>,<span class="kw">nc</span><span class="kw">=</span><span class="fl">1</span>)
 <span class="no">brca.3</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">'c'</span>, <span class="kw">gene</span><span class="kw">=</span><span class="no">a3</span>, <span class="kw">outcome</span><span class="kw">=</span><span class="no">b3</span>,<span class="kw">nit</span><span class="kw">=</span><span class="fl">10</span>,<span class="kw">nc</span><span class="kw">=</span><span class="fl">1</span>)</pre></body></html></div>
 <p>Once we get the result from the method 1, we can extract the sample information that which sample should be a outlier or not.</p>
-<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="no">inds_in</span> <span class="kw">=</span> <span class="no">brca.1</span>@<span class="kw">inds_in</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mfrow</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">2</span>),<span class="kw">mar</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">2</span>))
+<div class="sourceCode" id="cb34"><html><body><pre class="r"><span class="no">inds_in</span> <span class="kw">=</span> <span class="no">brca.1</span>@<span class="kw">inds_in</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mfrow</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">1</span>),<span class="kw">mar</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">5</span>, <span class="fl">8</span>, <span class="fl">2</span>, <span class="fl">8</span>))
 <span class="fu"><a href="../reference/plot_CTLE-methods.html">plot_CTLE</a></span>(<span class="no">b1</span>~<span class="no">a1</span>,<span class="kw">data</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">a1</span>,<span class="no">b1</span>),<span class="kw">nc</span><span class="kw">=</span><span class="fl">1</span>,<span class="kw">inds_in</span><span class="kw">=</span><span class="no">inds_in</span>)</pre></body></html></div>
 <p><img src="tutorial_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
-<div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="no">inds_in</span> <span class="kw">=</span> <span class="no">brca.2</span>@<span class="kw">inds_in</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mfrow</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">2</span>),<span class="kw">mar</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">2</span>))
+<div class="sourceCode" id="cb35"><html><body><pre class="r"><span class="no">inds_in</span> <span class="kw">=</span> <span class="no">brca.2</span>@<span class="kw">inds_in</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mfrow</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">1</span>),<span class="kw">mar</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">5</span>, <span class="fl">8</span>, <span class="fl">2</span>, <span class="fl">8</span>))
 <span class="fu"><a href="../reference/plot_CTLE-methods.html">plot_CTLE</a></span>(<span class="no">b2</span>~<span class="no">a2</span>,<span class="kw">data</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">a2</span>,<span class="no">b2</span>),<span class="kw">nc</span><span class="kw">=</span><span class="fl">1</span>,<span class="kw">inds_in</span><span class="kw">=</span><span class="no">inds_in</span>)</pre></body></html></div>
 <p><img src="tutorial_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
-<div class="sourceCode" id="cb32"><html><body><pre class="r"><span class="no">inds_in</span> <span class="kw">=</span> <span class="no">brca.3</span>@<span class="kw">inds_in</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mfrow</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">2</span>),<span class="kw">mar</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">2</span>))
+<div class="sourceCode" id="cb36"><html><body><pre class="r"><span class="no">inds_in</span> <span class="kw">=</span> <span class="no">brca.3</span>@<span class="kw">inds_in</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mfrow</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">1</span>),<span class="kw">mar</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">5</span>, <span class="fl">8</span>, <span class="fl">2</span>, <span class="fl">8</span>))
 <span class="fu"><a href="../reference/plot_CTLE-methods.html">plot_CTLE</a></span>(<span class="no">b3</span>~<span class="no">a3</span>,<span class="kw">data</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">a3</span>,<span class="no">b3</span>),<span class="kw">nc</span><span class="kw">=</span><span class="fl">1</span>,<span class="kw">inds_in</span><span class="kw">=</span><span class="no">inds_in</span>)</pre></body></html></div>
 <p><img src="tutorial_files/figure-html/unnamed-chunk-22-1.png" width="700"></p>
 </div>
-<div id="s3-2-cytokine-dataset" class="section level3">
-<h3 class="hasAnchor">
-<a href="#s3-2-cytokine-dataset" class="anchor"></a>S3.2 Cytokine Dataset</h3>
-<p>Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder</p>
-<p>Prepare the built-in cytokine data .</p>
-<div class="sourceCode" id="cb33"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">Cytokine_dataset</span>)
-<span class="co"># First, extract the two variable for IP10 gene</span>
-<span class="no">IP10.Cytokine.level.C1D15</span> <span class="kw">=</span> <span class="no">Cytokine_dataset</span>$<span class="no">IP10.Cytokine.level.C1D15</span>
-<span class="no">IP10.CPC.change</span> <span class="kw">=</span> <span class="no">Cytokine_dataset</span>$<span class="no">IP10.CPC.change</span>
-<span class="co"># Second, extract the two variable for TNFa gene</span>
-<span class="no">TNFa.Cytokine.level.C1D15</span> <span class="kw">=</span> <span class="no">Cytokine_dataset</span>$<span class="no">TNFa.Cytokine.level.C1D15</span>
-<span class="no">TNFa.CPC.change</span> <span class="kw">=</span> <span class="no">Cytokine_dataset</span>$<span class="no">TNFa.CPC.change</span></pre></body></html></div>
-<p>Then, call the main function to identify the outliers.</p>
-<div class="sourceCode" id="cb34"><html><body><pre class="r"><span class="no">IP10.res</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">'c'</span>, <span class="kw">gene</span><span class="kw">=</span><span class="no">IP10.Cytokine.level.C1D15</span>, <span class="kw">outcome</span><span class="kw">=</span><span class="no">IP10.CPC.change</span>,<span class="kw">nit</span><span class="kw">=</span><span class="fl">10</span>,<span class="kw">nc</span><span class="kw">=</span><span class="fl">1</span>)
-<span class="no">TNFa.res</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">'c'</span>, <span class="kw">gene</span><span class="kw">=</span><span class="no">TNFa.Cytokine.level.C1D15</span>, <span class="kw">outcome</span><span class="kw">=</span><span class="no">TNFa.CPC.change</span>,<span class="kw">nit</span><span class="kw">=</span><span class="fl">10</span>,<span class="kw">nc</span><span class="kw">=</span><span class="fl">1</span>)</pre></body></html></div>
-<p>Once we get the result from the method 1, we can extract the sample information that which sample should be a outlier or not.</p>
-<div class="sourceCode" id="cb35"><html><body><pre class="r"><span class="no">inds_in</span> <span class="kw">=</span> <span class="no">IP10.res</span>@<span class="kw">inds_in</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mfrow</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">2</span>),<span class="kw">mar</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">8</span>, <span class="fl">4</span>))
-<span class="fu"><a href="../reference/plot_CTLE-methods.html">plot_CTLE</a></span>(<span class="no">IP10.CPC.change</span>~<span class="no">IP10.Cytokine.level.C1D15</span>,
-          <span class="kw">data</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">IP10.Cytokine.level.C1D15</span>,<span class="no">IP10.CPC.change</span>),
-          <span class="kw">nc</span><span class="kw">=</span><span class="fl">1</span>,<span class="kw">inds_in</span><span class="kw">=</span><span class="no">inds_in</span>)</pre></body></html></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-25-1.png" width="700"></p>
-<p>The coefficient is zero because we only take three digits after the decimal point. The approximate coefficient value shows below.</p>
-<div class="sourceCode" id="cb36"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="no">IP10.CPC.change</span>~<span class="no">IP10.Cytokine.level.C1D15</span>)</pre></body></html></div>
-<pre><code>## 
-## Call:
-## lm(formula = IP10.CPC.change ~ IP10.Cytokine.level.C1D15)
-## 
-## Coefficients:
-##               (Intercept)  IP10.Cytokine.level.C1D15  
-##                 0.0670508                  0.0000258</code></pre>
-<p>Once we get the result from the method 1, we can extract the sample information that which sample should be a outlier or not.</p>
-<div class="sourceCode" id="cb38"><html><body><pre class="r"><span class="no">inds_in</span> <span class="kw">=</span> <span class="no">TNFa.res</span>@<span class="kw">inds_in</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mfrow</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">2</span>),<span class="kw">mar</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">8</span>, <span class="fl">4</span>))
-<span class="fu"><a href="../reference/plot_CTLE-methods.html">plot_CTLE</a></span>(<span class="no">TNFa.CPC.change</span>~<span class="no">TNFa.Cytokine.level.C1D15</span>,
-          <span class="kw">data</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">TNFa.Cytokine.level.C1D15</span>,<span class="no">TNFa.CPC.change</span>),
-          <span class="kw">nc</span><span class="kw">=</span><span class="fl">1</span>,<span class="kw">inds_in</span><span class="kw">=</span><span class="no">inds_in</span>)</pre></body></html></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-27-1.png" width="700"></p>
 </div>
-</div>
-<div id="s4--integrated-robust-mixture-regression-algorithms-and-example" class="section level2">
+<div id="appendix--more-on-robust-mixture-regression" class="section level2">
 <h2 class="hasAnchor">
-<a href="#s4--integrated-robust-mixture-regression-algorithms-and-example" class="anchor"></a>S4. Integrated Robust Mixture Regression Algorithms and Example</h2>
-<div id="s4-1-robust-mixture-regression-algorithms" class="section level3">
+<a href="#appendix--more-on-robust-mixture-regression" class="anchor"></a>Appendix. More on Robust Mixture Regression</h2>
+<div id="a-1-robust-mixture-regression-library" class="section level3">
 <h3 class="hasAnchor">
-<a href="#s4-1-robust-mixture-regression-algorithms" class="anchor"></a>S4.1 Robust Mixture Regression Algorithms</h3>
-<p>Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder Place holder</p>
-</div>
-<div id="s4-2-example" class="section level3">
-<h3 class="hasAnchor">
-<a href="#s4-2-example" class="anchor"></a>S4.2 Example</h3>
+<a href="#a-1-robust-mixture-regression-library" class="anchor"></a>A.1 Robust mixture regression library</h3>
 <p>Another important main function in the package named <em>rmr</em> which provide five optional algorithms to fit the robust mixture regression model. The implemented algorithms includes: CTLERob stands for Component-wise adaptive Trimming Likelihood Estimation based mixture regression; mixbi stands for mixture regression based on bi-square estimation; mixLstands for mixture regression based on Laplacian distribution; TLE stands for Trimmed Likelihood Estimation based mixture regression. For more detail of the algorithms, please refer to references in the DESCRIPTION file.</p>
-<p>User can select the algorithm by setting the parameter <em>lr.method</em>. One example is below. For description of <em>gaussData</em> please refer to package manual.</p>
-<div class="sourceCode" id="cb39"><html><body><pre class="r"><span class="co"># gaussData</span>
+<p>User can select the algorithm by setting the parameter <em>lr.method</em>. One example is below.</p>
+<table class="table">
+<colgroup>
+<col width="34%">
+<col width="34%">
+<col width="31%">
+</colgroup>
+<thead><tr class="header">
+<th>Algorithms</th>
+<th>Description</th>
+<th>Function</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>CAT</td>
+<td>Component-wise adaptive Trimming Likelihood Estimation based mixture regression</td>
+<td>CTLERob</td>
+</tr>
+<tr class="even">
+<td>flexmix</td>
+<td>Finite mixture models and latent class regression</td>
+<td>flexmix</td>
+</tr>
+<tr class="odd">
+<td>TLE</td>
+<td>Trimmed Likelihood Estimation based mixture regression</td>
+<td>TLE</td>
+</tr>
+<tr class="even">
+<td>mixbi</td>
+<td>Mixture regression based on bi-square estimation</td>
+<td>mixbi</td>
+</tr>
+<tr class="odd">
+<td>mixLp</td>
+<td>Mixture regression based on Laplacian distribution</td>
+<td>mixLp</td>
+</tr>
+</tbody>
+</table>
+<div id="cat-example" class="section level4">
+<h4 class="hasAnchor">
+<a href="#cat-example" class="anchor"></a>CAT Example</h4>
+<p>For description of <em>gaussData</em> please refer to package manual.</p>
+<div class="sourceCode" id="cb37"><html><body><pre class="r"><span class="co"># gaussData</span>
 <span class="no">x</span><span class="kw">=</span>(<span class="no">gaussData</span>$<span class="no">x</span>);<span class="no">y</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="no">gaussData</span>$<span class="no">y</span>);
 <span class="no">formula01</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/stats/formula.html">as.formula</a></span>(<span class="st">"y~x"</span>)
 <span class="no">example_data01</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">x</span>,<span class="no">y</span>)
-<span class="no">res_rmr</span> <span class="kw">=</span> <span class="fu"><a href="../reference/rmr.html">rmr</a></span>(<span class="kw">lr.method</span><span class="kw">=</span><span class="st">'flexmix'</span>, <span class="kw">formula</span><span class="kw">=</span><span class="no">formula01</span>, <span class="kw">data</span><span class="kw">=</span><span class="no">example_data01</span>)
-<span class="no">res_rmr</span> <span class="kw">=</span> <span class="fu"><a href="../reference/rmr.html">rmr</a></span>(<span class="kw">lr.method</span><span class="kw">=</span><span class="st">'TLE'</span>, <span class="kw">formula</span><span class="kw">=</span><span class="no">formula01</span>, <span class="kw">data</span><span class="kw">=</span><span class="no">example_data01</span>)</pre></body></html></div>
+<span class="co"># The CAT algorithm can be called by two ways. </span>
+<span class="co"># The first way is using 'rmr' main function and declare 'CTLERob' parameter.</span>
+<span class="no">res_rmr_a</span> <span class="kw">=</span> <span class="fu"><a href="../reference/rmr.html">rmr</a></span>(<span class="kw">lr.method</span><span class="kw">=</span><span class="st">'CTLERob'</span>, <span class="kw">formula</span><span class="kw">=</span><span class="no">formula01</span>, <span class="kw">data</span><span class="kw">=</span><span class="no">example_data01</span>)
+<span class="co"># The second way is using the 'MLM' main function and declare 'c' parameter.</span>
+<span class="no">gene</span> <span class="kw">=</span> <span class="no">x</span>;<span class="no">outcome</span> <span class="kw">=</span> <span class="no">y</span>
+<span class="no">res_rmr_b</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">"c"</span>, <span class="no">gene</span>, <span class="no">outcome</span>)</pre></body></html></div>
 </div>
-<div id="s4-3-adjust-the-trimming-ratio-for-robust-regression" class="section level3">
+<div id="other-example" class="section level4">
+<h4 class="hasAnchor">
+<a href="#other-example" class="anchor"></a>Other Example</h4>
+<div class="sourceCode" id="cb38"><html><body><pre class="r"><span class="no">res_rmr</span> <span class="kw">=</span> <span class="fu"><a href="../reference/rmr.html">rmr</a></span>(<span class="kw">lr.method</span><span class="kw">=</span><span class="st">'flexmix'</span>, <span class="kw">formula</span><span class="kw">=</span><span class="no">formula01</span>, <span class="kw">data</span><span class="kw">=</span><span class="no">example_data01</span>)
+<span class="no">res_rmr</span> <span class="kw">=</span> <span class="fu"><a href="../reference/rmr.html">rmr</a></span>(<span class="kw">lr.method</span><span class="kw">=</span><span class="st">'TLE'</span>, <span class="kw">formula</span><span class="kw">=</span><span class="no">formula01</span>, <span class="kw">data</span><span class="kw">=</span><span class="no">example_data01</span>)
+<span class="no">res_rmr</span> <span class="kw">=</span> <span class="fu"><a href="../reference/rmr.html">rmr</a></span>(<span class="kw">lr.method</span><span class="kw">=</span><span class="st">'mixLp'</span>, <span class="kw">formula</span><span class="kw">=</span><span class="no">formula01</span>, <span class="kw">data</span><span class="kw">=</span><span class="no">example_data01</span>)
+<span class="co">#res_rmr = rmr(lr.method='mixbi', formula=formula01, data=example_data01)</span></pre></body></html></div>
+</div>
+</div>
+<div id="a-2-adjust-the-trimming-ratio-for-robust-regression" class="section level3">
 <h3 class="hasAnchor">
-<a href="#s4-3-adjust-the-trimming-ratio-for-robust-regression" class="anchor"></a>S4.3 Adjust the trimming ratio for robust regression</h3>
-<div class="sourceCode" id="cb40"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">12345</span>)
+<a href="#a-2-adjust-the-trimming-ratio-for-robust-regression" class="anchor"></a>A.2 Adjust the trimming ratio for robust regression</h3>
+<div class="sourceCode" id="cb39"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">12345</span>)
 <span class="no">gene</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="kw">n</span><span class="kw">=</span><span class="fl">300</span>, <span class="kw">mean</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">sd</span><span class="kw">=</span><span class="fl">1</span>)
 <span class="no">inter</span> <span class="kw">=</span> <span class="fl">0</span> ; <span class="no">slope</span> <span class="kw">=</span> <span class="fl">1</span>
 <span class="no">outcome</span> <span class="kw">=</span> <span class="no">slope</span> * <span class="no">gene</span> + <span class="no">inter</span>
@@ -408,25 +451,21 @@ argmin || y_{J_K} - X^T_{:,J_k} \beta_k - \beta_{k0} ||,s.t. ||\beta_k || \leq \
 <span class="no">id_outlier</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="fl">1</span>:<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">outcome</span>), <span class="kw">size</span> <span class="kw">=</span> <span class="fl">0.1</span>*<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">outcome</span>))
 <span class="no">outcome</span>[<span class="no">id_outlier</span>] <span class="kw">=</span> <span class="no">outcome</span>[<span class="no">id_outlier</span>] + <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">id_outlier</span>), <span class="kw">mean</span><span class="kw">=</span><span class="fl">0</span>,<span class="kw">sd</span><span class="kw">=</span><span class="fl">2</span>)
 
-<span class="co"># gaussData</span>
-<span class="co"># x=(gaussData$x);y=as.numeric(gaussData$y);</span>
-<span class="co"># formula01=as.formula("y~x")</span>
-<span class="co"># example_data01=data.frame(x,y)</span>
-
+<span class="co"># Use tRatio to adjust the ratio of outlier for trimming</span>
 <span class="no">res_rmr_r1</span> <span class="kw">=</span> <span class="fu"><a href="../reference/rmr.html">rmr</a></span>(<span class="kw">lr.method</span><span class="kw">=</span><span class="st">'TLE'</span>, <span class="kw">formula</span><span class="kw">=</span><span class="no">outcome</span>~<span class="no">gene</span>, <span class="kw">data</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">outcome</span>,<span class="no">gene</span>),<span class="kw">nc</span><span class="kw">=</span><span class="fl">1</span>,
                  <span class="kw">tRatio</span><span class="kw">=</span><span class="fl">0.05</span>)
 <span class="no">inds_in_r1</span> <span class="kw">=</span> <span class="no">res_rmr_r1</span>@<span class="kw">inds_in</span>
-
+<span class="co"># change tRatio to a larger percentage</span>
 <span class="no">res_rmr_r2</span> <span class="kw">=</span> <span class="fu"><a href="../reference/rmr.html">rmr</a></span>(<span class="kw">lr.method</span><span class="kw">=</span><span class="st">'TLE'</span>, <span class="kw">formula</span><span class="kw">=</span><span class="no">outcome</span>~<span class="no">gene</span>, <span class="kw">data</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">outcome</span>,<span class="no">gene</span>),<span class="kw">nc</span><span class="kw">=</span><span class="fl">1</span>,
                  <span class="kw">tRatio</span><span class="kw">=</span><span class="fl">0.25</span>)
 <span class="no">inds_in_r2</span> <span class="kw">=</span> <span class="no">res_rmr_r2</span>@<span class="kw">inds_in</span>
 
 <span class="co"># set the figure format and margin</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mfrow</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>,<span class="fl">2</span>),<span class="kw">mar</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">2</span>, <span class="fl">4</span>))
+<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mfrow</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">2</span>),<span class="kw">mar</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">2</span>))
 <span class="co"># use plot module to draw the data points and the regression line.</span>
 <span class="fu"><a href="../reference/plot_CTLE-methods.html">plot_CTLE</a></span>(<span class="no">outcome</span>~<span class="no">gene</span>,<span class="kw">data</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">outcome</span>,<span class="no">gene</span>),<span class="kw">nc</span><span class="kw">=</span><span class="fl">1</span>,<span class="kw">inds_in</span><span class="kw">=</span><span class="no">inds_in_r1</span>)
 <span class="fu"><a href="../reference/plot_CTLE-methods.html">plot_CTLE</a></span>(<span class="no">outcome</span>~<span class="no">gene</span>,<span class="kw">data</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">outcome</span>,<span class="no">gene</span>),<span class="kw">nc</span><span class="kw">=</span><span class="fl">1</span>,<span class="kw">inds_in</span><span class="kw">=</span><span class="no">inds_in_r2</span>)</pre></body></html></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-29-1.png" width="700"></p>
+<p><img src="tutorial_files/figure-html/unnamed-chunk-25-1.png" width="700"></p>
 </div>
 </div>
   </div>

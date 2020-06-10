@@ -29,17 +29,21 @@ setMethod("plot_CTLE",
           {
             #par(mfrow=c(1,4))
             #		colors = pal_npg("nrc")(nc+1)
-            colors=brewer.pal(nc+1,"Accent")
+            #colors=brewer.pal(nc+1,"Set3")  #Accent
+            colors = c("red","dodgerblue","gold","greenyellow","darkorchid1","darkorange")
             aaa1 = flexmix(formula,data=data[inds_in,],k=nc)            #
-            cols=rep("pink",nrow(data))
-            cols[inds_in]="lightblue"
+            #cols=rep("pink",nrow(data))
+            #cols[inds_in]="lightblue"
+            # color candidate : darkslategrey, tomato, deepskyblue1
+            cols=rep("tomato",nrow(data))
+            cols[inds_in]="deepskyblue1"
             x=data[,1]
             y=data[,2]
             #plot(x,y,pch=19, main='Input data point')
             #plot(x,y,col=cols,pch=19, main='Identify outliers', xlab='Gene', ylab='Outcome')
             all_variable = as.character(attr(terms(formula), "variables"))[-1L]
             yname = all_variable[1]; xname = all_variable[2];
-            plot(x,y,col=cols,pch=19, main='Identify outliers', xlab=xname, ylab=yname)
+            #plot(x,y,col=cols,pch=19, main='Identify outliers', xlab=xname, ylab=yname)
             for(j in 1:nc){
               inds_in_component = inds_in[which(aaa1@cluster==j)]
               if(length(inds_in_component)>4){
@@ -49,10 +53,11 @@ setMethod("plot_CTLE",
                 #inds_in_component = unique(c(inds_in_component,which(abs(res1) <= max(abs(res1[inds_in_component][ltsres$best])))))
                 lm_mod = lm(formula=formula, data=data[inds_in_component,])
                 ppp = summary(lm_mod)$coefficients[-1,4]
-                plot(x[inds_in_component],y[inds_in_component],main=paste("Comp",j,":",paste("p=", round(ppp,3),sep=""), paste("coef=", round(lm_mod$coefficients[2],3),sep="")), xlim=c(min(x),max(x)), ylim=c(min(y),max(y)),col=colors[j+1],pch=19,xlab=xname,ylab=yname)
-                abline(lm_mod)
-                points(x[-inds_in_component],y[-inds_in_component],col="lightblue",pch=19)
-                points(x[-inds_in],y[-inds_in],col="pink",pch=19)
+                #plot(x[inds_in_component],y[inds_in_component],main=paste("Comp",j,":",paste("p=", round(ppp,3),sep=""), paste("coef=", round(lm_mod$coefficients[2],3),sep="")), xlim=c(min(x),max(x)), ylim=c(min(y),max(y)),col=colors[j+1],pch=19,xlab=xname,ylab=yname)
+                plot(x[inds_in_component],y[inds_in_component],main='Robust Linear Regression', xlim=c(min(x),max(x)), ylim=c(min(y),max(y)),col=colors[j+1],pch=19,xlab=xname,ylab=yname)
+                abline(lm_mod,col="darkslategrey")
+                points(x[-inds_in_component],y[-inds_in_component],col="gray60",pch=19)
+                points(x[-inds_in],y[-inds_in],col="firebrick1",pch=19)
               }else{
                 plot(0)
               }
