@@ -69,6 +69,7 @@ outcome = outcome + rnorm(n=length(outcome),mean=0, sd=0.3)
 # 10% of variable should be outliers, user can customize the percentage
 id_outlier = sample(1:length(outcome), size = 0.1*length(outcome)) 
 outcome[id_outlier] = outcome[id_outlier] + rnorm(length(id_outlier), mean=0,sd=2)
+gene.example1 = gene; outcome.example1 = outcome;
 ```
 
 
@@ -115,6 +116,7 @@ $$
 #### Data Simulation:
 To demonstrate flexible mixture regression model, we simulated two lines through below script. The user can change the two coefficient parameter by setting the *slope1* and *slope2*. Also, two intercepts controlled by *inter1* and *inter2*. The Gaussian white noisy added to two lines form a normal distribution as $\epsilon_{ki} \sim N(0,0,1^2)$. For giving a balanced number of mixture model, we selected odd position data points as the first regression line and even position data point as the second regression line.
 ```{r, cache=TRUE, echo=TRUE}
+set.seed(12345)
 gene = rnorm(n=300, mean=5, sd=1)
 outcome = rep(0, length(gene))
 slope1 = 0.8; inter1 = 0.2; slope2 = -0.01; inter2 = 4
@@ -123,6 +125,7 @@ outcome[seq(n) %% 2 == 1] = slope1 * gene[seq(n) %% 2 == 1] + inter1
 outcome[seq(n) %% 2 == 1] = outcome[seq(n) %% 2 == 1] + rnorm(length(outcome)/2,mean=0,sd=0.1)
 outcome[seq(n) %% 2 == 0] = slope2 * gene[seq(n) %% 2 == 0] + inter2
 outcome[seq(n) %% 2 == 0] = outcome[seq(n) %% 2 == 0] + rnorm(length(outcome)/2,mean=0,sd=0.1)
+gene.example2 = gene; outcome.example2 = outcome;
 ```
 
 
@@ -174,6 +177,7 @@ outcome[seq(n) %% 2 == 0] = outcome[seq(n) %% 2 == 0] + rnorm(length(outcome)/2,
 # The size parameter control the number of outliers during simulation.
 id_outlier = sample(1:length(outcome), size = 10) 
 outcome[id_outlier] = outcome[id_outlier] + rnorm(length(id_outlier), mean=0,sd=2)
+gene.example3 = gene; outcome.example3 = outcome;
 ```
 
 Run the Component-wise Adaptive Trimming method to detect outlier and estimate the parameter simultaneously.
@@ -235,12 +239,44 @@ Plot the predicted coefficient matrix. The column is the cluster membership and 
 blockMap(res.d)
 ```
 
+### S2.5 Model Selection
+
+Although the package provide the three methods for the low dimension data, it is difficult to choose which model to use when the user don't know the pattern of their data. Thus, the package provide a function to assist user choose the model by calculating the likelihood of three methods. 
+
+First, we use the simulated data in example 1. The underlying pattern is one linear regression line plus some outliers. The *vali_model* function test the three methods independently, calculate the likelihood of the fitting to linear line or white gaussian noise. Then, Bayesian information criterion was provided for three methods as *BIC1*,*BIC2*,*BIC3*. As below result, the second method havs lowest BIC which means a good model. However, we should choose the simple model, lower order model, as Occam's razor rule. In addition, the strengh of the evidence against the model with the higher BIC value can be summarized as below. 
+
+| $\Delta$BIC | Evidence against higher BIC  |
+| ----------  | ----------- |
+| 0 to 2      | Not worth more than a bare mention  |
+| 2 to 6      | Positive  |
+| 6 to 10     | Strong  |
+| > 10        | Very strong  |
+
+
+```{r model1, echo=TRUE, warning=FALSE, cache=TRUE}
+vali_model(outcome.example1, gene.example1)
+```
+
+Thus, we should choose model 1 since the model 1 is a simpler model and the BIC value is very close to BIC2.
+
+
+The simulated data in example 2 provide two linear regression lines without any outlier. The below BIC value indicate the best model is model 2. 
+```{r echo=TRUE, warning=FALSE, cache=TRUE}
+vali_model(outcome.example2, gene.example2)
+```
+
+In the example 3, the simulated data have the pattern including two linear regression line and some outliers. The below BIC value indicate the best model is model 3. 
+
+```{r echo=TRUE, warning=FALSE, cache=TRUE}
+vali_model(outcome.example3, gene.example3)
+```
+
 
 ## S3. Real Data Application
 
 
 
-### S3.1 Breast Cancer RNA-seq and ATAC-seq data preprocess  
+### S3.1 Breast Cancer Multi-Omics Data Filtered Outlier Mutually  
 
 Expression value of the cell type marker genes is an important evidence to validate the activity of the target cell type. Also, the cell type marker genes are critical to calculate the cell type proportion in each sample. Meanwhile, the marker genes are varied in RNA-seq data and ATAC-seq data due to the technology and measurement. Thus, integrating useful information from two types of data can not only improve the accuracy of the proportion prediction. but also enable us to exploer the cell type activity in the tumor microenvironment. 
 
@@ -276,8 +312,6 @@ a3<-b4_TCGA[3,colnames(b4_ATAC0)]
 b3<-b4_ATAC0[3,]
 ```
 
-
-### S3.2 Breast Cancer Multi-Omics Data Filtered Outlier Mutually  
 
 The results shows the cell types identified from RNA-seq data were also identified in ATAC-seq data. In addition, the cell type proportion in the RNA-seq have a strong correlation with it in the ATAC-seq after remove the outliers.
 
@@ -320,6 +354,58 @@ inds_in = brca.3@inds_in
 par(mfrow=c(1,1),mar = c(5, 8, 2, 8))
 plot_CTLE(b3~a3,data=data.frame(a3,b3),nc=1,inds_in=inds_in)
 ```
+
+
+### S3.2 Colon adenocarcinoma disease application
+
+Colon adenocarcinoma is known as a heterogeneous disease with different molecular subtypes. CREB3L1, or cyclic AMP responsive element-binding protein 3-like protein 1, is an important transcription factor that can suppress cell cycle. The regulation of CREB3L1 is largely accomplished through epigenetic mechanisms in cancer and other disease. We now examine that latent relationship between CREB3L1 and one of its epigenetic regulators, cg16012690, in colon cancer. We collected the gene expression profile of CREB3L1 and the methylation profile of cg16012690 on 299 colon adenocarcinoma patients from the Cancer Genome Atlas (TCGA) cohort.
+
+```{r, cache=TRUE, echo=TRUE}
+data(colon_data)
+gene_expr = colon_data$x
+methylation = colon_data$y
+res.colon = MLM(ml.method="c", gene_expr, methylation)
+inds_in=res.colon@inds_in
+par(mfrow=c(1,2),mar = c(4, 4, 6, 2))
+plot_CTLE(methylation~gene_expr,data.frame(gene_expr,methylation),nc=2,inds_in=inds_in)
+```
+
+We fitted the data using CAT, the two colored line represented the two heterogeneity group of patients. In summary, our method enables the automatic detection of outliers and robust estimation of parameters simultaneously, which is promising in many real application. For more details about the Colon denocarcinoma data analysis, please refer to the paper of algorithm CAT.
+
+### S3.3 Subspace clustering on high dimension dataset - ROSMAP application
+
+Alzheimer’s disease (AD) is a common neurodegenerative disease of older age with extensive heterogeneity in its onset and course. Despite over three decades of work, there are currently no treatments for AD, and its pathobiology remains incompletely understood. The consortion profiled samples come from two prospective studies of aging-The Religious order Study (ROS) and the Memory and Aging Project (MAP). The joint dataset refer as the ROSMAP dataset. We use RNA-seq as the high dimension variable and one clinical score 'Mini Mental State Examination score at last visit' as the external variable to run the supervised subclustering. The coeffient matrix give us some high interest genes for heterogeneous patients.
+
+The partial ROSMAP dataset was included in the RobMixReg package. The manual of the package has the detailed description of the dataset.
+```{r echo=TRUE, message=FALSE, warning=FALSE, cache=TRUE}
+data(ROSMAP_data)
+x = t(ROSMAP_data$rna)
+dim(x)
+rr = paste('row_', rownames(x), sep='')
+cc = paste('col_', colnames(x), sep='')
+rownames(x) = rr
+colnames(x) = cc
+
+y1 = ROSMAP_data$clinical_data$cts_mmse30_lv
+y1[is.na(y1)] = 0
+names(y1) = rownames(x)
+
+
+# suppress the output of warning informaiton
+sink("nul") ; ROSMAP_res=MLM(ml.method="d",x=x,y=y1,nit=1,nc=2,max_iter=10); sink()
+ROSMAP_coffs1=ROSMAP_res$coffs
+# other outputs
+  #ROSMAP_yhat1 = ROSMAP_res$yhat
+  #ROSMAP_clus1=ROSMAP_res$clus
+  #print(cor(ROSMAP_yhat1,y1))
+# plot the coefficient matrix
+ROSMAP_res2 = list()
+# just print rows (genes) whose coefficient is n
+ROSMAP_res2$coffs = ROSMAP_coffs1[which(apply(ROSMAP_coffs1,1,sum)!=0),]
+blockMap(ROSMAP_res2)
+```
+
+Then, we can used these genes for each group of patient to perform downstream analysis.
 
 
 

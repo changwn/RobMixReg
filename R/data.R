@@ -54,3 +54,25 @@
 #' }
 "BRCA_source"
 
+#' RobMixReg package built-in Colon cancer data.
+#'
+#' The list which contain all the information to generate variables used in the real application.
+#'
+#' @format A list whose length is 3:
+#' \describe{
+#'   \item{rnames}{A string contains the name of binding protein and epigenetic regulator.}
+#'   \item{x}{The gene expression profile of CREB3L1.}
+#'   \item{y}{The methylation profile of cg16012690 on 299 colon adenocarcinoma patients.}
+#' }
+"colon_data"
+
+#' RobMixReg package built-in ROSMAP data.
+#'
+#' The list which contain all the information to generate variables used in the real application.
+#'
+#' @format A list whose length is 2:
+#' \describe{
+#'   \item{clincal_data}{Clinical information of ROSMAP dataset.}
+#'   \item{rna}{The gene expression value matrix.}
+#' }
+"ROSMAP_data"

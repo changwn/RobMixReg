@@ -29,7 +29,7 @@ mixtureReg <- function(regData, formulaList,
                        initialWList = NULL,
                        epsilon = 1e-08, max_iter = 10000, max_restart = 15,
                        min_lambda = 0.01, min_sigmaRatio = 0.1,
-                       silently = FALSE
+                       silently = TRUE
 ) {
   if(is.null(yName)) {yName = all.vars(formulaList[[1]])[1]}
   if(is.null(xName)) {xName = all.vars(formulaList[[1]])[2]}
