@@ -50,6 +50,13 @@ If you find the code helpful in your resarch or work, please cite us.
   journal={arXiv preprint arXiv:2005.11599},
   year={2020}
 }
+
+@article{chang2020supervised,
+  title={Supervised clustering of high dimensional data using regularized mixture modeling},
+  author={Chang, Wennan and Wan, Changlin and Zang, Yong and Zhang, Chi and Cao, Sha},
+  journal={arXiv preprint arXiv:2007.09720},
+  year={2020}
+}
 ```
 
 # Questions & Problems
