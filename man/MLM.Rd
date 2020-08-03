@@ -4,17 +4,15 @@
 \alias{MLM}
 \title{The main function of mining the latent relationship among variables.}
 \usage{
-MLM(ml.method = "a", gene, outcome,
-  b.formulaList = list(formula(outcome ~ gene), formula(outcome ~ 1)),
-  formula = outcome ~ gene, nit = 1, nc = 2, x = NULL, y = NULL,
-  max_iter = 50)
+MLM(ml.method = "rlr", rmr.method = "cat",
+  b.formulaList = list(formula(y ~ x), formula(y ~ 1)), formula = y ~
+  x, nit = 1, nc = 2, x = NULL, y = NULL, max_iter = 50,
+  tRatio = 0.05)
 }
 \arguments{
 \item{ml.method}{The option to select the four methods in vignette.}
 
-\item{gene}{x variable.}
-
-\item{outcome}{y variable .}
+\item{rmr.method}{The option to select the robust mixture regression method.}
 
 \item{b.formulaList}{The case b require the user provide the formula list. This enable the flexible mixture regression.}
 
@@ -29,6 +27,8 @@ MLM(ml.method = "a", gene, outcome,
 \item{y}{The external outcome variable.}
 
 \item{max_iter}{Maximum iteration for TLE method.}
+
+\item{tRatio}{The ratio of the outliers in the TLE robust mixture regression method.}
 }
 \value{
 Main result object.

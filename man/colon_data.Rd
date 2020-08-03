@@ -7,8 +7,12 @@
 \format{A list whose length is 3:
 \describe{
   \item{rnames}{A string contains the name of binding protein and epigenetic regulator.}
-  \item{x}{The gene expression profile of CREB3L1.}
-  \item{y}{The methylation profile of cg16012690 on 299 colon adenocarcinoma patients.}
+  \item{x3}{The gene expression profile of CREB3L1.}
+  \item{y3}{The methylation profile of cg16012690 on 299 colon adenocarcinoma patients.}
+  \item{x2}{x2}
+  \item{y2}{y2}
+  \item{x1}{x1}
+  \item{y1}{y1}
 }}
 \usage{
 colon_data

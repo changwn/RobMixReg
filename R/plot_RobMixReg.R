@@ -49,14 +49,15 @@ setMethod("plot_CTLE",
               if(length(inds_in_component)>4){
                 ltsres = ltsReg(formula=formula, data=data[inds_in_component,])
                 res1 = cbind(1,as.matrix(data)) %*% matrix(c(ltsres$coefficients,-1),ncol=1)
-                inds_in_component = unique(c(inds_in_component,which(abs(res1) <= max(abs(res1[inds_in_component])))))
+             #   inds_in_component = unique(c(inds_in_component,which(abs(res1) <= max(abs(res1[inds_in_component]))))) #rm overlap points!!!
                 #inds_in_component = unique(c(inds_in_component,which(abs(res1) <= max(abs(res1[inds_in_component][ltsres$best])))))
                 lm_mod = lm(formula=formula, data=data[inds_in_component,])
-                ppp = summary(lm_mod)$coefficients[-1,4]
+                #ppp = summary(lm_mod)$coefficients[-1,4]
                 #plot(x[inds_in_component],y[inds_in_component],main=paste("Comp",j,":",paste("p=", round(ppp,3),sep=""), paste("coef=", round(lm_mod$coefficients[2],3),sep="")), xlim=c(min(x),max(x)), ylim=c(min(y),max(y)),col=colors[j+1],pch=19,xlab=xname,ylab=yname)
                 plot(x[inds_in_component],y[inds_in_component],main='Robust Linear Regression', xlim=c(min(x),max(x)), ylim=c(min(y),max(y)),col=colors[j+1],pch=19,xlab=xname,ylab=yname)
                 abline(lm_mod,col="darkslategrey")
                 points(x[-inds_in_component],y[-inds_in_component],col="gray60",pch=19)
+                # points(x[-inds_in_component],y[-inds_in_component],col="gold",pch=19)
                 points(x[-inds_in],y[-inds_in],col="firebrick1",pch=19)
               }else{
                 plot(0)

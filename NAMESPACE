@@ -18,4 +18,5 @@ importFrom("gplots", "heatmap.2")
 importFrom("grDevices", "colorRampPalette")
 importFrom("graphics", "abline")
 importFrom("RColorBrewer","brewer.pal")
-importFrom("stats", "terms")
+importFrom("stats", "terms", "complete.cases")
+

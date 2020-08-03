@@ -26,33 +26,6 @@
 "simuData"
 
 
-#' RobMixReg package built-in breast cancer multi-omics data.
-#'
-#' A BRCA dataset from RobMixReg package. This BRCA cancer dataset has two types of sequence data inclcuding ATAC-seq and RNA-seq. The vignette example shows that using robust regression, we can identify the outlier mutually based on ATAC-seq and RNA-seq.
-#'
-#' @format A data frame with 500 rows and 5 variables:
-#' \describe{
-#'   \item{a1}{RNA-seq vector 1}
-#'   \item{a2}{RNA-seq vector 2}
-#'   \item{a3}{RNA-seq vector 3}
-#'   \item{b1}{ATAC-seq vector 1}
-#'   \item{b2}{ATAC-seq vector 2}
-#'   \item{b3}{ATAC-seq vector 3}
-#' }
-"BRCA_ATAC_RNA_seq"
-
-#' RobMixReg package built-in BRCA source data.
-#'
-#' The list which contain all the information to generate variables used in the real application.
-#'
-#' @format A list whose length is 4:
-#' \describe{
-#'   \item{ATACseq_marker}{Three cell type marker genes}
-#'   \item{RNAseq_marker}{Three cell type marker genes}
-#'   \item{data_RNAseq_selected}{RNAseq sequencing data}
-#'   \item{data_ATACseq_selected}{ATACseq sequencing data}
-#' }
-"BRCA_source"
 
 #' RobMixReg package built-in Colon cancer data.
 #'
@@ -61,18 +34,23 @@
 #' @format A list whose length is 3:
 #' \describe{
 #'   \item{rnames}{A string contains the name of binding protein and epigenetic regulator.}
-#'   \item{x}{The gene expression profile of CREB3L1.}
-#'   \item{y}{The methylation profile of cg16012690 on 299 colon adenocarcinoma patients.}
+#'   \item{x3}{The gene expression profile of CREB3L1.}
+#'   \item{y3}{The methylation profile of cg16012690 on 299 colon adenocarcinoma patients.}
+#'   \item{x2}{x2}
+#'   \item{y2}{y2}
+#'   \item{x1}{x1}
+#'   \item{y1}{y1}
 #' }
 "colon_data"
 
-#' RobMixReg package built-in ROSMAP data.
+
+#' RobMixReg package built-in CCLE data.
 #'
 #' The list which contain all the information to generate variables used in the real application.
 #'
 #' @format A list whose length is 2:
 #' \describe{
-#'   \item{clincal_data}{Clinical information of ROSMAP dataset.}
-#'   \item{rna}{The gene expression value matrix.}
+#'   \item{X}{Gene expression dataset.}
+#'   \item{Y}{AUCC score.}
 #' }
-"ROSMAP_data"
+"CCLE_data"

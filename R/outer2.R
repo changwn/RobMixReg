@@ -3,8 +3,7 @@
 #' The main function of mining the latent relationship among variables.
 #'
 #' @param ml.method The option to select the four methods in vignette.
-#' @param gene x variable.
-#' @param outcome y variable .
+#' @param rmr.method The option to select the robust mixture regression method.
 #' @param b.formulaList The case b require the user provide the formula list. This enable the flexible mixture regression.
 #' @param formula The linear relationship between two variables.
 #' @param nc Number of mixture components.
@@ -12,39 +11,145 @@
 #' @param x The matrix x of the high dimension situation.
 #' @param y The external outcome variable.
 #' @param max_iter Maximum iteration for TLE method.
+#' @param tRatio The ratio of the outliers in the TLE robust mixture regression method.
 #' @return Main result object.
-MLM <- function(ml.method="a", gene, outcome,
-                b.formulaList=list(formula(outcome ~ gene),formula(outcome ~ 1)),
-                formula=outcome~gene, nit=1,nc=2,
-                x=NULL, y=NULL, max_iter=50)
+MLM <- function(ml.method="rlr", rmr.method='cat',
+                b.formulaList=list(formula(y ~ x),formula(y ~ 1)),
+                formula=y~x, nit=1,nc=2,
+                x=NULL, y=NULL, max_iter=50,  tRatio=0.05)
 {
   #if(is.null(formula)) stop('Please input formula!')
 
-  method.lib <- c('a','b','c','d')
-  if(!ml.method %in% method.lib) stop('ml.method must be chosen from the options "a","b","c","d" ! For more details please refer the package vignette.')
+  method.lib <- c('rlr','fmr','rmr','hrmr')
+  if(!ml.method %in% method.lib) stop('ml.method must be chosen from the options "rlr","fmr","rmr","hrmr" ! For more details please refer the package vignette.')
 
 
-  if(ml.method=='a')
+  if(ml.method=='rlr')
   {
-    res = ltsReg(outcome, gene)
+    res = ltsReg(x, y)
+    coff = res$coefficients
+    coff = matrix(coff,length(coff),1)
+    rownames(coff) = c("Intercept",rep("coef.x",nrow(coff)-1))
+    if(is.null(dim(x))) x = matrix(x,length(x),1)
+
+    inter = res$coefficients[1]
+    slope = res$coefficients[-1]
+    slope = matrix(slope,1,length(slope))
+    in.index = which(res$lts.wt==1)
+    out.index = which(res$lts.wt==0)
+    y_est = slope %*% t(x[in.index,,drop=FALSE]) + inter
+    sig_square = fitdistr(y[in.index]-y_est,"normal")$estimate[2]
+    sd = sig_square;
+    names(sd) = NULL
+    coff = rbind(coff,sd)
+
+    like = (2*pi*sig_square)^(-length(x)/2) * exp(-1/(2*sig_square)*sum((y[in.index]-y_est)^2) )
+    BIC = - 2*log(like) + (length(slope)+2) * log(length(x))
+    names(BIC) = NULL
+
+    result = list(coff=coff, cluMem=res$lts.wt, BIC=BIC)
+    return(result)
   }
 
-  if(ml.method=='b')
+  if(ml.method=='fmr')
   {
-    res = mixtureReg(regData = data.frame(gene,outcome),formulaList = b.formulaList,mixingProb = "Constant")
+    res = mixtureReg(regData = data.frame(x,y),formulaList = b.formulaList,mixingProb = "Constant")
+    if(is.null(dim(x))) x = matrix(x,length(x),1)
+    nVar = max( sapply(b.formulaList, function(cc){ length(attr(terms(cc),'term.labels')) }) )
+
+    coff = matrix(0, nVar+1, length(b.formulaList))
+    sig = matrix(0,1,length(b.formulaList))
+    cluMem = rep(0, length(y))
+    for(k in 1:length(b.formulaList)){
+      #coff
+      par = coefficients(res$lmList[[k]])
+      length(par) = nVar+1
+      coff[,k] = par
+      coff[is.na(coff)] = 0
+
+      #cluster
+      loca = which(res$posterior[[k]] > res$prior[[k]])
+      cluMem[loca] = k
+
+      #sig
+      y_fit = res$lmList[[k]]$fitted.values
+      sig[1,k] = fitdistr(y[loca] - y_fit[loca],"normal")$estimate[2]
+    }
+    rownames(coff) = c("Intercept",rep('coff.x',nVar))
+
+    dK = 2*length(b.formulaList) - 1 + sum(coff[-1,] != 0 )
+    BIC = -2* res$logLik + dK * length(y)
+
+    rownames(sig) = 'sd'
+    coff = rbind(coff, sig)
+    mx = table(cluMem) / length(y)
+    coff = rbind(coff, mx)
+
+    result = list(coff=coff, cluMem=cluMem, BIC=BIC,res=res)
+    return(result)
   }
 
-  if(ml.method=='c')
+  if(ml.method=='rmr')
   {
-    res = CTLERob(formula,data.frame(gene,outcome), nit,nc,rlr_method="ltsReg")
+    if(rmr.method=='cat'){
+      res = rmr(lr.method='CTLERob', formula=formula, data=data.frame(x,y), nc)
+      coff = res@compcoef
+      cluMem=res@ctleclusters
+
+      if(is.null(dim(x))) x = matrix(x,length(x),1)
+      logLike = 0
+      for(k in 1:length(table(cluMem)[-1])){
+        loca = which(cluMem == k)
+        beta = coff[2:(nrow(coff)-2),k]
+        beta = matrix(beta,1,length(beta))
+        tmp = length(loca)*log(coff[nrow(coff),k]) + sum(log(dnorm(y[loca]-beta %*% t(x[loca,1,drop=FALSE]) -coff[1,k], mean=0, sd=coff[nrow(coff)-1,k], log=FALSE)) )
+        logLike = logLike + tmp
+      }
+      dK = 2*nc-1 + length( which(coff[2:(nrow(coff)-2),] != 0) )
+      BIC = -2*logLike + log(length(which(res@inds_in != -1)))*dK # length, not sum.
+
+      result = list(coff=coff, cluMem=cluMem, BIC=BIC)
+      return(result)
+    }
+    if(rmr.method=='flexmix')
+      res = rmr(lr.method='flexmix', formula=formula, data=data.frame(x,y), nit,nc)
+    if(rmr.method=='TLE')
+      res = rmr(lr.method='TLE', formula=formula, data=data.frame(x,y), nit,nc,tRatio)
+    if(rmr.method=='mixLp')
+      res = rmr(lr.method='mixLp', formula=formula, data=data.frame(x,y), nit,nc)
+    if(rmr.method=='mixbi')
+      res = rmr(lr.method='mixbi', formula=formula, data=data.frame(x,y), nit,nc)
+
+
+    return(res)
   }
 
-  if(ml.method=='d')
+  if(ml.method=='hrmr')
   {
-    res=CSMR(x,y,nit,nc,max_iter)
+    res=CSMR_train(x,y,nit,nc,max_iter)
+    coff = res$coffs
+
+    sig = matrix(0,1,nc)
+    for(k in 1:nc){
+      y_fit = res$yhat
+      loca = which(res$clus == k)
+      sig[1,k] = fitdistr(y[loca] - y_fit[loca],"normal")$estimate[2]
+    }
+    rownames(sig) = 'sd'
+    coff = rbind(coff, sig)
+
+    cluMem = res$clus
+    mx = table(cluMem) / length(y)
+    coff = rbind(coff, mx)
+
+    log_mix = res$infoAll$mx.model$logLik
+    dK = 2*nc -1 + sum(res$coffs != 0 )
+    BIC = -2*log_mix + dK*length(y)
+
+    result = list(coff=coff, cluMem=cluMem, BIC=BIC, res=res)
+    return(result)
   }
 
-  return(res)
 }
 
 

@@ -11,7 +11,7 @@
 simu_data_sparse<-function(n,bet, pr, sigma ){
   nc=length(pr)
   x=t(replicate(ncol(bet)-1,rnorm(n,0,1)))
-  rownames(x)=paste("Gene",1:(ncol(bet)-1),sep="")
+  rownames(x)=paste("feature",1:(ncol(bet)-1),sep="")
   colnames(x)=paste("Sample",1:n,sep="")
   u=runif(n,0,1);
   clusters=rep(0,n)
@@ -40,9 +40,9 @@ simu_data_sparse<-function(n,bet, pr, sigma ){
 #' @param yy The dependent variable.
 #' @return A list object consist of index of selected variable and coefficient for all variables.
 Rec_Lm<-function(XX,yy){
-  #ok<-complete.cases(XX,yy)
-  #XX<-XX[ok,]                            # get rid of na's
-  #yy<-yy[ok]                             # since regsubsets can't handle na's
+  ok<-complete.cases(XX,yy)
+  XX<-XX[ok,]                            # get rid of na's
+  yy<-yy[ok]                             # since regsubsets can't handle na's
   m<-ncol(XX)
   n<-nrow(XX)
   XX=as.matrix(XX)
@@ -56,12 +56,20 @@ Rec_Lm<-function(XX,yy){
     lars_coff = coef(aaa,s=nn-2,mode="step")
     ZZ=XX[,which(lars_coff!=0),drop=FALSE]
     zero_ind = which(lars_coff==0)
+
+    # cvfit <- cv.glmnet(XX, yy,alpha=1)
+    # # # lars_coff = as.vector(coef(cvfit, s = "lambda.1se"))[-1]
+    # lars_coff = as.vector(coef(cvfit, cvfit$lambda.min))[-1]
+    # ZZ=XX[,which(lars_coff!=0),drop=FALSE]
+    # zero_ind = which(lars_coff==0)
+    # if(length(zero_ind)==0) print("mywarning!!!")
   }else{
     ZZ=XX
   }
 
   out <- lm(yy~ZZ) #20200604 remove global variable
-  #	print("####")
+  # print("####")
+  # print(out)
   out.lsa = lsa(out)
   #	print("####")
   coeff<-out.lsa$beta.bic
@@ -159,6 +167,82 @@ CSMR<-function(x,y,nit,nc,max_iter){
   return(list(coffs=coffs_final,clus=rrr$clus,x=x,y=y,yhat=rrr$yhat))
 }
 
+#' The train function of the CSMR algorithm.
+#'
+#' @param x The matrix
+#' @param y The external supervised variable.
+#' @param nit xxx
+#' @param nc The component number in the mixture model.
+#' @param max_iter The maximum iteration number.
+#' @return A list object consist of coefficient, clustering membership, data x, external variable y, predicted y based on regression model.
+CSMR_train<-function(x,y,nit,nc,max_iter){
+  if(nc==1){
+    print("Only have 1 component.[CSMR train].")
+    ccc=Rec_Lm(x,y)
+    return(ccc)   #note:return is different to situation of nc>1.
+  }
+  rrr = CSMR_one(x,y,nit,nc,max_iter);# print(rrr$coffs)
+  x1=x
+  while(length(which(rowSums(abs(rrr$coffs))==0))>0){
+    x1=x1[,which(rowSums(abs(rrr$coffs))>0),drop=FALSE]
+    rrr = CSMR_one(x1,y,nit,nc,max_iter); #print(rrr$coffs)
+  }
+  coffs_final = matrix(0,nrow=ncol(x),ncol=nc)
+  rownames(coffs_final)=colnames(x)
+  coffs_final[match(rownames(rrr$coffs),rownames(coffs_final)),]=rrr$coffs
+  return(list(coffs=coffs_final,clus=rrr$clus,x=x,y=y,yhat=rrr$yhat,CSMR.model=rrr$mx.model,infoAll=rrr))
+}
+
+#' The predict function of the CSMR algorithm.
+#'
+#' @param CSMR_coffs The coefficient matrix.
+#' @param CSMR.model The trained model.
+#' @param xnew x variable.
+#' @param ynew y variable.
+#' @param singleMode A parameter to set the component to one.
+#' @return A list object consist of coefficient, clustering membership, data x, external variable y, predicted y based on regression model.
+CSMR_predict <- function(CSMR_coffs, CSMR.model, xnew, ynew,singleMode=F){
+  if(singleMode==T){  #nc=1 component.
+    yhat= t(CSMR_coffs) %*% t(xnew)
+    yhat=as.vector(yhat)
+    return(yhat)
+  }
+
+  conditionalP <- function(res, lambda, sigma) {
+    # res: vector of residuals from predictions
+    # lambda: vector or scalar of prior probability
+    # sigma: variance estimate
+    # return: vector of posterior probability
+    lambda * dnorm(x = res, mean = 0, sd = sigma)
+  }
+
+  #lambda0=do.call(cbind,  CSMR.model$posterior)
+  #lambda=apply(lambda0,2,sum)
+  lambdaList=lapply(CSMR.model$posterior, sum)  #new prior
+  sigmaList = lapply(X =CSMR.model$lmList, FUN = function(m) summary(m)$sigma)
+  Bet=CSMR_coffs
+  intercept0=lapply(CSMR.model$lmList, FUN=function(li) li$coefficients[1])
+  intercept=do.call(cbind, intercept0)
+  k=length(CSMR.model$lmList)
+  yhatM=matrix(0,length(ynew),k)
+  for(i in 1:nrow(xnew)){
+    yhatM[i,] = xnew[i,] %*% Bet + intercept
+  }
+  resList=list()
+  for(j in 1:ncol(yhatM)){
+    resList[[j]]=ynew-yhatM[,j]
+  }
+  PList = mapply(conditionalP, resList, lambdaList, sigmaList, SIMPLIFY = FALSE)
+  sumsP = rowSums(do.call(cbind, PList))
+  ClassList = lapply(PList, function(p) p/sumsP)
+  Class.id0=do.call(cbind, ClassList)
+  Class.id0[is.nan(Class.id0)] <- 0  #avoid NaN as bug below.
+  Class.id=apply(Class.id0, 1, which.max)
+  yhat = unlist(sapply(1:length(Class.id), function(gg) yhatM[gg,Class.id[gg]])) #bug solved:return diff length(NA),thus it is a list instead of vector.
+
+  return(yhat)
+}
+
 
 #' Plot the coefficient matrix.
 #'
@@ -176,7 +260,9 @@ blockMap <- function(rrr){
   #   sample_set = which(rrr$clus == i)
   #   mat[sample_set, gene_set] = i
   # }
-  mat = rrr$coffs
+  rowNum = nrow(rrr$coff)
+  rSet = c(rowNum-1,rowNum)
+  mat = rrr$coff[-rSet,,drop=F] # new return list
 
   # if(nc==2){
   #   eg_color = c("aliceblue","blue","dodgerblue")
@@ -203,7 +289,7 @@ blockMap <- function(rrr){
             labRow=NA,
             #labCol=NA,
             #xlab = 'Gene',
-            ylab = 'Gene',
+            ylab = 'Feature',
             cexCol=1.2,
             #( "bottom.margin", "left.margin", "top.margin", "left.margin" )
             #key.par=list(mar=c(bottom, left, top, right)),
