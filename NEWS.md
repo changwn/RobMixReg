@@ -35,4 +35,11 @@ The new class add one slot which return the posterior probability of the mixture
 
 * Add two real dataset: Breast cancer multi-omic data and Two genes cytokine response data. The detail and example refer to package manual and vignette.
 
+# RobMixReg 1.1.0
+
+* add several wrapper function
+
+* add model selection method
+
+* update vignette
 
