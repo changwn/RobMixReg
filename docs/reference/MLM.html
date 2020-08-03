@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RobMixReg</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -94,7 +94,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/tutorial.html">Mining the Latent Relationship among Variables using Mixture Model -- Supplementary Materials</a>
+      <a href="../articles/tutorial.html">RobMixReg: an R package for robust, flexible and high dimensional mixture regression  -- Supplementary Materials</a>
     </li>
   </ul>
 </li>
@@ -134,10 +134,10 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>MLM</span>(<span class='kw'>ml.method</span> <span class='kw'>=</span> <span class='st'>"a"</span>, <span class='no'>gene</span>, <span class='no'>outcome</span>,
-  <span class='kw'>b.formulaList</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span>(<span class='no'>outcome</span> ~ <span class='no'>gene</span>), <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span>(<span class='no'>outcome</span> ~ <span class='fl'>1</span>)),
-  <span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>outcome</span> ~ <span class='no'>gene</span>, <span class='kw'>nit</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>nc</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>max_iter</span> <span class='kw'>=</span> <span class='fl'>50</span>)</pre>
+    <pre class="usage"><span class='fu'>MLM</span>(<span class='kw'>ml.method</span> <span class='kw'>=</span> <span class='st'>"rlr"</span>, <span class='kw'>rmr.method</span> <span class='kw'>=</span> <span class='st'>"cat"</span>,
+  <span class='kw'>b.formulaList</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span>(<span class='no'>y</span> ~ <span class='no'>x</span>), <span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>formula</a></span>(<span class='no'>y</span> ~ <span class='fl'>1</span>)), <span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>y</span> ~
+  <span class='no'>x</span>, <span class='kw'>nit</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>nc</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>max_iter</span> <span class='kw'>=</span> <span class='fl'>50</span>,
+  <span class='kw'>tRatio</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -147,12 +147,8 @@
       <td><p>The option to select the four methods in vignette.</p></td>
     </tr>
     <tr>
-      <th>gene</th>
-      <td><p>x variable.</p></td>
-    </tr>
-    <tr>
-      <th>outcome</th>
-      <td><p>y variable .</p></td>
+      <th>rmr.method</th>
+      <td><p>The option to select the robust mixture regression method.</p></td>
     </tr>
     <tr>
       <th>b.formulaList</th>
@@ -181,6 +177,10 @@
     <tr>
       <th>max_iter</th>
       <td><p>Maximum iteration for TLE method.</p></td>
+    </tr>
+    <tr>
+      <th>tRatio</th>
+      <td><p>The ratio of the outliers in the TLE robust mixture regression method.</p></td>
     </tr>
     </table>
     
