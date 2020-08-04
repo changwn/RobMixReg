@@ -40,7 +40,7 @@ This submission revised as below description based on the Jelena Saf's comments.
 
 Thanks the response from the Uwe Ligges.
 
-This submisstion fixed the doi issue in the DESCRIPTION file.
+This submission fixed the doi issue in the DESCRIPTION file.
 
 ##2020-03-13
 
@@ -64,5 +64,10 @@ Thanks the comments from the Swetlana Herbrandt.
 
 Thanks the commens from the Uwe Ligges.
 
-This submisstion fixed the URL issue in the readme file. The URL of the package was given in the canonical form.
+This submission fixed the URL issue in the readme file. The URL of the package was given in the canonical form.
 
+##2020-08-03
+
+Thanks the commens from the Uwe Ligges.
+
+This submission update the date field in DESCRIPTION.
