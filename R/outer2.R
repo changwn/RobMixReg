@@ -15,7 +15,7 @@
 #' @return Main result object.
 MLM <- function(ml.method="rlr", rmr.method='cat',
                 b.formulaList=list(formula(y ~ x),formula(y ~ 1)),
-                formula=y~x, nit=1,nc=2,
+                formula=y~x, nc=2,nit=1,
                 x=NULL, y=NULL, max_iter=50,  tRatio=0.05)
 {
   #if(is.null(formula)) stop('Please input formula!')
