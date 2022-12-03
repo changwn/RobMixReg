@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RobMixReg</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -64,8 +60,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/changwn/RobMixReg/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/changwn/RobMixReg/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -83,42 +79,45 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>RobMixReg: an R package for robust, flexible and high dimensional mixture regression – Supplementary Materials</h1>
-                        <h4 class="author">Wennan Chang</h4>
-                        <h4 class="author">Changlin Wan</h4>
-                        <h4 class="author">Chun Yu</h4>
-                        <h4 class="author">Weixin Yao</h4>
-                        <h4 class="author">Chi Zhang</h4>
-                        <h4 class="author">Sha Cao</h4>
+                        <h4 data-toc-skip class="author">Wennan Chang</h4>
+                        <h4 data-toc-skip class="author">Hanming Ye</h4>
+                        <h4 data-toc-skip class="author">Changlin Wan</h4>
+                        <h4 data-toc-skip class="author">Chun Yu</h4>
+                        <h4 data-toc-skip class="author">Weixin Yao</h4>
+                        <h4 data-toc-skip class="author">Chi Zhang</h4>
+                        <h4 data-toc-skip class="author">Sha Cao</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/changwn/RobMixReg/blob/master/vignettes/tutorial.Rmd"><code>vignettes/tutorial.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/changwn/RobMixReg/blob/HEAD/vignettes/tutorial.Rmd" class="external-link"><code>vignettes/tutorial.Rmd</code></a></small>
       <div class="hidden name"><code>tutorial.Rmd</code></div>
 
     </div>
 
     
     
-<div id="s1--introduction" class="section level2">
-<h2 class="hasAnchor">
-<a href="#s1--introduction" class="anchor"></a>S1. Introduction</h2>
+<div class="section level2">
+<h2 id="s1--introduction">S1. Introduction<a class="anchor" aria-label="anchor" href="#s1--introduction"></a>
+</h2>
 <p>Regression-based association analysis remains to be the most popular data mining tool for hypothesis generation, owing to its ease of inter-pretability. However, the traditional linear regression model cannot adequately fit the complexity of the biomedical data caused by: 1) high leverage noise and outliers resulted from the large scale technical experiments; 2) the presence of subpopulations among the wide spectrum of collected samples; 3) the high-dimensionality of the molecular features. Finite Mixture Gaussian Regression (FMGR) is a widely used model to explore the latent relationship between the response and predictors, and the goal of mixture regresison is to maximize the following likelihood: <span class="math display">\[
 argmax \sum_{i=1}^N log(\sum_{k=1}^K \pi_k \phi(y_i - \mathbf{x}_i^T \mathbf{\beta}_k  ; 0, \sigma_k^2 )) 
 \]</span> Here, we are modeling the relationship between <span class="math inline">\(\mathbf{x}\)</span> and <span class="math inline">\(y\)</span> as a mixture of <span class="math inline">\(K\)</span> regression lines, <span class="math inline">\(K \geq 1\)</span>. <span class="math inline">\((\mathbf{x_i}, y_i)\)</span> is the <span class="math inline">\(i\)</span>-th observations <span class="math inline">\(i=1,...,N\)</span>, <span class="math inline">\(\mathbf{\beta}_k\)</span> are the regression coefficients for the <span class="math inline">\(k\)</span>-th regression line; <span class="math inline">\(\epsilon_{ik}\)</span> is the error term; <span class="math inline">\(\sigma_k\)</span> is the standard deviation of <span class="math inline">\(\epsilon_{ik}\)</span>.</p>
 <p>‘RobMixReg’ is a package that provides a comprehensive solution to mining the latent relationships in biomedical data, ranging from the regulatory relationships between different molecular elements, to the the relationships between pheno-types and omic features, in the presence of outliers, latent subgroups and high dimensional molecular features.</p>
 <p>The major contribution of RobMixReg lies in the following key aspects: 1) for low dimensional predictors, it handles outliers in modeling the latent relationships, and provides flexible modeling to allow for different predictors for different mixture components; 2) for high dimensional predictors, it detects subgroups and select informative features simultaneously. The RobMixReg package is a powerful exploratory tool to mining the latent relationships in data, which is often obfuscated by high leverage outliers, distinct subgroups and high dimensional features.</p>
 <p>The RobMixReg package could be installed from CRAN:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="co">#install.packages('RobMixReg')</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">RobMixReg</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#install.packages('RobMixReg')</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://changwn.github.io/RobMixReg/" class="external-link">RobMixReg</a></span><span class="op">)</span></span></code></pre></div>
 <p>It could be also installed from GitHub:</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r">#library("devtools")
-#devtools::install_github("changwn/RobMixReg")</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#library("devtools")</span></span>
+<span><span class="co">#devtools::install_github("changwn/RobMixReg")</span></span></code></pre></div>
 </div>
-<div id="s2--case-studies" class="section level2">
-<h2 class="hasAnchor">
-<a href="#s2--case-studies" class="anchor"></a>S2. Case Studies</h2>
-<div id="s2-0-data-simulation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#s2-0-data-simulation" class="anchor"></a>S2.0 Data Simulation:</h3>
+<div class="section level2">
+<h2 id="s2--case-studies">S2. Case Studies<a class="anchor" aria-label="anchor" href="#s2--case-studies"></a>
+</h2>
+<div class="section level3">
+<h3 id="s2-0-data-simulation">S2.0 Data Simulation:<a class="anchor" aria-label="anchor" href="#s2-0-data-simulation"></a>
+</h3>
 <p>The function <em>simu_func</em> is used to generate the synthetic data for various of cases. The input of <em>simu_func</em> is :</p>
 <ul>
 <li><p><em><span class="math inline">\(\beta\)</span></em> A matrix whose <span class="math inline">\(k\)</span>-th column is the regression coefficients matrix for the <span class="math inline">\(k\)</span>-th component</p></li>
@@ -131,123 +130,136 @@ argmax \sum_{i=1}^N log(\sum_{k=1}^K \pi_k \phi(y_i - \mathbf{x}_i^T \mathbf{\be
 <li><p><span class="math inline">\(y\)</span> Vector of response variable where <em>alpha</em> proportion of the observations are contaminated by outliers.</p></li>
 </ul>
 </div>
-<div id="s2-1-robust-mixture-regression" class="section level3">
-<h3 class="hasAnchor">
-<a href="#s2-1-robust-mixture-regression" class="anchor"></a>S2.1 Robust mixture regression</h3>
+<div class="section level3">
+<h3 id="s2-1-robust-mixture-regression">S2.1 Robust mixture regression<a class="anchor" aria-label="anchor" href="#s2-1-robust-mixture-regression"></a>
+</h3>
 <p>We adopt the mean-shift model in the presence of outliers, such that each outlier requires one additional parameter to cancel out the unusually large residuals. The outlier parameters are then regularized to achieve a balance of model complexity and model fitness.</p>
 <p><span class="math display">\[
 argmax \sum_{i=1}^N log(\sum_{k=1}^K \pi_k \phi(y_i - \mathbf{x}_i^T \mathbf{\beta}_k - \gamma_{ik} \sigma_k ; 0, \sigma_k^2 )) - \sum_{i=1}^N \sum_{k=1}^K P_{\lambda} (|\gamma_{ij}|)
 \]</span></p>
 <p>Here, <span class="math inline">\(\gamma_{ik}\)</span> models the level of outlierness for the <span class="math inline">\(i\)</span>-th observation; <span class="math inline">\(P_{\lambda}(|\gamma_{ij}|)\)</span> is a penalty function with a tuning parameter <span class="math inline">\(\lambda\)</span> controlling the degrees of penalization on the <span class="math inline">\(\gamma_{ik}\)</span>.</p>
 <p>We have intergrated multiple state-of-the-art methods in our package to robustly fit two or more regression lines. The default method is CAT. Other options inlcude TLE, flexmix, mixLp, mixbi, and they could be passsed to the MLM function by the parameter ‘rmr.method’. Among them, CAT and TLE could detect the identities of the outliers, and outliers are removed before model estimation; while the rest of the methods perform model estimation in the presence of outliers. For TLE to work, a trimming proportion needs to be provided, and the default is 0.05.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co"># simulate single variable x and y with linear relationship but contaminated by outliers.</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">12345</span>)
-<span class="no">beta</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.2</span>, <span class="fl">0.8</span>), <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">7</span>, -<span class="fl">0.6</span>));  <span class="no">sigma</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.1</span>,<span class="fl">0.1</span>); <span class="no">alpha</span><span class="kw">=</span><span class="fl">0.05</span>;
-<span class="no">data_case3</span> <span class="kw">=</span> <span class="fu"><a href="../reference/simu_func.html">simu_func</a></span>(<span class="no">beta</span>, <span class="no">sigma</span>, <span class="no">alpha</span>)
-<span class="no">x3</span> <span class="kw">=</span> <span class="no">data_case3</span>$<span class="no">x</span>
-<span class="no">y3</span> <span class="kw">=</span> <span class="no">data_case3</span>$<span class="no">y</span>
-<span class="co"># Runing robust mixture regression by setting parameter 'ml.method' </span>
-<span class="co"># to 'rmr' in the wrapper function MLM.</span>
-<span class="no">res.c</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">"rmr"</span>, <span class="kw">rmr.method</span><span class="kw">=</span><span class="st">'cat'</span>,<span class="kw">x</span><span class="kw">=</span><span class="no">x3</span>, <span class="kw">y</span><span class="kw">=</span><span class="no">y3</span>,<span class="kw">nc</span><span class="kw">=</span><span class="fl">2</span>) <span class="co"># CAT method</span></pre></body></html></div>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co"># Trimmed likelihod estimation. Here, the uers need to </span>
-<span class="co"># provide the ratio of outlier smaples.</span>
-<span class="no">res.c.TLE</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">"rmr"</span>, <span class="kw">rmr.method</span><span class="kw">=</span><span class="st">'TLE'</span>, <span class="kw">x</span><span class="kw">=</span><span class="no">x3</span>, <span class="kw">y</span><span class="kw">=</span><span class="no">y3</span>)
-<span class="no">res.c.flexmix</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">"rmr"</span>, <span class="kw">rmr.method</span><span class="kw">=</span><span class="st">'flexmix'</span>, <span class="kw">x</span><span class="kw">=</span><span class="no">x3</span>, <span class="kw">y</span><span class="kw">=</span><span class="no">y3</span>)
-<span class="no">res.c.Lp</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">"rmr"</span>, <span class="kw">rmr.method</span><span class="kw">=</span><span class="st">'mixLp'</span>, <span class="kw">x</span><span class="kw">=</span><span class="no">x3</span>, <span class="kw">y</span><span class="kw">=</span><span class="no">y3</span>)
-<span class="no">res.c.bi</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">"rmr"</span>, <span class="kw">rmr.method</span><span class="kw">=</span><span class="st">'mixbi'</span>, <span class="kw">x</span><span class="kw">=</span><span class="no">x3</span>, <span class="kw">y</span><span class="kw">=</span><span class="no">y3</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># simulate single variable x and y with linear relationship but contaminated by outliers.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">12345</span><span class="op">)</span></span>
+<span><span class="va">beta</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.8</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7</span>, <span class="op">-</span><span class="fl">0.6</span><span class="op">)</span><span class="op">)</span>;  <span class="va">sigma</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.1</span><span class="op">)</span>; <span class="va">alpha</span><span class="op">=</span><span class="fl">0.05</span>;</span>
+<span><span class="va">data_case3</span> <span class="op">=</span> <span class="fu"><a href="../reference/simu_func.html">simu_func</a></span><span class="op">(</span><span class="va">beta</span>, <span class="va">sigma</span>, <span class="va">alpha</span><span class="op">)</span></span>
+<span><span class="va">x3</span> <span class="op">=</span> <span class="va">data_case3</span><span class="op">$</span><span class="va">x</span></span>
+<span><span class="va">y3</span> <span class="op">=</span> <span class="va">data_case3</span><span class="op">$</span><span class="va">y</span></span>
+<span><span class="co"># Runing robust mixture regression by setting parameter 'ml.method' </span></span>
+<span><span class="co"># to 'rmr' in the wrapper function MLM.</span></span>
+<span><span class="va">res.c</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span><span class="op">(</span>ml.method<span class="op">=</span><span class="st">"rmr"</span>, rmr.method<span class="op">=</span><span class="st">'cat'</span>,x<span class="op">=</span><span class="va">x3</span>, y<span class="op">=</span><span class="va">y3</span>,nc<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="co"># CAT method</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Trimmed likelihod estimation. Here, the uers need to </span></span>
+<span><span class="co"># provide the ratio of outlier smaples.</span></span>
+<span><span class="va">res.c.TLE</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span><span class="op">(</span>ml.method<span class="op">=</span><span class="st">"rmr"</span>, rmr.method<span class="op">=</span><span class="st">'TLE'</span>, x<span class="op">=</span><span class="va">x3</span>, y<span class="op">=</span><span class="va">y3</span><span class="op">)</span></span>
+<span><span class="va">res.c.flexmix</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span><span class="op">(</span>ml.method<span class="op">=</span><span class="st">"rmr"</span>, rmr.method<span class="op">=</span><span class="st">'flexmix'</span>, x<span class="op">=</span><span class="va">x3</span>, y<span class="op">=</span><span class="va">y3</span><span class="op">)</span></span>
+<span><span class="va">res.c.Lp</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span><span class="op">(</span>ml.method<span class="op">=</span><span class="st">"rmr"</span>, rmr.method<span class="op">=</span><span class="st">'mixLp'</span>, x<span class="op">=</span><span class="va">x3</span>, y<span class="op">=</span><span class="va">y3</span><span class="op">)</span></span>
+<span><span class="va">res.c.bi</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span><span class="op">(</span>ml.method<span class="op">=</span><span class="st">"rmr"</span>, rmr.method<span class="op">=</span><span class="st">'mixbi'</span>, x<span class="op">=</span><span class="va">x3</span>, y<span class="op">=</span><span class="va">y3</span><span class="op">)</span></span></code></pre></div>
 <p>We can extract the outlier samples from the output of MLM.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">inds_out</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="no">res.c</span>$<span class="no">cluMem</span> <span class="kw">==</span> -<span class="fl">1</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">inds_out</span>)</pre></body></html></div>
-<pre><code>##  [1]  16  28  49  65  75  79  97 101 104 110 131 174 176 215 241 280 283 295 298</code></pre>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">inds_in</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="no">res.c</span>$<span class="no">cluMem</span> <span class="kw">!=</span> -<span class="fl">1</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">inds_out</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">res.c</span><span class="op">$</span><span class="va">cluMem</span> <span class="op">==</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">inds_out</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##  [1]   9  36  47  55  85  97 104 110 119 166 185 199 201 208 254 280</span></span></code></pre>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">inds_in</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">res.c</span><span class="op">$</span><span class="va">cluMem</span> <span class="op">!=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p>The mixture regression parameters could be extracted by:</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">res.c</span>$<span class="no">coff</span></pre></body></html></div>
-<pre><code>##                      Comp.1      Comp.2
-## coef.(Intercept) 0.24017568  7.02935732
-## coef.x           0.79663354 -0.60653274
-## sigma            0.08950816  0.09183522
-##                  0.49215978  0.50784022</code></pre>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">res.c</span><span class="op">$</span><span class="va">coff</span></span></code></pre></div>
+<pre><code><span><span class="co">##                      Comp.1     Comp.2</span></span>
+<span><span class="co">## coef.(Intercept)  7.0315721 0.21468572</span></span>
+<span><span class="co">## coef.x           -0.6076626 0.80190381</span></span>
+<span><span class="co">## sigma             0.0939840 0.09240652</span></span>
+<span><span class="co">##                   0.5147829 0.48521712</span></span></code></pre>
 <p>Here, the first two rows are regression coefficients, third row for the standard deviations, and fourth row for the component proportions.</p>
 <p>We can visualize the fitted regression and the outliers by ‘compPlot’ function with ‘rlr’ parameter, shows in figure 1.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mfrow</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">2</span>),<span class="kw">mar</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">2</span>))
-<span class="fu"><a href="../reference/compPlot.html">compPlot</a></span>(<span class="kw">type</span><span class="kw">=</span><span class="st">'rlr'</span>, <span class="kw">x</span><span class="kw">=</span><span class="no">x3</span>,<span class="kw">y</span><span class="kw">=</span><span class="no">y3</span>, <span class="kw">nc</span><span class="kw">=</span><span class="fl">2</span>, <span class="kw">inds_in</span><span class="kw">=</span><span class="no">inds_in</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>,mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/compPlot.html">compPlot</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">'rlr'</span>, x<span class="op">=</span><span class="va">x3</span>,y<span class="op">=</span><span class="va">y3</span>, nc<span class="op">=</span><span class="fl">2</span>, inds_in<span class="op">=</span><span class="va">inds_in</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="tutorial_files/figure-html/rmr_plot-1.png" alt="Robust mixture regression result" width="700"><p class="caption">
 Robust mixture regression result
 </p>
 </div>
 <p>When <span class="math inline">\(K=1\)</span>, this degenerates to ordinary robust linear regression. We call for robust linear regression in the <em>MLM</em> wapper function by letting the ‘ml.method’ equal to ‘rlr’. In the core of the method is the ‘ltsReg’ function from the ‘robustbase’ package.</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="co"># Simulate single variable x and y with linear relationship but contaminated by outliers.</span>
-<span class="no">beta</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">0.8</span>); <span class="no">sigma</span><span class="kw">=</span><span class="fl">0.3</span>; <span class="no">alpha</span><span class="kw">=</span> <span class="fl">0.1</span>
-<span class="no">data_case1</span> <span class="kw">=</span> <span class="fu"><a href="../reference/simu_func.html">simu_func</a></span>(<span class="no">beta</span>, <span class="no">sigma</span>, <span class="no">alpha</span>)
-<span class="no">x1</span> <span class="kw">=</span> <span class="no">data_case1</span>$<span class="no">x</span>
-<span class="no">y1</span> <span class="kw">=</span> <span class="no">data_case1</span>$<span class="no">y</span>
-<span class="co"># Runing robust linear regression by setting parameter ml.method </span>
-<span class="co"># to 'rlr' in the wrapper function MLM.</span>
-<span class="no">res.a</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">'rlr'</span>, <span class="kw">x</span><span class="kw">=</span><span class="no">x1</span>, <span class="kw">y</span><span class="kw">=</span><span class="no">y1</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Simulate single variable x and y with linear relationship but contaminated by outliers.</span></span>
+<span><span class="va">beta</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.8</span><span class="op">)</span>; <span class="va">sigma</span><span class="op">=</span><span class="fl">0.3</span>; <span class="va">alpha</span><span class="op">=</span> <span class="fl">0.1</span></span>
+<span><span class="va">data_case1</span> <span class="op">=</span> <span class="fu"><a href="../reference/simu_func.html">simu_func</a></span><span class="op">(</span><span class="va">beta</span>, <span class="va">sigma</span>, <span class="va">alpha</span><span class="op">)</span></span>
+<span><span class="va">x1</span> <span class="op">=</span> <span class="va">data_case1</span><span class="op">$</span><span class="va">x</span></span>
+<span><span class="va">y1</span> <span class="op">=</span> <span class="va">data_case1</span><span class="op">$</span><span class="va">y</span></span>
+<span><span class="co"># Runing robust linear regression by setting parameter ml.method </span></span>
+<span><span class="co"># to 'rlr' in the wrapper function MLM.</span></span>
+<span><span class="va">res.a</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span><span class="op">(</span>ml.method<span class="op">=</span><span class="st">'rlr'</span>, x<span class="op">=</span><span class="va">x1</span>, y<span class="op">=</span><span class="va">y1</span><span class="op">)</span></span></code></pre></div>
 <p>We can extract the outlier samples from the output of MLM.</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">inds_out</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="no">res.a</span>$<span class="no">cluMem</span> <span class="kw">==</span> <span class="fl">0</span>)
-<span class="co">#print the data id which is outlier.</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">inds_out</span>)</pre></body></html></div>
-<pre><code>##  [1]  14  16  23  43  46  49  69  91  96 101 131 144 198 205 215 226 276 278 282
-## [20] 283 290</code></pre>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">inds_out</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">res.a</span><span class="op">$</span><span class="va">cluMem</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="co">#print the data id which is outlier.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">inds_out</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##  [1]  10  32  36  49  55  69  70  85 109 119 133 162 166 199 201 202 205 208 218</span></span>
+<span><span class="co">## [20] 234 261 290 299</span></span></code></pre>
 <p>The regression parameters could be extracted by:</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">res.a</span>$<span class="no">coff</span></pre></body></html></div>
-<pre><code>##                [,1]
-## Intercept 0.9569727
-## coef.x    0.8153754
-## sd        0.2945930</code></pre>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">res.a</span><span class="op">$</span><span class="va">coff</span></span></code></pre></div>
+<pre><code><span><span class="co">##                [,1]</span></span>
+<span><span class="co">## Intercept 0.9986726</span></span>
+<span><span class="co">## coef.x    0.8118485</span></span>
+<span><span class="co">## sd        0.2902440</span></span></code></pre>
 <p>We can visualize the fitted regression and the outliers by <em>compPlot</em> function in figure 2.</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">inds_in</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="no">res.a</span>$<span class="no">cluMem</span> <span class="kw">==</span> <span class="fl">1</span>)
-<span class="co"># set the figure format and margin</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mfrow</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">1</span>),<span class="kw">mar</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">5</span>, <span class="fl">8</span>, <span class="fl">2</span>, <span class="fl">8</span>))
-<span class="co"># use plot module to draw the data points and the regression line.</span>
-<span class="fu"><a href="../reference/compPlot.html">compPlot</a></span>(<span class="kw">type</span><span class="kw">=</span><span class="st">'rlr'</span>, <span class="kw">x</span><span class="kw">=</span><span class="no">x1</span>,<span class="kw">y</span><span class="kw">=</span><span class="no">y1</span>,<span class="kw">nc</span><span class="kw">=</span><span class="fl">1</span>, <span class="kw">inds_in</span><span class="kw">=</span><span class="no">inds_in</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">inds_in</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">res.a</span><span class="op">$</span><span class="va">cluMem</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co"># set the figure format and margin</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>,mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">8</span>, <span class="fl">2</span>, <span class="fl">8</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># use plot module to draw the data points and the regression line.</span></span>
+<span><span class="fu"><a href="../reference/compPlot.html">compPlot</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">'rlr'</span>, x<span class="op">=</span><span class="va">x1</span>,y<span class="op">=</span><span class="va">y1</span>,nc<span class="op">=</span><span class="fl">1</span>, inds_in<span class="op">=</span><span class="va">inds_in</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="tutorial_files/figure-html/rlr_plot-1.png" alt="Robust linear regression result" width="700"><p class="caption">
 Robust linear regression result
 </p>
 </div>
 </div>
-<div id="s2-2-mixture-regression-with-flexible-modeling" class="section level3">
-<h3 class="hasAnchor">
-<a href="#s2-2-mixture-regression-with-flexible-modeling" class="anchor"></a>S2.2 Mixture regression with flexible modeling</h3>
+<div class="section level3">
+<h3 id="s2-2-mixture-regression-with-flexible-modeling">S2.2 Mixture regression with flexible modeling<a class="anchor" aria-label="anchor" href="#s2-2-mixture-regression-with-flexible-modeling"></a>
+</h3>
 <p>When fitting two or more lines through the data, there could be different regimes with the predictors in different lines. For example, two lines may involve different subsets of the predictors; or a line could include nonlinear transformations of the predictors to relax the “linearity” concerns. Different from the traditional mixture regression, RobMixReg allows for different set of predictors and their transformations as predictors for different component.</p>
 <p><span class="math display">\[
 argmax \sum_{i=1}^N log(\sum_{k=1}^K \pi_k \phi(y_i - g_k^T(\mathbf{x}_i) \mathbf{\beta}_k  ; 0, \sigma_k^2 )) 
 \]</span></p>
 <p>Here, <span class="math inline">\(g_k(\cdot)\)</span> is a vectorized function that transforms the original predictors in regression componetn <span class="math inline">\(K\)</span>, to combinations of the predictors and their transformations.</p>
 <p>RobMixReg can easily achieve flexible modeling by specifying the regression formulas for different components. To enable flexible mixture regression, we call robust mixture regression in the <em>MLM</em> wapper function by letting the ‘ml.method’ be ‘fmr’. In the core of the method is the ‘mixtureReg’ function from the ‘mixtureReg’ package.</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="co"># simulate single variable x and y with linear relationship but contaminated by outliers.</span>
-<span class="co"># beta = c(0.8, -0.01); inter = c(0.2, 4)</span>
-<span class="no">beta</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.2</span>, <span class="fl">0.8</span>), <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>, -<span class="fl">0.01</span>)); <span class="no">sigma</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">1</span>)
-<span class="no">data_case2</span> <span class="kw">=</span> <span class="fu"><a href="../reference/simu_func.html">simu_func</a></span>(<span class="no">beta</span>, <span class="no">sigma</span>,<span class="kw">alpha</span><span class="kw">=</span><span class="kw">NULL</span>)
-<span class="no">x2</span> <span class="kw">=</span> <span class="no">data_case2</span>$<span class="no">x</span>
-<span class="no">y2</span> <span class="kw">=</span> <span class="no">data_case2</span>$<span class="no">y</span>
-<span class="co"># Runing robust mixture regression by setting parameter 'ml.method' </span>
-<span class="co"># to 'fmr' in the wrapper function MLM.</span>
-<span class="no">res.b</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">'fmr'</span>, <span class="kw">x</span> <span class="kw">=</span> <span class="no">x2</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">y2</span>,
-            <span class="kw">b.formulaList</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/formula.html">formula</a></span>(<span class="no">y</span> ~ <span class="no">x</span>),<span class="fu"><a href="https://rdrr.io/r/stats/formula.html">formula</a></span>(<span class="no">y</span> ~ <span class="fl">1</span>)))</pre></body></html></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># simulate single variable x and y with linear relationship but contaminated by outliers.</span></span>
+<span><span class="co"># beta = c(0.8, -0.01); inter = c(0.2, 4)</span></span>
+<span><span class="va">beta</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.8</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">0.01</span><span class="op">)</span><span class="op">)</span>; <span class="va">sigma</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">data_case2</span> <span class="op">=</span> <span class="fu"><a href="../reference/simu_func.html">simu_func</a></span><span class="op">(</span><span class="va">beta</span>, <span class="va">sigma</span>,alpha<span class="op">=</span><span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="va">x2</span> <span class="op">=</span> <span class="va">data_case2</span><span class="op">$</span><span class="va">x</span></span>
+<span><span class="va">y2</span> <span class="op">=</span> <span class="va">data_case2</span><span class="op">$</span><span class="va">y</span></span>
+<span><span class="co"># Runing robust mixture regression by setting parameter 'ml.method' </span></span>
+<span><span class="co"># to 'fmr' in the wrapper function MLM.</span></span>
+<span><span class="va">res.b</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span><span class="op">(</span>ml.method<span class="op">=</span><span class="st">'fmr'</span>, x <span class="op">=</span> <span class="va">x2</span>, y <span class="op">=</span> <span class="va">y2</span>, </span>
+<span>            b.formulaList <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>The mixture regression parameters could be extracted by:</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="no">res.b</span>$<span class="no">coff</span></pre></body></html></div>
-<pre><code>##                    1          2
-## Intercept 0.20084960 3.94766052
-## coff.x    0.80273914 0.00000000
-## sd        0.09104395 0.09222377
-## mx        0.50333333 0.49666667</code></pre>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">res.b</span><span class="op">$</span><span class="va">coff</span></span></code></pre></div>
+<pre><code><span><span class="co">##                    1          2</span></span>
+<span><span class="co">## Intercept 0.20084960 3.94766052</span></span>
+<span><span class="co">## coff.x    0.80273914 0.00000000</span></span>
+<span><span class="co">## sd        0.09104395 0.09222377</span></span>
+<span><span class="co">## mx        0.50333333 0.49666667</span></span></code></pre>
 <p>Here, the first two rows are regression coefficients, third row for the standard deviations, and fourth row for the component proportions.</p>
 <p>We can visualize the fitted regression lines by <em>compPlot</em> function and declare the ‘type’ parameter as ‘mr’ shows in figure 3.</p>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mfrow</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">1</span>), <span class="kw">mar</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">5</span>, <span class="fl">8</span>, <span class="fl">2</span>, <span class="fl">8</span>))
-<span class="fu"><a href="../reference/compPlot.html">compPlot</a></span>(<span class="kw">type</span><span class="kw">=</span><span class="st">'mr'</span>, <span class="kw">res</span><span class="kw">=</span><span class="no">res.b</span>$<span class="no">res</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">8</span>, <span class="fl">2</span>, <span class="fl">8</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/compPlot.html">compPlot</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">'mr'</span>, res<span class="op">=</span><span class="va">res.b</span><span class="op">$</span><span class="va">res</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="tutorial_files/figure-html/case2plot-1.png" alt="Flexible mixture regression result" width="700"><p class="caption">
 Flexible mixture regression result
 </p>
 </div>
 </div>
-<div id="s2-3-high-dimensional-mixture-regression" class="section level3">
-<h3 class="hasAnchor">
-<a href="#s2-3-high-dimensional-mixture-regression" class="anchor"></a>S2.3 High dimensional mixture regression</h3>
+<div class="section level3">
+<h3 id="s2-3-high-dimensional-mixture-regression">S2.3 High dimensional mixture regression<a class="anchor" aria-label="anchor" href="#s2-3-high-dimensional-mixture-regression"></a>
+</h3>
 <p>Given high dimensional predictors, which is often the case in biological data, we have the total number of parameters to be estimated far more than the total number of observations, making the aofrementioned methods fail. In addition, the dense linear coefficients makes it hard to deduce the subgroup specific features and make meaningful interpreta-tions. We need to add regularization to the regression coefficients to achieve sparse mixture regression.</p>
 <ul>
 <li>Mathmatical Model</li>
@@ -256,158 +268,181 @@ Flexible mixture regression result
 argmax \sum_{i=1}^N log(\sum_{k=1}^K \pi_k \phi (y_i - \mathbf{x}_i^T  \mathbf{\beta}_k ; 0,\sigma_k^2)) - \sum_{k=1}^K \lambda_k (\sum_{j=1}^P |\beta_{jk}|)
 \]</span></p>
 <p>Different from the low dimensional setting, we are imposing constraints on the coefficients through the penalty parameter <span class="math inline">\(\lambda_k\)</span>. The CSMR algorithm is used here, which adaptively selects the penalty parameters <span class="math inline">\(\lambda_k\)</span>, hence there is no need for model selection with regards to <span class="math inline">\(\lambda_k\)</span>.</p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="co"># simulate single variable x and y with linear relationship but contaminated by outliers.</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">12345</span>)
-<span class="no">bet1</span><span class="kw">=</span><span class="no">bet2</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0</span>,<span class="fl">101</span>)
-<span class="no">bet1</span>[<span class="fl">2</span>:<span class="fl">21</span>]<span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/sign.html">sign</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="fl">20</span>,-<span class="fl">1</span>,<span class="fl">1</span>))*<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="fl">20</span>,<span class="fl">2</span>,<span class="fl">5</span>)
-<span class="no">bet2</span>[<span class="fl">22</span>:<span class="fl">41</span>]<span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/sign.html">sign</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="fl">20</span>,-<span class="fl">1</span>,<span class="fl">1</span>))*<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="fl">20</span>,<span class="fl">2</span>,<span class="fl">5</span>)
-<span class="no">bet</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="no">bet1</span>,<span class="no">bet2</span>)
-<span class="no">tmp_list</span> <span class="kw">=</span> <span class="fu"><a href="../reference/simu_func.html">simu_func</a></span>(<span class="kw">beta</span><span class="kw">=</span><span class="no">bet</span>,<span class="kw">sigma</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">1</span>),<span class="kw">alpha</span><span class="kw">=</span><span class="kw">NULL</span>)
-<span class="no">x</span><span class="kw">=</span><span class="no">tmp_list</span>$<span class="no">x</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"Dimension of matrix (x):"</span>, <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">x</span>)[<span class="fl">1</span>], <span class="st">', '</span>, <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">x</span>)[<span class="fl">2</span>],<span class="kw">sep</span><span class="kw">=</span><span class="st">''</span>) )</pre></body></html></div>
-<pre><code>## [1] "Dimension of matrix (x):400, 100"</code></pre>
-<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="no">y</span><span class="kw">=</span><span class="no">tmp_list</span>$<span class="no">y</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"Length of outcome variable (y):"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">y</span>),<span class="kw">sep</span><span class="kw">=</span><span class="st">''</span>) )</pre></body></html></div>
-<pre><code>## [1] "Length of outcome variable (y):400"</code></pre>
-<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/sink.html">sink</a></span>(<span class="st">"nul"</span>) ;<span class="no">res.d</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span> <span class="kw">=</span> <span class="st">'hrmr'</span>,<span class="kw">x</span><span class="kw">=</span><span class="no">x</span>,<span class="kw">y</span><span class="kw">=</span><span class="no">y</span>); <span class="fu"><a href="https://rdrr.io/r/base/sink.html">sink</a></span>()
-<span class="no">hx</span><span class="kw">=</span><span class="no">x</span>;<span class="no">hy</span><span class="kw">=</span><span class="no">y</span></pre></body></html></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># simulate single variable x and y with linear relationship but contaminated by outliers.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">12345</span><span class="op">)</span></span>
+<span><span class="va">bet1</span><span class="op">=</span><span class="va">bet2</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">101</span><span class="op">)</span></span>
+<span><span class="va">bet1</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">21</span><span class="op">]</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">20</span>,<span class="op">-</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">20</span>,<span class="fl">2</span>,<span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">bet2</span><span class="op">[</span><span class="fl">22</span><span class="op">:</span><span class="fl">41</span><span class="op">]</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">20</span>,<span class="op">-</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">20</span>,<span class="fl">2</span>,<span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">bet</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">bet1</span>,<span class="va">bet2</span><span class="op">)</span></span>
+<span><span class="va">tmp_list</span> <span class="op">=</span> <span class="fu"><a href="../reference/simu_func.html">simu_func</a></span><span class="op">(</span>beta<span class="op">=</span><span class="va">bet</span>,sigma<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>,alpha<span class="op">=</span><span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="va">x</span><span class="op">=</span><span class="va">tmp_list</span><span class="op">$</span><span class="va">x</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Dimension of matrix (x):"</span>, <span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="st">', '</span>, <span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,sep<span class="op">=</span><span class="st">''</span><span class="op">)</span> <span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "Dimension of matrix (x):400, 100"</span></span></code></pre>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">y</span><span class="op">=</span><span class="va">tmp_list</span><span class="op">$</span><span class="va">y</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Length of outcome variable (y):"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>,sep<span class="op">=</span><span class="st">''</span><span class="op">)</span> <span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "Length of outcome variable (y):400"</span></span></code></pre>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sink.html" class="external-link">sink</a></span><span class="op">(</span><span class="st">"nul"</span><span class="op">)</span> ;<span class="va">res.d</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span><span class="op">(</span>ml.method <span class="op">=</span> <span class="st">'hrmr'</span>,x<span class="op">=</span><span class="va">x</span>,y<span class="op">=</span><span class="va">y</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/base/sink.html" class="external-link">sink</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">hx</span><span class="op">=</span><span class="va">x</span>;<span class="va">hy</span><span class="op">=</span><span class="va">y</span></span></code></pre></div>
 <p>The mixture regression parameters could be extracted by:</p>
-<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">res.d</span>$<span class="no">coff</span>)</pre></body></html></div>
-<pre><code>##          1         2
-## feature1 0  3.272612
-## feature2 0  2.918706
-## feature3 0  5.028459
-## feature4 0  4.107363
-## feature5 0 -3.922227
-## feature6 0 -3.189251</code></pre>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res.d</span><span class="op">$</span><span class="va">coff</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##          1         2</span></span>
+<span><span class="co">## feature1 0  3.272612</span></span>
+<span><span class="co">## feature2 0  2.918706</span></span>
+<span><span class="co">## feature3 0  5.028459</span></span>
+<span><span class="co">## feature4 0  4.107363</span></span>
+<span><span class="co">## feature5 0 -3.922227</span></span>
+<span><span class="co">## feature6 0 -3.189251</span></span></code></pre>
 <p>Here, the first <span class="math inline">\((P+1)\)</span> rows are regression coefficients, <span class="math inline">\((P+2)\)</span>-th row for the standard deviations, and <span class="math inline">\((P+3)\)</span>-th row for the component proportions.</p>
 <p>We visualize the fitted coefficients using heatmap shows in figure 4. The columns are the clusters and the rows are the features.</p>
-<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="co">#par(mfrow=c(1,1),mar = c(0.1, 0.1, 0.1, 0.1))</span>
-<span class="fu"><a href="../reference/compPlot.html">compPlot</a></span>(<span class="kw">type</span><span class="kw">=</span><span class="st">'block'</span>, <span class="kw">res</span><span class="kw">=</span><span class="no">res.d</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#par(mfrow=c(1,1),mar = c(0.1, 0.1, 0.1, 0.1))</span></span>
+<span><span class="fu"><a href="../reference/compPlot.html">compPlot</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">'block'</span>, res<span class="op">=</span><span class="va">res.d</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="tutorial_files/figure-html/unnamed-chunk-4-1.png" alt="High dimensional feature space robust mixture regression result" width="700"><p class="caption">
 High dimensional feature space robust mixture regression result
 </p>
 </div>
 </div>
-<div id="s2-4-order-selection" class="section level3">
-<h3 class="hasAnchor">
-<a href="#s2-4-order-selection" class="anchor"></a>S2.4 Order Selection</h3>
-<div id="bic-based-order-selection" class="section level4">
-<h4 class="hasAnchor">
-<a href="#bic-based-order-selection" class="anchor"></a>BIC based order selection</h4>
+<div class="section level3">
+<h3 id="s2-4-order-selection">S2.4 Order Selection<a class="anchor" aria-label="anchor" href="#s2-4-order-selection"></a>
+</h3>
+<div class="section level4">
+<h4 id="bic-based-order-selection">BIC based order selection<a class="anchor" aria-label="anchor" href="#bic-based-order-selection"></a>
+</h4>
 <p>We provide two methods for selecting the number of components, <span class="math inline">\(K\)</span>: Bayesian information criterion (BIC) and cross validation. Meanwhile, in flexible modeling, even with the same <span class="math inline">\(K\)</span>, the models could still differ in their complexity, and we also provided BIC metric for model selection. The BIC of each fitted model could be extraced in slot ‘BIC’ by declaring the parameter ‘ml.method’:</p>
 <p>Robust mixture regression using BIC</p>
-<div class="sourceCode" id="cb29"><html><body><pre class="r"><span class="no">res.ba</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">'rlr'</span>, <span class="kw">x</span><span class="kw">=</span><span class="no">x1</span>, <span class="kw">y</span><span class="kw">=</span><span class="no">y1</span>)
-<span class="no">res.bc</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">"rmr"</span> ,<span class="kw">x</span><span class="kw">=</span><span class="no">x1</span>, <span class="kw">y</span><span class="kw">=</span><span class="no">y1</span>,<span class="kw">nc</span><span class="kw">=</span><span class="fl">2</span>)
-<span class="no">res.bb</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">"rmr"</span> ,<span class="kw">x</span><span class="kw">=</span><span class="no">x1</span>, <span class="kw">y</span><span class="kw">=</span><span class="no">y1</span>,<span class="kw">nc</span><span class="kw">=</span><span class="fl">3</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">res.ba</span>$<span class="no">BIC</span>)</pre></body></html></div>
-<pre><code>## [1] 284.0409</code></pre>
-<div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">res.bc</span>$<span class="no">BIC</span>)</pre></body></html></div>
-<pre><code>## [1] 230.1078</code></pre>
-<div class="sourceCode" id="cb33"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">res.bb</span>$<span class="no">BIC</span>)</pre></body></html></div>
-<pre><code>## [1] 311.9934</code></pre>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">res.ba</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span><span class="op">(</span>ml.method<span class="op">=</span><span class="st">'rlr'</span>, x<span class="op">=</span><span class="va">x1</span>, y<span class="op">=</span><span class="va">y1</span><span class="op">)</span></span>
+<span><span class="va">res.bc</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span><span class="op">(</span>ml.method<span class="op">=</span><span class="st">"rmr"</span> ,x<span class="op">=</span><span class="va">x1</span>, y<span class="op">=</span><span class="va">y1</span>,nc<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">res.bb</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span><span class="op">(</span>ml.method<span class="op">=</span><span class="st">"rmr"</span> ,x<span class="op">=</span><span class="va">x1</span>, y<span class="op">=</span><span class="va">y1</span>,nc<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res.ba</span><span class="op">$</span><span class="va">BIC</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 278.27</span></span></code></pre>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res.bc</span><span class="op">$</span><span class="va">BIC</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 228.905</span></span></code></pre>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res.bb</span><span class="op">$</span><span class="va">BIC</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 231.0611</span></span></code></pre>
 <p>Flexbile mixture regression using BIC</p>
-<div class="sourceCode" id="cb35"><html><body><pre class="r"><span class="no">res.fa</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">'fmr'</span>, <span class="kw">x</span> <span class="kw">=</span> <span class="no">x2</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">y2</span>,
-            <span class="kw">b.formulaList</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/formula.html">formula</a></span>(<span class="no">y</span> ~ <span class="no">x</span>),<span class="fu"><a href="https://rdrr.io/r/stats/formula.html">formula</a></span>(<span class="no">y</span> ~ <span class="fl">1</span>)))
-<span class="no">res.fb</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">'fmr'</span>, <span class="kw">x</span> <span class="kw">=</span> <span class="no">x2</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">y2</span>,
-            <span class="kw">b.formulaList</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/formula.html">formula</a></span>(<span class="no">y</span> ~ <span class="no">x</span>),<span class="fu"><a href="https://rdrr.io/r/stats/formula.html">formula</a></span>(<span class="no">y</span> ~ <span class="no">x</span>)))
-<span class="no">res.fc</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">'fmr'</span>, <span class="kw">x</span> <span class="kw">=</span> <span class="no">x2</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">y2</span>,
-            <span class="kw">b.formulaList</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/formula.html">formula</a></span>(<span class="no">y</span> ~ <span class="no">x</span>),<span class="fu"><a href="https://rdrr.io/r/stats/formula.html">formula</a></span>(<span class="no">y</span> ~ <span class="no">x</span>+ <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html">I</a></span>(<span class="no">x</span>^<span class="fl">2</span>))))
-<span class="no">res.fd</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">'fmr'</span>, <span class="kw">x</span> <span class="kw">=</span> <span class="no">x2</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">y2</span>,
-            <span class="kw">b.formulaList</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/formula.html">formula</a></span>(<span class="no">y</span> ~ <span class="no">x</span>),<span class="fu"><a href="https://rdrr.io/r/stats/formula.html">formula</a></span>(<span class="no">y</span> ~ <span class="no">x</span>),<span class="fu"><a href="https://rdrr.io/r/stats/formula.html">formula</a></span>(<span class="no">y</span> ~ <span class="no">x</span>)))
-
-<span class="co"># res.b = MLM(ml.method='fmr', x = x2, y = y2, </span>
-<span class="co">#             b.formulaList = list(formula(y ~ x),formula(y ~ 1)))</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">res.fa</span>$<span class="no">BIC</span>)</pre></body></html></div>
-<pre><code>## [1] 990.9967</code></pre>
-<div class="sourceCode" id="cb37"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">res.fb</span>$<span class="no">BIC</span>)</pre></body></html></div>
-<pre><code>## [1] 1285.598</code></pre>
-<div class="sourceCode" id="cb39"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">res.fc</span>$<span class="no">BIC</span>)</pre></body></html></div>
-<pre><code>## [1] 1584.036</code></pre>
-<div class="sourceCode" id="cb41"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">res.fd</span>$<span class="no">BIC</span>)</pre></body></html></div>
-<pre><code>## [1] 2186.133</code></pre>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">res.fa</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span><span class="op">(</span>ml.method<span class="op">=</span><span class="st">'fmr'</span>, x <span class="op">=</span> <span class="va">x2</span>, y <span class="op">=</span> <span class="va">y2</span>,</span>
+<span>            b.formulaList <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">res.fb</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span><span class="op">(</span>ml.method<span class="op">=</span><span class="st">'fmr'</span>, x <span class="op">=</span> <span class="va">x2</span>, y <span class="op">=</span> <span class="va">y2</span>,</span>
+<span>            b.formulaList <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">res.fc</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span><span class="op">(</span>ml.method<span class="op">=</span><span class="st">'fmr'</span>, x <span class="op">=</span> <span class="va">x2</span>, y <span class="op">=</span> <span class="va">y2</span>,</span>
+<span>            b.formulaList <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">res.fd</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span><span class="op">(</span>ml.method<span class="op">=</span><span class="st">'fmr'</span>, x <span class="op">=</span> <span class="va">x2</span>, y <span class="op">=</span> <span class="va">y2</span>,</span>
+<span>            b.formulaList <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># res.b = MLM(ml.method='fmr', x = x2, y = y2, </span></span>
+<span><span class="co">#             b.formulaList = list(formula(y ~ x),formula(y ~ 1)))</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res.fa</span><span class="op">$</span><span class="va">BIC</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 990.9967</span></span></code></pre>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res.fb</span><span class="op">$</span><span class="va">BIC</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 1285.598</span></span></code></pre>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res.fc</span><span class="op">$</span><span class="va">BIC</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 1585.6</span></span></code></pre>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res.fd</span><span class="op">$</span><span class="va">BIC</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 2180.238</span></span></code></pre>
 <p>High dimensional mixture regression using BIC</p>
-<div class="sourceCode" id="cb43"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">111</span>)
-<span class="no">bet1</span><span class="kw">=</span><span class="no">bet2</span><span class="kw">=</span><span class="no">bet3</span><span class="kw">=</span><span class="no">bet4</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0</span>,<span class="fl">81</span>)
-<span class="no">bet1</span>[<span class="fl">2</span>:<span class="fl">11</span>]<span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/sign.html">sign</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="fl">10</span>,-<span class="fl">1</span>,<span class="fl">1</span>))*<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="fl">10</span>,<span class="fl">2</span>,<span class="fl">5</span>)
-<span class="no">bet2</span>[<span class="fl">12</span>:<span class="fl">21</span>]<span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/sign.html">sign</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="fl">10</span>,-<span class="fl">1</span>,<span class="fl">1</span>))*<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="fl">10</span>,<span class="fl">2</span>,<span class="fl">5</span>)
-<span class="no">bet</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="no">bet1</span>,<span class="no">bet2</span>)
-<span class="no">tmp_list</span> <span class="kw">=</span> <span class="fu"><a href="../reference/simu_func.html">simu_func</a></span>(<span class="kw">beta</span><span class="kw">=</span><span class="no">bet</span>,<span class="kw">n</span><span class="kw">=</span><span class="fl">200</span>)
-<span class="no">x</span><span class="kw">=</span><span class="no">tmp_list</span>$<span class="no">x</span>
-<span class="no">y</span><span class="kw">=</span><span class="no">tmp_list</span>$<span class="no">y</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"Dimension of matrix (x):"</span>, <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">x</span>)[<span class="fl">1</span>], <span class="st">', '</span>, <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">x</span>)[<span class="fl">2</span>],<span class="kw">sep</span><span class="kw">=</span><span class="st">''</span>) )</pre></body></html></div>
-<pre><code>## [1] "Dimension of matrix (x):200, 80"</code></pre>
-<div class="sourceCode" id="cb45"><html><body><pre class="r"><span class="no">hx</span><span class="kw">=</span><span class="no">x</span>;<span class="no">hy</span><span class="kw">=</span><span class="no">y</span></pre></body></html></div>
-<div class="sourceCode" id="cb46"><html><body><pre class="r"><span class="no">res.h</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span> <span class="kw">=</span> <span class="st">'hrmr'</span>,<span class="kw">x</span><span class="kw">=</span><span class="no">hx</span>,<span class="kw">y</span><span class="kw">=</span><span class="no">hy</span>,<span class="kw">nc</span><span class="kw">=</span><span class="fl">2</span>)
-<span class="no">bic1</span> <span class="kw">=</span> <span class="no">res.h</span>$<span class="no">BIC</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">bic1</span>)</pre></body></html></div>
-<pre><code>## [1] 5572.044</code></pre>
-<div class="sourceCode" id="cb48"><html><body><pre class="r"><span class="co"># User can test setting of the component number</span>
-<span class="no">bic2</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span> <span class="kw">=</span> <span class="st">'hrmr'</span>,<span class="kw">x</span><span class="kw">=</span><span class="no">hx</span>,<span class="kw">y</span><span class="kw">=</span><span class="no">hy</span>,<span class="kw">nc</span><span class="kw">=</span><span class="fl">3</span>)$<span class="no">BIC</span>
-<span class="no">bic3</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span> <span class="kw">=</span> <span class="st">'hrmr'</span>,<span class="kw">x</span><span class="kw">=</span><span class="no">hx</span>,<span class="kw">y</span><span class="kw">=</span><span class="no">hy</span>,<span class="kw">nc</span><span class="kw">=</span><span class="fl">4</span>)$<span class="no">BIC</span>
-<span class="no">bic4</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span> <span class="kw">=</span> <span class="st">'hrmr'</span>,<span class="kw">x</span><span class="kw">=</span><span class="no">hx</span>,<span class="kw">y</span><span class="kw">=</span><span class="no">hy</span>,<span class="kw">nc</span><span class="kw">=</span><span class="fl">5</span>)$<span class="no">BIC</span></pre></body></html></div>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">111</span><span class="op">)</span></span>
+<span><span class="va">bet1</span><span class="op">=</span><span class="va">bet2</span><span class="op">=</span><span class="va">bet3</span><span class="op">=</span><span class="va">bet4</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">81</span><span class="op">)</span></span>
+<span><span class="va">bet1</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">11</span><span class="op">]</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">10</span>,<span class="op">-</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">2</span>,<span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">bet2</span><span class="op">[</span><span class="fl">12</span><span class="op">:</span><span class="fl">21</span><span class="op">]</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">10</span>,<span class="op">-</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">2</span>,<span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">bet</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">bet1</span>,<span class="va">bet2</span><span class="op">)</span></span>
+<span><span class="va">tmp_list</span> <span class="op">=</span> <span class="fu"><a href="../reference/simu_func.html">simu_func</a></span><span class="op">(</span>beta<span class="op">=</span><span class="va">bet</span>,n<span class="op">=</span><span class="fl">200</span><span class="op">)</span></span>
+<span><span class="va">x</span><span class="op">=</span><span class="va">tmp_list</span><span class="op">$</span><span class="va">x</span></span>
+<span><span class="va">y</span><span class="op">=</span><span class="va">tmp_list</span><span class="op">$</span><span class="va">y</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Dimension of matrix (x):"</span>, <span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="st">', '</span>, <span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,sep<span class="op">=</span><span class="st">''</span><span class="op">)</span> <span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "Dimension of matrix (x):200, 80"</span></span></code></pre>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hx</span><span class="op">=</span><span class="va">x</span>;<span class="va">hy</span><span class="op">=</span><span class="va">y</span></span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">res.h</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span><span class="op">(</span>ml.method <span class="op">=</span> <span class="st">'hrmr'</span>,x<span class="op">=</span><span class="va">hx</span>,y<span class="op">=</span><span class="va">hy</span>,nc<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">bic1</span> <span class="op">=</span> <span class="va">res.h</span><span class="op">$</span><span class="va">BIC</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">bic1</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 5572.211</span></span></code></pre>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># User can test setting of the component number</span></span>
+<span><span class="va">bic2</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span><span class="op">(</span>ml.method <span class="op">=</span> <span class="st">'hrmr'</span>,x<span class="op">=</span><span class="va">hx</span>,y<span class="op">=</span><span class="va">hy</span>,nc<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">$</span><span class="va">BIC</span></span>
+<span><span class="va">bic3</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span><span class="op">(</span>ml.method <span class="op">=</span> <span class="st">'hrmr'</span>,x<span class="op">=</span><span class="va">hx</span>,y<span class="op">=</span><span class="va">hy</span>,nc<span class="op">=</span><span class="fl">4</span><span class="op">)</span><span class="op">$</span><span class="va">BIC</span></span>
+<span><span class="va">bic4</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span><span class="op">(</span>ml.method <span class="op">=</span> <span class="st">'hrmr'</span>,x<span class="op">=</span><span class="va">hx</span>,y<span class="op">=</span><span class="va">hy</span>,nc<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">$</span><span class="va">BIC</span></span></code></pre></div>
 </div>
-<div id="cross-validation-based-order-selection" class="section level4">
-<h4 class="hasAnchor">
-<a href="#cross-validation-based-order-selection" class="anchor"></a>Cross validation based order selection</h4>
+<div class="section level4">
+<h4 id="cross-validation-based-order-selection">Cross validation based order selection<a class="anchor" aria-label="anchor" href="#cross-validation-based-order-selection"></a>
+</h4>
 <p>For high dimensional predictors, we also provide cross validation for selection of <span class="math inline">\(K\)</span>.A large <span class="math inline">\(K\)</span> will tend to overfit the data with more complex model of higher variance, while smaller <span class="math inline">\(K\)</span> might select a simpler model with larger bias. Take a 5-fold cross validation as an example. For given <span class="math inline">\(K\)</span>, at each repetition, 80% samples are used for training to obtain the mixture regression parameters. Then, for any sample from the rest of the testing data, it is first assigned to a cluster by maximum posterior probability; then a prediction of <span class="math inline">\(\hat y\)</span> could be made based on the model parameters given <span class="math inline">\(x\)</span>. Using the testing data, we could decide how to balance the trade-off between bias and variance. To evaluate how the estimated model under <span class="math inline">\(K\)</span> explains the testing data, we could calculate the root-meansquare-error between the observed <span class="math inline">\(y\)</span> and the predicted <span class="math inline">\(\hat y\)</span>, or Pearson correlation between the two. By repeating this procedure for multiple times, a more robust and stable evaluation of the choice of <span class="math inline">\(K\)</span> should be derived based on the summarized RMSE or Pearson correlations.</p>
 <p>The output of cross validation function, <em>MLM_cv</em>, is the average correlation or RMSE on the testing data. Higher correlation and lower RMSE indicate a better model with good bias variance tradeoff.</p>
-<div class="sourceCode" id="cb49"><html><body><pre class="r"><span class="no">CV1</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM_cv.html">MLM_cv</a></span>(<span class="kw">x</span><span class="kw">=</span><span class="no">hx</span>, <span class="kw">y</span><span class="kw">=</span><span class="no">hy</span>, <span class="kw">nc</span><span class="kw">=</span><span class="fl">2</span>)</pre></body></html></div>
-<pre><code>## [1] "Fold 1 done."
-## [1] "Fold 2 done."
-## [1] "Fold 3 done."
-## [1] "Fold 4 done."
-## [1] "Fold 5 done."</code></pre>
-<div class="sourceCode" id="cb51"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">CV1</span>$<span class="no">ycor</span>)</pre></body></html></div>
-<pre><code>## [1] 0.7560522</code></pre>
-<div class="sourceCode" id="cb53"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">CV1</span>$<span class="no">RMSE</span>)</pre></body></html></div>
-<pre><code>## [1] 41.71926</code></pre>
-<div class="sourceCode" id="cb55"><html><body><pre class="r"><span class="co"># User can test setting of the component number</span>
-<span class="no">CV2</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM_cv.html">MLM_cv</a></span>(<span class="kw">x</span><span class="kw">=</span><span class="no">hx</span>, <span class="kw">y</span><span class="kw">=</span><span class="no">hy</span>, <span class="kw">nc</span><span class="kw">=</span><span class="fl">3</span>)
-<span class="no">CV3</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM_cv.html">MLM_cv</a></span>(<span class="kw">x</span><span class="kw">=</span><span class="no">hx</span>, <span class="kw">y</span><span class="kw">=</span><span class="no">hy</span>, <span class="kw">nc</span><span class="kw">=</span><span class="fl">4</span>)
-<span class="no">CV4</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM_cv.html">MLM_cv</a></span>(<span class="kw">x</span><span class="kw">=</span><span class="no">hx</span>, <span class="kw">y</span><span class="kw">=</span><span class="no">hy</span>, <span class="kw">nc</span><span class="kw">=</span><span class="fl">5</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">CV1</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM_cv.html">MLM_cv</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">hx</span>, y<span class="op">=</span><span class="va">hy</span>, nc<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "Fold 1 done."</span></span>
+<span><span class="co">## [1] "Fold 2 done."</span></span>
+<span><span class="co">## [1] "Fold 3 done."</span></span>
+<span><span class="co">## [1] "Fold 4 done."</span></span>
+<span><span class="co">## [1] "Fold 5 done."</span></span></code></pre>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">CV1</span><span class="op">$</span><span class="va">ycor</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.8613101</span></span></code></pre>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">CV1</span><span class="op">$</span><span class="va">RMSE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 29.34191</span></span></code></pre>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># User can test setting of the component number</span></span>
+<span><span class="va">CV2</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM_cv.html">MLM_cv</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">hx</span>, y<span class="op">=</span><span class="va">hy</span>, nc<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">CV3</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM_cv.html">MLM_cv</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">hx</span>, y<span class="op">=</span><span class="va">hy</span>, nc<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span>
+<span><span class="va">CV4</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM_cv.html">MLM_cv</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">hx</span>, y<span class="op">=</span><span class="va">hy</span>, nc<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 </div>
-<div id="s3--real-data-application" class="section level2">
-<h2 class="hasAnchor">
-<a href="#s3--real-data-application" class="anchor"></a>S3. Real Data Application</h2>
-<div id="s3-1-colon-adenocarcinoma-disease-application" class="section level3">
-<h3 class="hasAnchor">
-<a href="#s3-1-colon-adenocarcinoma-disease-application" class="anchor"></a>S3.1 Colon adenocarcinoma disease application</h3>
+<div class="section level2">
+<h2 id="s3--real-data-application">S3. Real Data Application<a class="anchor" aria-label="anchor" href="#s3--real-data-application"></a>
+</h2>
+<div class="section level3">
+<h3 id="s3-1-colon-adenocarcinoma-disease-application">S3.1 Colon adenocarcinoma disease application<a class="anchor" aria-label="anchor" href="#s3-1-colon-adenocarcinoma-disease-application"></a>
+</h3>
 <p>Colon adenocarcinoma is known as a heterogeneous disease with different molecular subtypes. We demonstrate the usage of o<em>RobMixReg</em>on collected expression of a few genes and the methylation profiles for some of their CpG sites from the Cancer Genome Atlas (TCGA) cohort.</p>
-<div class="sourceCode" id="cb56"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">colon_data</span>)
-<span class="no">x1</span> <span class="kw">=</span> <span class="no">colon_data</span>$<span class="no">x1</span>
-<span class="no">y1</span> <span class="kw">=</span> <span class="no">colon_data</span>$<span class="no">y1</span>
-<span class="no">res1</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">'rlr'</span>, <span class="kw">x</span><span class="kw">=</span><span class="no">x1</span>, <span class="kw">y</span><span class="kw">=</span><span class="no">y1</span>)
-<span class="no">inds_in</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="no">res1</span>$<span class="no">cluMem</span> <span class="kw">==</span> <span class="fl">1</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mfrow</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">1</span>),<span class="kw">mar</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">5</span>, <span class="fl">8</span>, <span class="fl">2</span>, <span class="fl">8</span>))
-<span class="fu"><a href="../reference/compPlot.html">compPlot</a></span>(<span class="kw">type</span><span class="kw">=</span><span class="st">'rlr'</span>, <span class="kw">x</span><span class="kw">=</span><span class="no">x1</span>,<span class="kw">y</span><span class="kw">=</span><span class="no">y1</span>,<span class="kw">nc</span><span class="kw">=</span><span class="fl">1</span>, <span class="kw">inds_in</span><span class="kw">=</span><span class="no">inds_in</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">colon_data</span><span class="op">)</span></span>
+<span><span class="va">x1</span> <span class="op">=</span> <span class="va">colon_data</span><span class="op">$</span><span class="va">x1</span></span>
+<span><span class="va">y1</span> <span class="op">=</span> <span class="va">colon_data</span><span class="op">$</span><span class="va">y1</span></span>
+<span><span class="va">res1</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span><span class="op">(</span>ml.method<span class="op">=</span><span class="st">'rlr'</span>, x<span class="op">=</span><span class="va">x1</span>, y<span class="op">=</span><span class="va">y1</span><span class="op">)</span></span>
+<span><span class="va">inds_in</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">res1</span><span class="op">$</span><span class="va">cluMem</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>,mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">8</span>, <span class="fl">2</span>, <span class="fl">8</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/compPlot.html">compPlot</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">'rlr'</span>, x<span class="op">=</span><span class="va">x1</span>,y<span class="op">=</span><span class="va">y1</span>,nc<span class="op">=</span><span class="fl">1</span>, inds_in<span class="op">=</span><span class="va">inds_in</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="tutorial_files/figure-html/colon1-1.png" alt="Colon data robust linear regression" width="700"><p class="caption">
 Colon data robust linear regression
 </p>
 </div>
-<div class="sourceCode" id="cb57"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">colon_data</span>)
-<span class="no">x2</span> <span class="kw">=</span> <span class="no">colon_data</span>$<span class="no">x2</span>
-<span class="no">y2</span> <span class="kw">=</span> <span class="no">colon_data</span>$<span class="no">y2</span>
-<span class="no">res.b</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">'fmr'</span>, <span class="kw">x</span> <span class="kw">=</span> <span class="no">x2</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">y2</span>,
-            <span class="kw">b.formulaList</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/formula.html">formula</a></span>(<span class="no">y</span> ~ <span class="no">x</span>),<span class="fu"><a href="https://rdrr.io/r/stats/formula.html">formula</a></span>(<span class="no">y</span> ~ <span class="fl">1</span>)))
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mar</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">5</span>, <span class="fl">8</span>, <span class="fl">2</span>, <span class="fl">8</span>))
-<span class="fu"><a href="../reference/compPlot.html">compPlot</a></span>(<span class="kw">type</span><span class="kw">=</span><span class="st">'mr'</span>, <span class="kw">res</span><span class="kw">=</span><span class="no">res.b</span>$<span class="no">res</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">colon_data</span><span class="op">)</span></span>
+<span><span class="va">x2</span> <span class="op">=</span> <span class="va">colon_data</span><span class="op">$</span><span class="va">x2</span></span>
+<span><span class="va">y2</span> <span class="op">=</span> <span class="va">colon_data</span><span class="op">$</span><span class="va">y2</span></span>
+<span><span class="va">res.b</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span><span class="op">(</span>ml.method<span class="op">=</span><span class="st">'fmr'</span>, x <span class="op">=</span> <span class="va">x2</span>, y <span class="op">=</span> <span class="va">y2</span>, </span>
+<span>            b.formulaList <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">8</span>, <span class="fl">2</span>, <span class="fl">8</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/compPlot.html">compPlot</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">'mr'</span>, res<span class="op">=</span><span class="va">res.b</span><span class="op">$</span><span class="va">res</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="tutorial_files/figure-html/colon2-1.png" alt="Colon cancer data flexible mixture regression" width="700"><p class="caption">
 Colon cancer data flexible mixture regression
 </p>
 </div>
-<div class="sourceCode" id="cb58"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">colon_data</span>)
-<span class="no">gene_expr</span> <span class="kw">=</span> <span class="no">colon_data</span>$<span class="no">x3</span>
-<span class="no">methylation</span> <span class="kw">=</span> <span class="no">colon_data</span>$<span class="no">y3</span>
-<span class="no">res.colon</span> <span class="kw">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">"rmr"</span>, <span class="kw">rmr.method</span><span class="kw">=</span><span class="st">'cat'</span>, <span class="kw">x</span><span class="kw">=</span><span class="no">gene_expr</span>, <span class="kw">y</span><span class="kw">=</span><span class="no">methylation</span>)
-<span class="no">inds_in</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="no">res.colon</span>$<span class="no">cluMem</span> <span class="kw">!=</span> -<span class="fl">1</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mfrow</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">2</span>),<span class="kw">mar</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">2</span>))
-<span class="fu"><a href="../reference/compPlot.html">compPlot</a></span>(<span class="kw">type</span><span class="kw">=</span><span class="st">'rlr'</span>, <span class="kw">x</span><span class="kw">=</span><span class="no">gene_expr</span>,<span class="kw">y</span><span class="kw">=</span><span class="no">methylation</span>,<span class="kw">nc</span><span class="kw">=</span><span class="fl">2</span>, <span class="kw">inds_in</span><span class="kw">=</span><span class="no">inds_in</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">colon_data</span><span class="op">)</span></span>
+<span><span class="va">gene_expr</span> <span class="op">=</span> <span class="va">colon_data</span><span class="op">$</span><span class="va">x3</span></span>
+<span><span class="va">methylation</span> <span class="op">=</span> <span class="va">colon_data</span><span class="op">$</span><span class="va">y3</span></span>
+<span><span class="va">res.colon</span> <span class="op">=</span> <span class="fu"><a href="../reference/MLM.html">MLM</a></span><span class="op">(</span>ml.method<span class="op">=</span><span class="st">"rmr"</span>, rmr.method<span class="op">=</span><span class="st">'cat'</span>, x<span class="op">=</span><span class="va">gene_expr</span>, y<span class="op">=</span><span class="va">methylation</span><span class="op">)</span></span>
+<span><span class="va">inds_in</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">res.colon</span><span class="op">$</span><span class="va">cluMem</span> <span class="op">!=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>,mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/compPlot.html">compPlot</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">'rlr'</span>, x<span class="op">=</span><span class="va">gene_expr</span>,y<span class="op">=</span><span class="va">methylation</span>,nc<span class="op">=</span><span class="fl">2</span>, inds_in<span class="op">=</span><span class="va">inds_in</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="tutorial_files/figure-html/colon3-1.png" alt="Colon cancer data robust mixture regression" width="700"><p class="caption">
 Colon cancer data robust mixture regression
@@ -415,32 +450,34 @@ Colon cancer data robust mixture regression
 </div>
 <p>We fitted the data using CAT, the two colored line represented the two subgroups of patients.</p>
 </div>
-<div id="s3-2-subspace-clustering-on-high-dimension-dataset---ccle-application" class="section level3">
-<h3 class="hasAnchor">
-<a href="#s3-2-subspace-clustering-on-high-dimension-dataset---ccle-application" class="anchor"></a>S3.2 Subspace clustering on high dimension dataset - CCLE application</h3>
+<div class="section level3">
+<h3 id="s3-2-subspace-clustering-on-high-dimension-dataset---ccle-application">S3.2 Subspace clustering on high dimension dataset - CCLE application<a class="anchor" aria-label="anchor" href="#s3-2-subspace-clustering-on-high-dimension-dataset---ccle-application"></a>
+</h3>
 <p>We collected gene expression data of 470 cell lines as well as the cell lines’ sensitivity score (AUCC score) for ‘AEW541’ drug from the Cancer Cell Line Encyclopedia (CCLE) dataset. We demonstrate the usage of our package on this high dimensioanl dataset.</p>
-<div class="sourceCode" id="cb59"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">CCLE_data</span>)
-<span class="no">x</span> <span class="kw">=</span> <span class="no">CCLE_data</span>$<span class="no">X</span>
-<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">x</span>)</pre></body></html></div>
-<pre><code>## [1] 490 500</code></pre>
-<div class="sourceCode" id="cb61"><html><body><pre class="r"><span class="no">rr</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">'row_'</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="no">x</span>), <span class="kw">sep</span><span class="kw">=</span><span class="st">''</span>)
-<span class="no">cc</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">'col_'</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">x</span>), <span class="kw">sep</span><span class="kw">=</span><span class="st">''</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="no">x</span>) <span class="kw">=</span> <span class="no">rr</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">x</span>) <span class="kw">=</span> <span class="no">cc</span>
-
-<span class="no">y</span> <span class="kw">=</span> <span class="no">CCLE_data</span>$<span class="no">Y</span>
-<span class="no">y</span>[<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="no">y</span>)] <span class="kw">=</span> <span class="fl">0</span>
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">y</span>) <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="no">x</span>)
-
-<span class="co"># suppress the output of warning informaiton</span>
-<span class="fu"><a href="https://rdrr.io/r/base/sink.html">sink</a></span>(<span class="st">"nul"</span>) ; <span class="no">CCLE_res</span><span class="kw">=</span><span class="fu"><a href="../reference/MLM.html">MLM</a></span>(<span class="kw">ml.method</span><span class="kw">=</span><span class="st">"hrmr"</span>,<span class="kw">x</span><span class="kw">=</span><span class="no">x</span>,<span class="kw">y</span><span class="kw">=</span><span class="no">y</span>,<span class="kw">nit</span><span class="kw">=</span><span class="fl">1</span>,<span class="kw">nc</span><span class="kw">=</span><span class="fl">2</span>,<span class="kw">max_iter</span><span class="kw">=</span><span class="fl">10</span>); <span class="fu"><a href="https://rdrr.io/r/base/sink.html">sink</a></span>()
-<span class="no">CCLE_coffs1</span><span class="kw">=</span><span class="no">CCLE_res</span>$<span class="no">coff</span>
-
-<span class="co"># plot the coefficient matrix</span>
-<span class="no">CCLE_res2</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>()
-<span class="co"># just print rows (genes) whose coefficient is n</span>
-<span class="no">CCLE_res2</span>$<span class="no">coff</span> <span class="kw">=</span> <span class="no">CCLE_coffs1</span>[<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>(<span class="no">CCLE_coffs1</span>,<span class="fl">1</span>,<span class="no">sum</span>)<span class="kw">!=</span><span class="fl">0</span>),]
-<span class="fu"><a href="../reference/compPlot.html">compPlot</a></span>(<span class="kw">type</span><span class="kw">=</span><span class="st">'block'</span>, <span class="kw">res</span><span class="kw">=</span><span class="no">CCLE_res2</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">CCLE_data</span><span class="op">)</span></span>
+<span><span class="va">x</span> <span class="op">=</span> <span class="va">CCLE_data</span><span class="op">$</span><span class="va">X</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 490 500</span></span></code></pre>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">rr</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">'row_'</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, sep<span class="op">=</span><span class="st">''</span><span class="op">)</span></span>
+<span><span class="va">cc</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">'col_'</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, sep<span class="op">=</span><span class="st">''</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">=</span> <span class="va">rr</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">=</span> <span class="va">cc</span></span>
+<span></span>
+<span><span class="va">y</span> <span class="op">=</span> <span class="va">CCLE_data</span><span class="op">$</span><span class="va">Y</span></span>
+<span><span class="va">y</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">]</span> <span class="op">=</span> <span class="fl">0</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># suppress the output of warning informaiton</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sink.html" class="external-link">sink</a></span><span class="op">(</span><span class="st">"nul"</span><span class="op">)</span> ; <span class="va">CCLE_res</span><span class="op">=</span><span class="fu"><a href="../reference/MLM.html">MLM</a></span><span class="op">(</span>ml.method<span class="op">=</span><span class="st">"hrmr"</span>,x<span class="op">=</span><span class="va">x</span>,y<span class="op">=</span><span class="va">y</span>,nit<span class="op">=</span><span class="fl">1</span>,nc<span class="op">=</span><span class="fl">2</span>,max_iter<span class="op">=</span><span class="fl">10</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/base/sink.html" class="external-link">sink</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">CCLE_coffs1</span><span class="op">=</span><span class="va">CCLE_res</span><span class="op">$</span><span class="va">coff</span></span>
+<span></span>
+<span><span class="co"># plot the coefficient matrix</span></span>
+<span><span class="va">CCLE_res2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># just print rows (genes) whose coefficient is n</span></span>
+<span><span class="va">CCLE_res2</span><span class="op">$</span><span class="va">coff</span> <span class="op">=</span> <span class="va">CCLE_coffs1</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">CCLE_coffs1</span>,<span class="fl">1</span>,<span class="va">sum</span><span class="op">)</span><span class="op">!=</span><span class="fl">0</span><span class="op">)</span>,<span class="op">]</span></span>
+<span><span class="fu"><a href="../reference/compPlot.html">compPlot</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">'block'</span>, res<span class="op">=</span><span class="va">CCLE_res2</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="tutorial_files/figure-html/rosmap-1.png" alt="High dimension space feature robust mixture regression result" width="700"><p class="caption">
 High dimension space feature robust mixture regression result
@@ -451,6 +488,7 @@ High dimension space feature robust mixture regression result
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+
         <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
     </nav>
 </div>
@@ -460,11 +498,13 @@ High dimension space feature robust mixture regression result
 
 
       <footer><div class="copyright">
-  <p>Developed by Sha Cao, Wennan Chang, Chi Zhang.</p>
+  <p></p>
+<p>Developed by Sha Cao, Wennan Chang, Chi Zhang.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -472,6 +512,8 @@ High dimension space feature robust mixture regression result
 
   
 
+
+  
 
   </body>
 </html>

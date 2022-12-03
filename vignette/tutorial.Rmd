@@ -2,18 +2,19 @@
 title: "RobMixReg: an R package for robust, flexible and high dimensional mixture regression  -- Supplementary Materials"
 author:
 - Wennan Chang
+- Hanming Ye
 - Changlin Wan
 - Chun Yu
 - Weixin Yao
 - Chi Zhang
 - Sha Cao
 output:
+  html_document:
+    df_print: paged
   pdf_document: 
     toc: true
     toc_depth: 4
     fig_caption: yes
-  html_document:
-    df_print: paged
 ---
 
 ```{r setup, include=FALSE}

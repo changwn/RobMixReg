@@ -25,6 +25,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -37,23 +39,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">RobMixReg</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -70,8 +66,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/changwn/RobMixReg/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/changwn/RobMixReg/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -88,91 +84,94 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div id="robust-mixture-regression" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#robust-mixture-regression" class="anchor"></a>Robust Mixture Regression</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="robust-mixture-regression">Robust Mixture Regression<a class="anchor" aria-label="anchor" href="#robust-mixture-regression"></a>
+</h1></div>
 <!-- badges: start -->
-
-<!-- badges: end -->
-<!--   ![Download](https://cranlogs.r-pkg.org/badges/RobMixReg)   -->
+<!-- badges: end --><!--   ![Download](https://cranlogs.r-pkg.org/badges/RobMixReg)   -->
 </div>
-<div id="install-from-cran" class="section level1">
-<h1 class="hasAnchor">
-<a href="#install-from-cran" class="anchor"></a>Install from CRAN</h1>
+<div class="section level1">
+<h1 id="install-from-cran">Install from CRAN<a class="anchor" aria-label="anchor" href="#install-from-cran"></a>
+</h1>
 <pre><code>install.packages("RobMixReg)
 library("RobMixReg")</code></pre>
 </div>
-<div id="install-from-github-for-most-updated-package" class="section level1">
-<h1 class="hasAnchor">
-<a href="#install-from-github-for-most-updated-package" class="anchor"></a>Install from github for most updated package.</h1>
-<div id="please-report-the-bug-as-the-description-in-the-questionproblem" class="section level4">
-<h4 class="hasAnchor">
-<a href="#please-report-the-bug-as-the-description-in-the-questionproblem" class="anchor"></a>Please report the bug as the description in the Question&amp;Problem.</h4>
-<pre><code>library("devtools")
-devtools::install_github("changwn/RobMixReg")</code></pre>
+<div class="section level1">
+<h1 id="install-from-github-for-most-updated-package-">Install from github for most updated package.<a class="anchor" aria-label="anchor" href="#install-from-github-for-most-updated-package-"></a>
+</h1>
+<div class="section level4">
+<h4 id="please-report-the-bug-as-the-description-in-the-questionproblem-">Please report the bug as the description in the Question&amp;Problem.<a class="anchor" aria-label="anchor" href="#please-report-the-bug-as-the-description-in-the-questionproblem-"></a>
+</h4>
+<pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/" class="external-link">"devtools"</a></span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"changwn/RobMixReg"</span><span class="op">)</span></span></code></pre>
 </div>
 </div>
-<div id="tutorial" class="section level1">
-<h1 class="hasAnchor">
-<a href="#tutorial" class="anchor"></a>Tutorial</h1>
-<p>A comprehensive and complete tutorial is <a href="https://changwn.github.io/RobMixReg/articles/tutorial.html">here</a>.</p>
+<div class="section level1">
+<h1 id="tutorial">Tutorial<a class="anchor" aria-label="anchor" href="#tutorial"></a>
+</h1>
+<p>A comprehensive and complete tutorial is <a href="https://changwn.github.io/RobMixReg/articles/tutorial.html" class="external-link">here</a>.</p>
 </div>
-<div id="news" class="section level1">
-<h1 class="hasAnchor">
-<a href="#news" class="anchor"></a>News</h1>
-<p>The package version control is in <a href="https://changwn.github.io/RobMixReg/news/index.html">News.md</a></p>
-<div id="citations" class="section level2">
-<h2 class="hasAnchor">
-<a href="#citations" class="anchor"></a>Citations</h2>
+<div class="section level1">
+<h1 id="news">News<a class="anchor" aria-label="anchor" href="#news"></a>
+</h1>
+<p>The package version control is in <a href="https://changwn.github.io/RobMixReg/news/index.html" class="external-link">News.md</a></p>
+<div class="section level2">
+<h2 id="citations">Citations<a class="anchor" aria-label="anchor" href="#citations"></a>
+</h2>
 <p>If you find the code helpful in your resarch or work, please cite us.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb3-1" title="1"><span class="va">@article</span>{<span class="ot">wennan2020cat</span>,</a>
-<a class="sourceLine" id="cb3-2" title="2">  <span class="dt">title</span>={A New Algorithm using Component-wise Adaptive Trimming For Robust Mixture Regression},</a>
-<a class="sourceLine" id="cb3-3" title="3">  <span class="dt">author</span>={Chang, Wennan and Wan, Changlin and Zhou, Xinyu and Zhang, Chi and Cao, Sha},</a>
-<a class="sourceLine" id="cb3-4" title="4">  <span class="dt">journal</span>={arXiv preprint arXiv:2005.11599},</a>
-<a class="sourceLine" id="cb3-5" title="5">  <span class="dt">year</span>={2020}</a>
-<a class="sourceLine" id="cb3-6" title="6">}</a>
-<a class="sourceLine" id="cb3-7" title="7"></a>
-<a class="sourceLine" id="cb3-8" title="8"><span class="va">@article</span>{<span class="ot">chang2020supervised</span>,</a>
-<a class="sourceLine" id="cb3-9" title="9">  <span class="dt">title</span>={Supervised clustering of high dimensional data using regularized mixture modeling},</a>
-<a class="sourceLine" id="cb3-10" title="10">  <span class="dt">author</span>={Chang, Wennan and Wan, Changlin and Zang, Yong and Zhang, Chi and Cao, Sha},</a>
-<a class="sourceLine" id="cb3-11" title="11">  <span class="dt">journal</span>={arXiv preprint arXiv:2007.09720},</a>
-<a class="sourceLine" id="cb3-12" title="12">  <span class="dt">year</span>={2020}</a>
-<a class="sourceLine" id="cb3-13" title="13">}</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="va">@article</span>{<span class="ot">wennan2020cat</span>,</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">  <span class="dt">title</span>={A New Algorithm using Component-wise Adaptive Trimming For Robust Mixture Regression},</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">  <span class="dt">author</span>={Chang, Wennan and Wan, Changlin and Zhou, Xinyu and Zhang, Chi and Cao, Sha},</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">  <span class="dt">journal</span>={arXiv preprint arXiv:2005.11599},</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">  <span class="dt">year</span>={2020}</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="va">@article</span>{<span class="ot">chang2020supervised</span>,</a>
+<a class="sourceLine" id="cb3-9" data-line-number="9">  <span class="dt">title</span>={Supervised clustering of high dimensional data using regularized mixture modeling},</a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">  <span class="dt">author</span>={Chang, Wennan and Wan, Changlin and Zang, Yong and Zhang, Chi and Cao, Sha},</a>
+<a class="sourceLine" id="cb3-11" data-line-number="11">  <span class="dt">journal</span>={arXiv preprint arXiv:2007.09720},</a>
+<a class="sourceLine" id="cb3-12" data-line-number="12">  <span class="dt">year</span>={2020}</a>
+<a class="sourceLine" id="cb3-13" data-line-number="13">}</a></code></pre></div>
 </div>
 </div>
-<div id="questions--problems" class="section level1">
-<h1 class="hasAnchor">
-<a href="#questions--problems" class="anchor"></a>Questions &amp; Problems</h1>
-<p>If you have any questions or problems, please feel free to open a new issue <a href="https://github.com/changwn/RMR/issues">here</a>. We will fix the new issue ASAP. You can also email the maintainers and authors below.</p>
-<ul>
-<li>
-<a href="https://changwn.github.io/">Wennan Chang</a> (<a href="mailto:wnchang@iu.edu" class="email">wnchang@iu.edu</a>)</li>
-</ul>
-<p>PhD candidate at <a href="https://zcslab.github.io/">Biomedical Data Research Lab (BDRL)</a> , Indiana University School of Medicine</p>
+<div class="section level1">
+<h1 id="questions-problems">Questions &amp; Problems<a class="anchor" aria-label="anchor" href="#questions-problems"></a>
+</h1>
+<p>If you have any questions or problems, please feel free to open a new issue <a href="https://github.com/changwn/RMR/issues" class="external-link">here</a>. We will fix the new issue ASAP. You can also email the maintainers and authors below.</p>
+<ul><li>
+<a href="https://changwn.github.io/" class="external-link">Wennan Chang</a> (<a href="mailto:wnchang@iu.edu" class="email">wnchang@iu.edu</a>)</li></ul>
+<p>PhD candidate at <a href="https://zcslab.github.io/" class="external-link">Biomedical Data Research Lab (BDRL)</a> , Indiana University School of Medicine</p>
 </div>
 
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=RobMixReg">https://​cloud.r-project.org/​package=RobMixReg</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/changwn/RobMixReg/">https://​github.com/​changwn/​RobMixReg/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/changwn/RobMixReg/issues">https://​github.com/​changwn/​RobMixReg/​issues</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=RobMixReg" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/changwn/RobMixReg/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/changwn/RobMixReg/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li>GPL</li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing RobMixReg</a></li>
+</ul>
+</div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Sha Cao <br><small class="roles"> Author, copyright holder, thesis advisor </small>  </li>
 <li>Wennan Chang <br><small class="roles"> Author, maintainer </small>  </li>
@@ -180,28 +179,31 @@ devtools::install_github("changwn/RobMixReg")</code></pre>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="http://www.gnu.org/licenses/gpl-3.0.en.html"><img src="http://img.shields.io/badge/license-GPL%20v3-orange.svg?style=flat" alt="License"></a></li>
-<li><a href="https://CRAN.R-project.org/package=RobMixReg"><img src="https://www.r-pkg.org/badges/version-ago/RobMixReg" alt="CRAN_Status_Badge"></a></li>
-<li><a href="https://CRAN.R-project.org/web/checks/check_results_RobMixReg.html"><img src="https://cranchecks.info/badges/worst/RobMixReg" alt="cran checks"></a></li>
-<li><a href="https://cran.r-project.org/package=RobMixReg"><img src="https://cranlogs.r-pkg.org/badges/grand-total/RobMixReg" alt="Total Downloads"></a></li>
-<li><a href="https://CRAN.R-project.org/package=RobMixReg/RobMixReg.pdf"><img src="https://github.com/laresbernardo/lares/workflows/documentation/badge.svg" alt="documentation"></a></li>
-<li><a href="https://travis-ci.org/github/changwn/RobMixReg"><img src="https://travis-ci.com/laresbernardo/lares.svg?branch=master" alt="travis"></a></li>
-<li><a href="https://changwn.github.io/"><img src="https://img.shields.io/badge/say-hi-blue.svg" alt="Hi"></a></li>
+<li><a href="http://www.gnu.org/licenses/gpl-3.0.en.html" class="external-link"><img src="http://img.shields.io/badge/license-GPL%20v3-orange.svg?style=flat" alt="License"></a></li>
+<li><a href="https://CRAN.R-project.org/package=RobMixReg" class="external-link"><img src="https://www.r-pkg.org/badges/version-ago/RobMixReg" alt="CRAN_Status_Badge"></a></li>
+<li><a href="https://CRAN.R-project.org/web/checks/check_results_RobMixReg.html" class="external-link"><img src="https://cranchecks.info/badges/worst/RobMixReg" alt="cran checks"></a></li>
+<li><a href="https://cran.r-project.org/package=RobMixReg" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/RobMixReg" alt="Total Downloads"></a></li>
+<li><a href="https://CRAN.R-project.org/package=RobMixReg/RobMixReg.pdf" class="external-link"><img src="https://github.com/laresbernardo/lares/workflows/documentation/badge.svg" alt="documentation"></a></li>
+<li><a href="https://travis-ci.org/github/changwn/RobMixReg" class="external-link"><img src="https://travis-ci.com/laresbernardo/lares.svg?branch=master" alt="travis"></a></li>
+<li><a href="https://changwn.github.io/" class="external-link"><img src="https://img.shields.io/badge/say-hi-blue.svg" alt="Hi"></a></li>
 </ul>
 </div>
-</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Sha Cao, Wennan Chang, Chi Zhang.</p>
+  <p></p>
+<p>Developed by Sha Cao, Wennan Chang, Chi Zhang.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -209,6 +211,8 @@ devtools::install_github("changwn/RobMixReg")</code></pre>
 
   
 
+
+  
 
   </body>
 </html>

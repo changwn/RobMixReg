@@ -2,6 +2,7 @@
 title: "RobMixReg: an R package for robust, flexible and high dimensional mixture regression  -- Supplementary Materials"
 author:
 - Wennan Chang
+- Hanming Ye
 - Changlin Wan
 - Chun Yu
 - Weixin Yao
