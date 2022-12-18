@@ -15,7 +15,9 @@
 <!-- badges: end -->
 <!--   ![Download](https://cranlogs.r-pkg.org/badges/RobMixReg)   -->
 
+## Recent Update
 
+A Python package of RobMixReg is developed by [Hanming Ye](https://hanmingye.wpcomstaging.com/) and will be released soon. (jimyesg@gmail.com)
 
 
 # Install from CRAN
