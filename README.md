@@ -17,7 +17,7 @@
 
 ## Recent Update
 
-A Python package of RobMixReg is developed by [Hanming Ye](https://hanmingye.wpcomstaging.com/) and will be released soon. (jimyesg@gmail.com)
+A Python package of RobMixReg is developed by Hanming Ye and will be released soon. 
 
 
 # Install from CRAN
