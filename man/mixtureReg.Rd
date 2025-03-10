@@ -4,10 +4,20 @@
 \alias{mixtureReg}
 \title{Function to Fit Mixture of Regressions}
 \usage{
-mixtureReg(regData, formulaList, xName = NULL, yName = NULL,
-  mixingProb = c("Constant", "loess"), initialWList = NULL,
-  epsilon = 1e-08, max_iter = 10000, max_restart = 15,
-  min_lambda = 0.01, min_sigmaRatio = 0.1, silently = TRUE)
+mixtureReg(
+  regData,
+  formulaList,
+  xName = NULL,
+  yName = NULL,
+  mixingProb = c("Constant", "loess"),
+  initialWList = NULL,
+  epsilon = 1e-08,
+  max_iter = 10000,
+  max_restart = 15,
+  min_lambda = 0.01,
+  min_sigmaRatio = 0.1,
+  silently = TRUE
+)
 }
 \arguments{
 \item{regData}{data frame used in fitting model.}

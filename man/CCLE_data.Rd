@@ -4,11 +4,13 @@
 \name{CCLE_data}
 \alias{CCLE_data}
 \title{RobMixReg package built-in CCLE data.}
-\format{A list whose length is 2:
+\format{
+A list whose length is 2:
 \describe{
   \item{X}{Gene expression dataset.}
   \item{Y}{AUCC score.}
-}}
+}
+}
 \usage{
 CCLE_data
 }

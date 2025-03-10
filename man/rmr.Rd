@@ -4,8 +4,15 @@
 \alias{rmr}
 \title{The main function of Robust Mixture Regression using five methods.}
 \usage{
-rmr(lr.method = "flexmix", formula = NULL, data = NULL, nc = 2,
-  nit = 20, tRatio = 0.05, MaxIt = 200)
+rmr(
+  lr.method = "flexmix",
+  formula = NULL,
+  data = NULL,
+  nc = 2,
+  nit = 20,
+  tRatio = 0.05,
+  MaxIt = 200
+)
 }
 \arguments{
 \item{lr.method}{A robust mixture regression method to be used. Should be one of "flexmix", "TLE", "CTLERob", "mixbi","mixLp".}

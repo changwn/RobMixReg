@@ -16,7 +16,7 @@ flexmix_2(formula, data1, k, mprior)
 \item{mprior}{A numeric number in (0,1) that specifies the minimum proportion of samples in each mixing components.}
 }
 \value{
-A S4 object of flexmix class. xxx
+A S4 object of flexmix class.
 }
 \description{
 Mixture regression based on MLE could be unstable when assuming unequal variance. Multiple runs of flexmix is performed to stabilize the results.

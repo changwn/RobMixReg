@@ -4,8 +4,15 @@
 \alias{plot_mixtureReg}
 \title{Plot Fit and Mixing Probability of a mixtureReg Object}
 \usage{
-plot_mixtureReg(mixtureModel, which = 1:2, xName = NULL,
-  yName = NULL, xlab = NULL, ylab = NULL, ...)
+plot_mixtureReg(
+  mixtureModel,
+  which = 1:2,
+  xName = NULL,
+  yName = NULL,
+  xlab = NULL,
+  ylab = NULL,
+  ...
+)
 }
 \arguments{
 \item{mixtureModel}{mixtureReg object, typically result from 'mixtureReg()'.}

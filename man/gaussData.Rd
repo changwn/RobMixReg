@@ -4,12 +4,14 @@
 \name{gaussData}
 \alias{gaussData}
 \title{RobMixReg package built-in gaussian example data.}
-\format{A data frame with 100 rows and 3 variables:
+\format{
+A data frame with 100 rows and 3 variables:
 \describe{
   \item{x}{x variable}
   \item{y}{y variable}
   \item{c}{cluster information}
-}}
+}
+}
 \usage{
 gaussData
 }

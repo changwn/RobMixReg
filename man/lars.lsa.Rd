@@ -4,8 +4,15 @@
 \alias{lars.lsa}
 \title{lars variant for LSA.}
 \usage{
-lars.lsa(Sigma0, b0, intercept, n, type = c("lasso", "lar"),
-  eps = .Machine$double.eps, max.steps)
+lars.lsa(
+  Sigma0,
+  b0,
+  intercept,
+  n,
+  type = c("lasso", "lar"),
+  eps = .Machine$double.eps,
+  max.steps
+)
 }
 \arguments{
 \item{Sigma0}{The parameter.}

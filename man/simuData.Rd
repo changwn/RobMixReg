@@ -4,14 +4,16 @@
 \name{simuData}
 \alias{simuData}
 \title{RobMixReg package built-in simulated example data.}
-\format{A data frame with 500 rows and 5 variables:
+\format{
+A data frame with 500 rows and 5 variables:
 \describe{
   \item{X1}{X1 variable}
   \item{X2}{X2 variable}
   \item{y}{y variable}
   \item{c}{cluster information}
   \item{outlier}{outlier indicator}
-}}
+}
+}
 \usage{
 simuData
 }

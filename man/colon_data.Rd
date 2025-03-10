@@ -4,7 +4,8 @@
 \name{colon_data}
 \alias{colon_data}
 \title{RobMixReg package built-in Colon cancer data.}
-\format{A list whose length is 3:
+\format{
+A list whose length is 3:
 \describe{
   \item{rnames}{A string contains the name of binding protein and epigenetic regulator.}
   \item{x3}{The gene expression profile of CREB3L1.}
@@ -13,7 +14,8 @@
   \item{y2}{y2}
   \item{x1}{x1}
   \item{y1}{y1}
-}}
+}
+}
 \usage{
 colon_data
 }

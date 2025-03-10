@@ -4,10 +4,18 @@
 \alias{MLM}
 \title{The main function of mining the latent relationship among variables.}
 \usage{
-MLM(ml.method = "rlr", rmr.method = "cat",
-  b.formulaList = list(formula(y ~ x), formula(y ~ 1)), formula = y ~
-  x, nit = 1, nc = 2, x = NULL, y = NULL, max_iter = 50,
-  tRatio = 0.05)
+MLM(
+  ml.method = "rlr",
+  rmr.method = "cat",
+  b.formulaList = list(formula(y ~ x), formula(y ~ 1)),
+  formula = y ~ x,
+  nc = 2,
+  nit = 1,
+  x = NULL,
+  y = NULL,
+  max_iter = 50,
+  tRatio = 0.05
+)
 }
 \arguments{
 \item{ml.method}{The option to select the four methods in vignette.}
@@ -18,9 +26,9 @@ MLM(ml.method = "rlr", rmr.method = "cat",
 
 \item{formula}{The linear relationship between two variables.}
 
-\item{nit}{Number of iterations for CTLE, mixbi, mixLp.}
-
 \item{nc}{Number of mixture components.}
+
+\item{nit}{Number of iterations for CTLE, mixbi, mixLp.}
 
 \item{x}{The matrix x of the high dimension situation.}
 

@@ -10,7 +10,7 @@
 #' @param data1 A data frame containing the predictor and response variables, where the last column is the response varible.
 #' @param k Number of mixture components.
 #' @param mprior A numeric number in (0,1) that specifies the minimum proportion of samples in each mixing components.
-#' @return A S4 object of flexmix class. xxx
+#' @return A S4 object of flexmix class.
 flexmix_2<-function(formula,data1,k,mprior){
   liks=NULL
   mix_list=list()
