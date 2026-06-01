@@ -1,17 +1,17 @@
 Package: RobMixReg
 Type: Package
 Title: Robust Mixture Regression
-Version: 1.1.0
-Date: 2020-08-03
+Version: 1.1.1
+Date: 2026-06-01
 Authors@R: c(person("Sha", "Cao", email = "shacao@iu.edu", role = c("aut", "cph","ths")),
-             person("Wennan", "Chang", email = "wnchang@iu.edu", role = c("aut", "cre")),
+             person("Wennan", "Chang", email = "changwn.nku@gmail.com", role = c("aut", "cre")),
              person("Chi", "Zhang", email = "czhang87@iu.edu", role = c("aut", "ctb","ths"))
              )
 Author: 
   Sha Cao [aut, cph, ths],
   Wennan Chang [aut, cre],
   Chi Zhang [aut, ctb, ths]
-Maintainer: Wennan Chang <wnchang@iu.edu>
+Maintainer: Wennan Chang <changwn.nku@gmail.com>
 Description: Finite mixture models are a popular technique for modelling unobserved heterogeneity or to approximate general distribution functions in a semi-parametric way. They are used in a lot of different areas such as astronomy, biology, economics, marketing or medicine.
              This package is the implementation of popular robust mixture regression methods based on different algorithms including: fleximix, finite mixture models and latent class regression; CTLERob, component-wise adaptive trimming likelihood estimation; mixbi, bi-square estimation; mixL, Laplacian distribution; mixt, t-distribution; TLE, trimmed likelihood estimation.
              The implemented algorithms includes:  CTLERob stands for Component-wise adaptive Trimming Likelihood Estimation based mixture regression; mixbi stands for mixture regression based on bi-square estimation; mixLstands for mixture regression based on Laplacian distribution; TLE stands for Trimmed Likelihood Estimation based mixture regression. For more detail of the algorithms, please refer to below references. 

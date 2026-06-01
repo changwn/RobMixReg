@@ -417,7 +417,7 @@ logLik_mixtureReg <- function(mixtureModel) {
 }
 
 
-#------------------example by wnchang@iu.edu----------------
+#------------------example by changwn.nku@gmail.com----------------
 # #library(mixtools)
 # data("CO2data")
 # head(CO2data)

@@ -66,7 +66,7 @@ If you find the code helpful in your resarch or work, please cite us.
 If you have any questions or problems, please feel free to open a new issue [here](https://github.com/changwn/RMR/issues). We will fix the new issue ASAP.  You can also email the maintainers and authors below.
 
 - [Wennan Chang](https://changwn.github.io/)
-(wnchang@iu.edu)
+(changwn.nku@gmail.com)
 
 PhD candidate at [Biomedical Data Research Lab (BDRL)](https://zcslab.github.io/) , Indiana University School of Medicine
 
