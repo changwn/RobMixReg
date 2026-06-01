@@ -9,7 +9,6 @@
 [![cran checks](https://cranchecks.info/badges/worst/RobMixReg)](https://CRAN.R-project.org/web/checks/check_results_RobMixReg.html)
 [![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/RobMixReg)](https://cran.r-project.org/package=RobMixReg)
 [![documentation](https://github.com/laresbernardo/lares/workflows/documentation/badge.svg)](https://CRAN.R-project.org/package=RobMixReg/RobMixReg.pdf)
-[![travis](https://travis-ci.com/laresbernardo/lares.svg?branch=master)](https://travis-ci.org/github/changwn/RobMixReg)
 [![Hi](https://img.shields.io/badge/say-hi-blue.svg)](https://changwn.github.io/)
 
 <!-- badges: end -->
@@ -63,7 +62,7 @@ If you find the code helpful in your resarch or work, please cite us.
 
 # Questions & Problems
 
-If you have any questions or problems, please feel free to open a new issue [here](https://github.com/changwn/RMR/issues). We will fix the new issue ASAP.  You can also email the maintainers and authors below.
+If you have any questions or problems, please feel free to open a new issue [here](https://github.com/changwn/RobMixReg/issues). We will fix the new issue ASAP.  You can also email the maintainers and authors below.
 
 - [Wennan Chang](https://changwn.github.io/)
 (changwn.nku@gmail.com)

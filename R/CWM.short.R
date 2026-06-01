@@ -1,4 +1,4 @@
-# library(ibdreg)  ### this library contains the Ginv function to calculate g-inverse of a matrix
+# Use MASS::ginv for generalized inverse of a matrix
 setClass("RobMixReg",
          representation(inds_in="ANY",
                         indout="ANY",
@@ -136,7 +136,7 @@ InitClusters_i <- function (X, Y, iter, pa)  ### it obtains random initial solut
     X.ini=cbind(one,X.ini)
 
 
-    iter $b [k,] <- t(Ginv(t(X.ini)%*%X.ini)$Ginv%*%t(X.ini)%*%Y.ini)
+    iter $b [k,] <- t(ginv(t(X.ini)%*%X.ini)%*%t(X.ini)%*%Y.ini)
     e=Y.ini-X.ini%*%cbind(iter $b [k,])
     iter$v[k] <- (pa$init/(pa$init+1))*cov (e)
 
@@ -165,7 +165,7 @@ estimClustPar_i <- function (X, Y, iter, pa) ### it obtains estimations for the 
       iter$sigma[,,k] <- (t(X.c * iter$z_ij[,k]) %*% X.c) / iter$csize[k]
       one=matrix(1,nrow=pa$n,ncol=1)
       X_=cbind(one,X)
-      iter $b [k,] <- t(Ginv(  t(X_*iter$z_ij[,k])%*%X_  )$Ginv%*%t(X_*iter$z_ij[,k])%*%Y)
+      iter $b [k,] <- t(ginv(  t(X_*iter$z_ij[,k])%*%X_  )%*%t(X_*iter$z_ij[,k])%*%Y)
       e=Y-X_%*%cbind(iter $b [k,])
       iter$v[k] <- sum (iter$z_ij[,k]*e*e)/ iter$csize[k]
     }
