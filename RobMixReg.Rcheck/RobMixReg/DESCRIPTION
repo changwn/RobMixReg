@@ -23,7 +23,12 @@ Depends: R (>= 3.5.0)
 License: GPL
 Encoding: UTF-8
 LazyData: true
-Imports: flexmix, robustbase, gtools, MASS, methods,robust,lars,dplyr,rlang, scales,gplots,grDevices,graphics,RColorBrewer,stats
+Imports: flexmix, robustbase, gtools, MASS,
+        methods,robust,lars,dplyr,rlang,
+        scales,gplots,grDevices,graphics,RColorBrewer,stats
 RoxygenNote: 7.3.2
 URL: https://changwn.github.io/RobMixReg/
 BugReports: https://github.com/changwn/RobMixReg/issues
+NeedsCompilation: no
+Packaged: 2026-06-01 22:38:47 UTC; ubuntu
+Built: R 4.2.1; ; 2026-06-01 22:39:20 UTC; unix
