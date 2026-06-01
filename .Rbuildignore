@@ -9,4 +9,4 @@
 ^pkgdown$
 ^vignette$
 ^vignettes$
-^Code reproduce$
+^Code reproduce$^RobMixReg\.Rcheck$
